@@ -8,6 +8,7 @@ import java.util.Objects;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.springframework.data.domain.Persistable;
+import org.springframework.security.core.GrantedAuthority;
 
 /**
  * A Authority.
@@ -17,7 +18,7 @@ import org.springframework.data.domain.Persistable;
 @Cache(usage = CacheConcurrencyStrategy.READ_WRITE)
 @JsonIgnoreProperties(value = { "new", "id" })
 @SuppressWarnings("common-java:DuplicatedBlocks")
-public class Authority implements Serializable, Persistable<String> {
+public class Authority implements Serializable, Persistable<String>, GrantedAuthority {
 
     private static final long serialVersionUID = 1L;
 
@@ -93,5 +94,10 @@ public class Authority implements Serializable, Persistable<String> {
         return "Authority{" +
             "name=" + getName() +
             "}";
+    }
+
+    @Override
+    public String getAuthority() {
+        return "";
     }
 }

@@ -5,15 +5,29 @@ import static com.hungnv.tourbooking.security.SecurityUtils.JWT_ALGORITHM;
 import static com.hungnv.tourbooking.security.SecurityUtils.USER_ID_CLAIM;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdToken;
+import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
+import com.google.api.client.http.javanet.NetHttpTransport;
+import com.hungnv.tourbooking.domain.Authority;
+import com.hungnv.tourbooking.domain.User;
+import com.hungnv.tourbooking.dto.GoogleTokenDTO;
+import com.hungnv.tourbooking.repository.AuthorityRepository;
+import com.hungnv.tourbooking.repository.UserRepository;
+import com.google.api.client.json.jackson2.JacksonFactory;
+import com.hungnv.tourbooking.security.AuthoritiesConstants;
 import com.hungnv.tourbooking.security.DomainUserDetailsService.UserWithId;
 import com.hungnv.tourbooking.web.rest.vm.LoginVM;
 import jakarta.validation.Valid;
 import java.security.Principal;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.Collections;
+import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -23,6 +37,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.jwt.JwsHeader;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
@@ -39,6 +54,18 @@ public class AuthenticateController {
     private static final Logger LOG = LoggerFactory.getLogger(AuthenticateController.class);
 
     private final JwtEncoder jwtEncoder;
+
+    @Autowired
+    BCryptPasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    AuthorityRepository authorityRepository;
+
+    @Value("${google.clientId}")
+    private String googleClientId;
 
     @Value("${jhipster.security.authentication.jwt.token-validity-in-seconds:0}")
     private long tokenValidityInSeconds;
@@ -66,6 +93,61 @@ public class AuthenticateController {
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.setBearerAuth(jwt);
         return new ResponseEntity<>(new JWTToken(jwt), httpHeaders, HttpStatus.OK);
+    }
+
+    @PostMapping("/authenticate-google")
+    public ResponseEntity<JWTToken> googleLogin(@RequestBody GoogleTokenDTO googleTokenDTO) {
+        try {
+            GoogleIdTokenVerifier verifier = new GoogleIdTokenVerifier.Builder(
+                new NetHttpTransport(), JacksonFactory.getDefaultInstance()
+            ).setAudience(Collections.singletonList(googleClientId)).build();
+
+            GoogleIdToken idToken = verifier.verify(googleTokenDTO.getToken());
+            if (idToken == null) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            }
+
+            GoogleIdToken.Payload payload = idToken.getPayload();
+            String email = payload.getEmail();
+            String name = (String) payload.get("name");
+
+            // Tìm hoặc tạo user
+            User user = userRepository.findOneWithAuthoritiesByEmailIgnoreCase(email).orElseGet(() -> {
+                User newUser = new User();
+                newUser.setLogin(email);
+                newUser.setEmail(email);
+                newUser.setFirstName(name);
+                newUser.setActivated(true);
+                newUser.setPassword(bCryptPasswordEncoder.encode(UUID.randomUUID().toString()));
+                newUser.setLangKey("vi");
+                newUser.setImageUrl((String) payload.get("picture"));
+
+                Authority userAuthority = authorityRepository
+                    .findById(AuthoritiesConstants.USER)
+                    .orElseThrow(() -> new RuntimeException("ROLE_USER not found"));
+                newUser.setAuthorities(Set.of(userAuthority));
+
+                return userRepository.save(newUser);
+            });
+
+            // Tạo authentication
+            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                new UserWithId(user.getLogin(), "N/A", user.getAuthorities(), user.getId()),
+                null,
+                user.getAuthorities()
+            );
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+
+            // Tạo JWT
+            String jwt = createToken(authentication, false);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setBearerAuth(jwt);
+            return new ResponseEntity<>(new JWTToken(jwt), headers, HttpStatus.OK);
+
+        } catch (Exception e) {
+            LOG.error("Xác thực Google thất bại", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
     }
 
     /**

@@ -90,6 +90,9 @@ management:
     tags:
       application: ${spring.application.name}
 
+google:
+    clientId: 108387489501-071tvlasb3uk19v7gs3m61qjga3l70v6.apps.googleusercontent.com
+
 spring:
   application:
     name: tourbooking

@@ -61,6 +61,8 @@ server:
   # make sure requests the proxy uri instead of the server one
   forward-headers-strategy: native
 
+google:
+  clientId: 108387489501-071tvlasb3uk19v7gs3m61qjga3l70v6.apps.googleusercontent.com
 # ===================================================================
 # JHipster specific properties
 #
