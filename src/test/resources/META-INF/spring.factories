@@ -1,0 +1,4 @@
+org.springframework.test.context.ContextCustomizerFactory = \
+    com.hungnv.tourbooking.config.\
+    SqlTestContainersSpringContextCustomizerFactory,com.hungnv.tourbooking.\
+    config.RedisTestContainersSpringContextCustomizerFactory
