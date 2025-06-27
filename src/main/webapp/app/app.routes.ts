@@ -25,6 +25,14 @@ const routes: Routes = [
     loadChildren: () => import('./admin/admin.routes'),
   },
   {
+    path: 'staff',
+    data: {
+      authorities: [Authority.STAFF],
+    },
+    canActivate: [UserRouteAccessService],
+    loadChildren: () => import('./staff/staff.routes'),
+  },
+  {
     path: 'account',
     loadChildren: () => import('./account/account.route'),
   },
