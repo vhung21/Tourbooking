@@ -24,7 +24,7 @@ import tech.jhipster.config.JHipsterProperties;
  * Configuration of web application with Servlet 3.0 APIs.
  */
 @Configuration
-public class WebConfigurer implements ServletContextInitializer, WebServerFactoryCustomizer<WebServerFactory> {
+public class    WebConfigurer implements ServletContextInitializer, WebServerFactoryCustomizer<WebServerFactory> {
 
     private static final Logger LOG = LoggerFactory.getLogger(WebConfigurer.class);
 
@@ -92,5 +92,5 @@ public class WebConfigurer implements ServletContextInitializer, WebServerFactor
             source.registerCorsConfiguration("/swagger-ui/**", config);
         }
         return new CorsFilter(source);
-    }
+    };
 }

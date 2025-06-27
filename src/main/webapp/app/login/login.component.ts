@@ -9,6 +9,7 @@ import {CommonModule} from "@angular/common";
 import { StateStorageService } from 'app/core/auth/state-storage.service';
 
 declare const google: any;
+declare const FB: any;
 
 @Component({
   selector: 'jhi-login',
@@ -74,6 +75,25 @@ export default class LoginComponent implements OnInit, AfterViewInit {
         console.error('Google login error:', err);
       },
     });
+  }
+
+  loginWithFacebook(): void {
+    FB.login((response: any) => {
+      if (response.authResponse) {
+        const accessToken = response.authResponse.accessToken;
+
+        this.http.post('http://localhost:8080/api/authenticate-facebook', {
+          access_token: accessToken
+        }).subscribe((res: any) => {
+          this.stateStorageService.storeAuthenticationToken(res.id_token, false);
+          this.accountService.identity(true).subscribe(() => {
+            this.router.navigate(['']);
+          });
+        });
+      } else {
+        console.error('Người dùng từ chối đăng nhập');
+      }
+    }, { scope: 'email,public_profile' });
   }
 
   // ngAfterViewInit(): void {

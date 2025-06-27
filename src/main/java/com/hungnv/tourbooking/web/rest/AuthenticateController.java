@@ -10,6 +10,7 @@ import com.google.api.client.googleapis.auth.oauth2.GoogleIdTokenVerifier;
 import com.google.api.client.http.javanet.NetHttpTransport;
 import com.hungnv.tourbooking.domain.Authority;
 import com.hungnv.tourbooking.domain.User;
+import com.hungnv.tourbooking.dto.FacebookTokenDTO;
 import com.hungnv.tourbooking.dto.GoogleTokenDTO;
 import com.hungnv.tourbooking.repository.AuthorityRepository;
 import com.hungnv.tourbooking.repository.UserRepository;
@@ -22,6 +23,7 @@ import java.security.Principal;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Collections;
+import java.util.Map;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -43,6 +45,7 @@ import org.springframework.security.oauth2.jwt.JwtClaimsSet;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.JwtEncoderParameters;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 /**
  * Controller to authenticate users.
@@ -111,7 +114,6 @@ public class AuthenticateController {
             String email = payload.getEmail();
             String name = (String) payload.get("name");
 
-            // Tìm hoặc tạo user
             User user = userRepository.findOneWithAuthoritiesByEmailIgnoreCase(email).orElseGet(() -> {
                 User newUser = new User();
                 newUser.setLogin(email);
@@ -130,7 +132,6 @@ public class AuthenticateController {
                 return userRepository.save(newUser);
             });
 
-            // Tạo authentication
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                 new UserWithId(user.getLogin(), "N/A", user.getAuthorities(), user.getId()),
                 null,
@@ -138,7 +139,6 @@ public class AuthenticateController {
             );
             SecurityContextHolder.getContext().setAuthentication(authentication);
 
-            // Tạo JWT
             String jwt = createToken(authentication, false);
             HttpHeaders headers = new HttpHeaders();
             headers.setBearerAuth(jwt);
@@ -146,6 +146,60 @@ public class AuthenticateController {
 
         } catch (Exception e) {
             LOG.error("Xác thực Google thất bại", e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @PostMapping("/authenticate-facebook")
+    public ResponseEntity<JWTToken> facebookLogin(@RequestBody FacebookTokenDTO facebookTokenDTO) {
+        try {
+            String accessToken = facebookTokenDTO.getAccess_token();
+
+            String url = "https://graph.facebook.com/me?fields=id,name,email,picture&access_token=" + accessToken;
+            RestTemplate restTemplate = new RestTemplate();
+            Map<String, Object> userInfo = restTemplate.getForObject(url, Map.class);
+
+            if (userInfo == null || userInfo.get("email") == null) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            }
+
+            String email = (String) userInfo.get("email");
+            String name = (String) userInfo.get("name");
+            Map pictureData = (Map) ((Map) userInfo.get("picture")).get("data");
+            String imageUrl = (String) pictureData.get("url");
+
+            User user = userRepository.findOneWithAuthoritiesByEmailIgnoreCase(email).orElseGet(() -> {
+                User newUser = new User();
+                newUser.setLogin(email);
+                newUser.setEmail(email);
+                newUser.setFirstName(name);
+                newUser.setActivated(true);
+                newUser.setPassword(bCryptPasswordEncoder.encode(UUID.randomUUID().toString()));
+                newUser.setLangKey("vi");
+                newUser.setImageUrl(imageUrl);
+
+                Authority userAuthority = authorityRepository
+                    .findById(AuthoritiesConstants.USER)
+                    .orElseThrow(() -> new RuntimeException("ROLE_USER not found"));
+                newUser.setAuthorities(Set.of(userAuthority));
+
+                return userRepository.save(newUser);
+            });
+
+            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                new UserWithId(user.getLogin(), "N/A", user.getAuthorities(), user.getId()),
+                null,
+                user.getAuthorities()
+            );
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+
+            String jwt = createToken(authentication, false);
+            HttpHeaders headers = new HttpHeaders();
+            headers.setBearerAuth(jwt);
+            return new ResponseEntity<>(new JWTToken(jwt), headers, HttpStatus.OK);
+
+        } catch (Exception e) {
+            LOG.error("Xác thực Facebook thất bại", e);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
