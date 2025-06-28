@@ -39,7 +39,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.jwt.JwsHeader;
 import org.springframework.security.oauth2.jwt.JwtClaimsSet;
 import org.springframework.security.oauth2.jwt.JwtEncoder;
@@ -59,7 +59,7 @@ public class AuthenticateController {
     private final JwtEncoder jwtEncoder;
 
     @Autowired
-    BCryptPasswordEncoder bCryptPasswordEncoder;
+    PasswordEncoder passwordEncoder;
 
     @Autowired
     UserRepository userRepository;
@@ -120,7 +120,7 @@ public class AuthenticateController {
                 newUser.setEmail(email);
                 newUser.setFirstName(name);
                 newUser.setActivated(true);
-                newUser.setPassword(bCryptPasswordEncoder.encode(UUID.randomUUID().toString()));
+                newUser.setPassword(passwordEncoder.encode(UUID.randomUUID().toString()));
                 newUser.setLangKey("vi");
                 newUser.setImageUrl((String) payload.get("picture"));
 
@@ -174,7 +174,7 @@ public class AuthenticateController {
                 newUser.setEmail(email);
                 newUser.setFirstName(name);
                 newUser.setActivated(true);
-                newUser.setPassword(bCryptPasswordEncoder.encode(UUID.randomUUID().toString()));
+                newUser.setPassword(passwordEncoder.encode(UUID.randomUUID().toString()));
                 newUser.setLangKey("vi");
                 newUser.setImageUrl(imageUrl);
 
