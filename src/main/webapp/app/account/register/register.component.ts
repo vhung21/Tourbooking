@@ -13,6 +13,7 @@ import { RegisterService } from './register.service';
   selector: 'jhi-register',
   imports: [SharedModule, RouterModule, FormsModule, ReactiveFormsModule, PasswordStrengthBarComponent],
   templateUrl: './register.component.html',
+  styleUrl: './register.component.scss',
 })
 export default class RegisterComponent implements AfterViewInit {
   login = viewChild.required<ElementRef>('login');
@@ -22,6 +23,8 @@ export default class RegisterComponent implements AfterViewInit {
   errorEmailExists = signal(false);
   errorUserExists = signal(false);
   success = signal(false);
+
+  logoPath = 'content/images/register_success_img.png'
 
   registerForm = new FormGroup({
     login: new FormControl('', {

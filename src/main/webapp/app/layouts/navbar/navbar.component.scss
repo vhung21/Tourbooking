@@ -8,7 +8,7 @@ Navbar
 
 .navbar-version {
   font-size: 0.65em;
-  color: $navbar-dark-color;
+  color: black;
 }
 
 .profile-image {
@@ -35,14 +35,19 @@ Navbar
   }
 }
 
+.custom-navbar {
+  height: 150px;
+}
+
 /* ==========================================================================
 Logo styles
 ========================================================================== */
 .logo-img {
-  height: 45px;
-  width: 45px;
+  height: 28px;
+  width: 184px;
+  margin-left: 5vw;
   display: inline-block;
   vertical-align: middle;
-  background: url('/content/images/logo-jhipster.png') no-repeat center center;
+  background: url('/content/images/img_logo.png') no-repeat center center;
   background-size: contain;
 }

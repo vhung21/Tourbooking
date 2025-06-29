@@ -6,6 +6,9 @@
 /* ==============================================================
 Bootstrap tweaks
 ===============================================================*/
+body {
+  font-family: 'Inter', sans-serif;
+}
 
 body,
 h1,
@@ -203,7 +206,7 @@ angular-cli removes postcss-rtl processed inline css, processed rules must be ad
 .navbar {
   ul.navbar-nav {
     .nav-item {
-      margin-left: 0.5em;
+      margin-left: 40px;
     }
   }
 }

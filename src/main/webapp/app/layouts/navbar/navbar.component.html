@@ -1,9 +1,6 @@
-<nav data-cy="navbar" class="navbar navbar-dark navbar-expand-md bg-primary">
+<nav data-cy="navbar" class="navbar navbar-dark navbar-expand-md custom-navbar" style="background-color: #6BCDEC">
   <div class="container-fluid">
-    <a class="navbar-brand logo" routerLink="/" (click)="collapseNavbar()">
-      <span class="logo-img"></span>
-      <span class="navbar-title" jhiTranslate="global.title">Tourbooking</span>
-      <span class="navbar-version">{{ version }}</span>
+    <a class="navbar-brand logo-img" routerLink="/" (click)="collapseNavbar()">
     </a>
     <a
       class="navbar-toggler d-lg-none"
@@ -146,7 +143,7 @@
           [routerLinkActiveOptions]="{ exact: true }"
         >
           @let accountRef = account();
-          <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="account-menu" data-cy="accountMenu">
+          <a class="nav-link dropdown-toggle" style="margin-right: 5vw" ngbDropdownToggle href="javascript:void(0);" id="account-menu" data-cy="accountMenu">
             @if (!accountRef?.imageUrl) {
               <span>
                 <fa-icon icon="user"></fa-icon>
