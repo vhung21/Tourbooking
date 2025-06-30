@@ -40,4 +40,9 @@ public class TourResource {
     public ResponseEntity<ResponseObject> deleteTour(@PathVariable Long id) {
         return tourService.deleteProductById(id);
     }
+
+    @GetMapping("/search")
+    public ResponseEntity<ResponseObject> searchTours(@RequestParam String keyword) {
+        return tourService.searchTours(keyword);
+    }
 }

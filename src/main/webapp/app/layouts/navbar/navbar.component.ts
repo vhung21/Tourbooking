@@ -1,5 +1,5 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
-import { Router, RouterModule } from '@angular/router';
+import {NavigationEnd, Router, RouterModule} from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
 import { StateStorageService } from 'app/core/auth/state-storage.service';
@@ -34,6 +34,7 @@ export default class NavbarComponent implements OnInit {
   private readonly stateStorageService = inject(StateStorageService);
   private readonly profileService = inject(ProfileService);
   private readonly router = inject(Router);
+  isHomePage: boolean = false;
 
   constructor() {
     const { VERSION } = environment;
@@ -43,10 +44,14 @@ export default class NavbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.isHomePage = this.router.url === '/';
     this.entitiesNavbarItems = EntityNavbarItems;
     this.profileService.getProfileInfo().subscribe(profileInfo => {
       this.inProduction = profileInfo.inProduction;
       this.openAPIEnabled = profileInfo.openAPIEnabled;
+    });
+    this.router.events.subscribe(() => {
+      this.isHomePage = this.router.url === '/';
     });
   }
 

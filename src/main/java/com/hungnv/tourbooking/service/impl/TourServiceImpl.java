@@ -121,4 +121,18 @@ public class TourServiceImpl implements TourService {
                 .body(new ResponseObject("failed", "An error occurred while deleting tour", null));
         }
     }
+
+    public ResponseEntity<ResponseObject> searchTours(String keyword) {
+        try{
+            List<Tours> Tours = tourRepository.findByTourNameContainingIgnoreCase(keyword);
+            List<TourDTO> tourDTOS = new ArrayList<>();
+            for (Tours Tour : Tours) {
+                tourDTOS.add(tourMapper.mapToDTO(Tour));
+            }
+            return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("success", "Search tour successfully", tourDTOS));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(new ResponseObject("failed", "An error occurred while search tour", null));
+        }
+    }
 }

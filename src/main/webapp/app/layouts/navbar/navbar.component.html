@@ -1,6 +1,7 @@
-<nav data-cy="navbar" class="navbar navbar-dark navbar-expand-md custom-navbar" style="background-color: #6BCDEC">
+<nav data-cy="navbar" class="navbar navbar-dark navbar-expand-md custom-navbar"
+     [ngClass]="{ 'navbar-home': isHomePage, 'navbar-default': !isHomePage }">
   <div class="container-fluid">
-    <a class="navbar-brand logo-img" routerLink="/" (click)="collapseNavbar()">
+    <a class="navbar-brand" [ngClass]="{ 'logohome-img': isHomePage, 'logo-img': !isHomePage }" routerLink="/" (click)="collapseNavbar()">
     </a>
     <a
       class="navbar-toggler d-lg-none"
@@ -17,7 +18,8 @@
     <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed()">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-          <a class="nav-link" routerLink="/" (click)="collapseNavbar()">
+          <a class="nav-link" routerLink="/" (click)="collapseNavbar()"
+             [ngClass]="{ 'text-black': isHomePage, 'text-white': !isHomePage }">
             <span>
               <fa-icon icon="home"></fa-icon>
               <span jhiTranslate="global.menu.home">Trang chủ</span>
@@ -33,7 +35,8 @@
             routerLinkActive="active"
             [routerLinkActiveOptions]="{ exact: true }"
           >
-            <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu" data-cy="entity">
+            <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu" data-cy="entity"
+               [ngClass]="{ 'text-black': isHomePage, 'text-white': !isHomePage }">
               <span>
                 <fa-icon icon="th-list"></fa-icon>
                 <span jhiTranslate="global.menu.entities.main">Thực thể</span>

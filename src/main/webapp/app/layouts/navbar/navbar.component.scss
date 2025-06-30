@@ -51,3 +51,34 @@ Logo styles
   background: url('/content/images/img_logo.png') no-repeat center center;
   background-size: contain;
 }
+
+.logohome-img {
+  height: 28px;
+  width: 184px;
+  margin-left: 5vw;
+  display: inline-block;
+  vertical-align: middle;
+  background: url('/content/images/img_logohome.png') no-repeat center center;
+  background-size: contain;
+}
+
+.navbar-home {
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  background-color: rgba(255, 255, 255, 0);;
+}
+
+.navbar-default {
+  background-color: #6BCDEC;
+  transition: background-color 0.5s;
+}
+
+.text-black {
+  color: black !important;
+}
+
+.text-white {
+  color: white !important;
+}
