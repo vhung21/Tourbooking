@@ -7,6 +7,7 @@ import com.hungnv.tourbooking.exception.EmailAlreadyUsedException;
 import com.hungnv.tourbooking.exception.InvalidPasswordException;
 import com.hungnv.tourbooking.exception.UsernameAlreadyUsedException;
 import com.hungnv.tourbooking.repository.AuthorityRepository;
+import com.hungnv.tourbooking.repository.CustomerRepository;
 import com.hungnv.tourbooking.repository.UserRepository;
 import com.hungnv.tourbooking.security.AuthoritiesConstants;
 import com.hungnv.tourbooking.security.SecurityUtils;
@@ -18,6 +19,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -33,6 +35,8 @@ import tech.jhipster.security.RandomUtil;
 @Service
 @Transactional
 public class UserService {
+    @Autowired
+    CustomerRepository customerRepository;
 
     private static final Logger LOG = LoggerFactory.getLogger(UserService.class);
 
@@ -133,6 +137,7 @@ public class UserService {
         authorityRepository.findById(AuthoritiesConstants.USER).ifPresent(authorities::add);
         newUser.setAuthorities(authorities);
         userRepository.save(newUser);
+
         this.clearUserCaches(newUser);
         LOG.debug("Created Information for User: {}", newUser);
         return newUser;

@@ -1,6 +1,7 @@
 package com.hungnv.tourbooking.repository;
 
 import com.hungnv.tourbooking.domain.User;
+
 import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
@@ -33,4 +34,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findOneWithAuthoritiesByEmailIgnoreCase(String email);
 
     Page<User> findAllByIdNotNullAndActivatedIsTrue(Pageable pageable);
+
 }
