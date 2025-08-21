@@ -17,6 +17,7 @@ Navbar
 }
 
 .navbar {
+  flex-direction: column;
   padding: 0.2rem 1rem;
   .dropdown-item.active,
   .dropdown-item.active:focus,
@@ -33,10 +34,44 @@ Navbar
       color: $navbar-dark-hover-color;
     }
   }
+
+  .navbar-menu {
+    background: #6BCDEC;
+    width: 100vw;
+    list-style: none;
+    display: flex;
+    gap: 20px;
+    height: 70px;
+    justify-content: center;
+    align-items: center;
+
+    li {
+      text-decoration: none;
+      color: #000;
+      font-weight: 500;
+      font-size: 20px;
+      padding: 20px;
+
+      &:hover {
+        color: #0288d1;
+      }
+    }
+
+    a {
+      text-decoration: none;
+      color: #000;
+      font-weight: 500;
+      font-size: 20px;
+
+      &:hover {
+        color: #0288d1;
+      }
+    }
+  }
 }
 
 .custom-navbar {
-  height: 150px;
+  height: 190px;
 }
 
 /* ==========================================================================

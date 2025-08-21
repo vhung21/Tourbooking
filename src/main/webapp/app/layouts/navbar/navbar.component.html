@@ -1,6 +1,6 @@
 <nav data-cy="navbar" class="navbar navbar-dark navbar-expand-md custom-navbar"
-     [ngClass]="{ 'navbar-home': isHomePage, 'navbar-default': !isHomePage }">
-  <div class="container-fluid">
+     [ngClass]="{ 'navbar-home': isHomePage, 'navbar-default': !isHomePage }" xmlns="http://www.w3.org/1999/html">
+  <div class="container-fluid" style="height: 120px">
     <a class="navbar-brand" [ngClass]="{ 'logohome-img': isHomePage, 'logo-img': !isHomePage }" routerLink="/" (click)="collapseNavbar()">
     </a>
     <a
@@ -213,6 +213,41 @@
           </ul>
         </li>
       </ul>
+    </div>
+  </div>
+  <div class="navbar-menu">
+    <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+      <a class="nav-link" routerLink="/" (click)="collapseNavbar()"
+         [ngClass]="{ 'text-black': isHomePage, 'text-white': !isHomePage }">
+            <span>
+              <img src="/content/images/lucide_home.png" alt=""/>
+            </span>
+      </a>
+    </li>
+    <div style="display: flex">
+      <li>
+        <a href="#">TOUR TRONG NƯỚC</a>
+        <a href="#">
+        <img src="/content/images/Group.svg" alt="down icon">
+        </a>
+      </li>
+    </div>
+    <div style="display: flex">
+      <li>
+        <a href="#">TOUR NƯỚC NGOÀI</a>
+        <img src="/content/images/Group.svg" alt="down icon">
+      </li>
+    </div>
+    <div>
+      <li><a href="#">KHUYẾN MẠI</a></li>
+    </div>
+    <div>
+      <li><a href="#">VỀ NOTTINGHILL TRAVEL</a></li>
+    </div>
+    <div>
+      <li style="align-items: center; justify-content: center">
+        <a href="#">TÌM KIẾM</a>
+      </li>
     </div>
   </div>
 </nav>
