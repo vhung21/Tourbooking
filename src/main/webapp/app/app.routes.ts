@@ -15,6 +15,12 @@ const routes: Routes = [
     path: 'tours',
     loadComponent: () => import('./tours/tours.component'),
   },
+
+  {
+    path: 'tours/:id',
+    loadComponent: () => import('./tours/toursDetailComponent/toursDetail.component')
+      .then(m => m.ToursDetailComponent),
+  },
   {
     path: '',
     loadComponent: () => import('./layouts/navbar/navbar.component'),

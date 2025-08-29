@@ -1,4 +1,4 @@
-export interface TopTours {
+export interface Tours {
   id?: number;
   tourName?: string;
   description?: string;

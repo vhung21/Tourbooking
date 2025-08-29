@@ -1,0 +1,42 @@
+<div style="padding: 28px 80px">
+  <div style="font-size: 16px">
+    <b>Trang chủ </b>
+    <img src="/content/images/toursImg/toursDetailImg/mingcute_Icon.svg" alt="Icon">
+    <b>Đặt Tour  </b>
+    <img src="/content/images/toursImg/toursDetailImg/mingcute_Icon.svg" alt="Icon">
+    <b>Danh sách Tour </b>
+    <img src="/content/images/toursImg/toursDetailImg/mingcute_Icon.svg" alt="Icon">
+    <b>Chi tiết Tour</b>
+  </div>
+
+  <div *ngIf="tourData" class="tour-container">
+    <div class="tour-images">
+      <div class="main-img">
+        <img [src]="tourData.imageUrl" alt="{{ tourData.tourName }}">
+      </div>
+      <div class="sub-imgs">
+        <img src="https://picsum.photos/200/150" alt="Ảnh 1">
+        <img src="https://picsum.photos/200/150" alt="Ảnh 1">
+        <img src="https://picsum.photos/200/150" alt="Ảnh 1">
+        <img src="https://picsum.photos/200/150" alt="Ảnh 1">
+      </div>
+    </div>
+    <div class="tour-info">
+      <div class="info-box" style="margin-bottom: 26px">
+        <h3 style="font-size: 24px; color: #0a0a0a;font-weight: bold;">{{ tourData.tourName }}</h3>
+        <div>
+          <b style="font-size: 14px">Giá từ:</b>
+          <div style="color: #D32D2D; font-size: 20px; font-weight: bold;">{{ tourData.price}} VNĐ</div>
+        </div>
+        <button class="btn-book">Đặt ngay</button>
+      </div>
+      <div class="info-box" style="height: auto">
+        <h4 style="font-size: 24px; color: #0a0a0a; margin-bottom: 26px;font-weight: bold;">Thông tin Tour</h4>
+        <div style="margin-bottom: 16px"><b>Điểm đến:</b> 3</div>
+        <div style="margin-bottom: 16px"><b>Ngày khởi hành:</b> {{tourData.startDate}}</div>
+        <div style="margin-bottom: 16px"><b>Thời gian:</b> 3N2Đ</div>
+        <div><b>Điểm khởi hành:</b> {{tourData.location}}</div>
+      </div>
+    </div>
+  </div>
+</div>

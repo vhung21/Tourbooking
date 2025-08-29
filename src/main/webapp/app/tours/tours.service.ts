@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {Observable} from "rxjs";
-import {ResponseObject, TopTours} from "./tours.modal";
+import {ResponseObject, Tours} from "./tours.modal";
 import {HttpClient} from "@angular/common/http";
 import {map} from "rxjs/operators";
 
@@ -10,11 +10,16 @@ export class TourService {
   constructor(private http: HttpClient) {}
 
 
-  getTopTours(): Observable<TopTours[]> {
+  getTopTours(): Observable<Tours[]> {
     return this.http
-      .get<ResponseObject<TopTours[]>>(`${this.resourceUrl}/getTopTours`)
+      .get<ResponseObject<Tours[]>>(`${this.resourceUrl}/getTopTours`)
       .pipe(
         map(res => res.data)
       );
   }
+
+  getById(id: number): Observable<any> {
+    return this.http.get<any>(`${this.resourceUrl}/${id}`);
+  }
 }
+

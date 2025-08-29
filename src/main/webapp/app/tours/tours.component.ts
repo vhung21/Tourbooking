@@ -4,7 +4,7 @@ import {Router, RouterModule} from "@angular/router";
 import {FormsModule} from "@angular/forms";
 import {HttpClient} from "@angular/common/http";
 import {TourService} from "./tours.service";
-import {TopTours} from "./tours.modal";
+import {Tours} from "./tours.modal";
 
 @Component({
   selector: 'jhi-tours',
@@ -16,8 +16,8 @@ import {TopTours} from "./tours.modal";
 export default class ToursComponent implements OnInit, OnDestroy{
   private readonly router = inject(Router);
 
-  tours: TopTours[] = [];
-  visibleTours: TopTours[] = [];
+  tours: Tours[] = [];
+  visibleTours: Tours[] = [];
   currentPage = 0;
   pageSize = 3;
 
