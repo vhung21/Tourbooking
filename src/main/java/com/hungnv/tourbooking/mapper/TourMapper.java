@@ -18,6 +18,8 @@ public class TourMapper {
         tourDTO.setTransportation(Tour.getTransportation());
         tourDTO.setImageUrl(Tour.getImageUrl());
         tourDTO.setCreatedBy(Tour.getCreatedBy());
+        tourDTO.setAverageRating(Tour.getAverageRating());
+        tourDTO.setReviewCount(Tour.getReviewCount());
         return tourDTO;
     }
 }

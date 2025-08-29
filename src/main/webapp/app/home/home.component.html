@@ -1,22 +1,53 @@
 <div class="home-banner">
-  <img src="/content/images/jeremy-brady-vK26p2SFX3E-unsplash%201.png" class="banner-img" alt="Banner" />
+  <img src="/content/images/home_img.png" class="banner-img" alt="Banner" />
 
-  <div class="search-box">
-    <input
-      type="text"
-      class="form-control"
-      placeholder="Tìm tour, địa điểm, hoặc từ khóa..."
-      [(ngModel)]="keyword"
-      (keyup.enter)="search()"
-    />
-    <button class="btn btn-search" (click)="search()">
-      <i class="fa-solid fa-magnifying-glass"></i>
-    </button>
+  <div class="slideshow-container">
+    <img [src]="images[currentIndex]" class="slide" style="border-radius: 4px"/>
+  </div>
+
+  <div class="search-bar">
+    <div class="search-item">
+      <label>Điểm khởi hành</label>
+      <select>
+        <option>Tất cả</option>
+        <option>Hà Nội</option>
+        <option>Hồ Chí Minh</option>
+      </select>
+    </div>
+
+    <div class="search-item">
+      <label> Điểm đến</label>
+      <select>
+        <option>Tất cả</option>
+        <option>Đà Nẵng</option>
+        <option>Nha Trang</option>
+      </select>
+    </div>
+
+    <div class="search-item">
+      <label> Ngày khởi hành</label>
+      <select>
+        <option>Tất cả</option>
+        <option>Tháng 8</option>
+        <option>Tháng 9</option>
+      </select>
+    </div>
+
+    <div class="search-item">
+      <label> Ngân sách</label>
+      <select>
+        <option>Chọn mức giá</option>
+        <option>Dưới 5 triệu</option>
+        <option>5 - 10 triệu</option>
+      </select>
+    </div>
+
+    <button class="search-btn">TÌM KIẾM</button>
   </div>
 </div>
 
-<div class="home-content container">
-  <h1 class="display-4">Chào mừng bạn đến với Java Hipster!</h1>
+<div class="home-content container" style="margin-top: 50px">
+  <h1 style="text-align: center; font-size: 40px; color: #6BCDEC">Chào mừng bạn đến với Java Hipster!</h1>
   <p class="lead">Đây là trang chủ của bạn</p>
 </div>
 

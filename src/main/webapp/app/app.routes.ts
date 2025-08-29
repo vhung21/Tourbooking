@@ -12,6 +12,10 @@ const routes: Routes = [
     title: 'home.title',
   },
   {
+    path: 'tours',
+    loadComponent: () => import('./tours/tours.component'),
+  },
+  {
     path: '',
     loadComponent: () => import('./layouts/navbar/navbar.component'),
     outlet: 'navbar',

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/tour")
+@RequestMapping("/api/tours")
 public class TourResource {
     @Autowired
     TourService tourService;
@@ -44,5 +44,10 @@ public class TourResource {
     @GetMapping("/search")
     public ResponseEntity<ResponseObject> searchTours(@RequestParam String keyword) {
         return tourService.searchTours(keyword);
+    }
+
+    @GetMapping("/getTopTours")
+    public ResponseEntity<ResponseObject> getTopTours() {
+        return tourService.getTopTours();
     }
 }

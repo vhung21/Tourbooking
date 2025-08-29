@@ -16,4 +16,6 @@ public interface TourService {
     ResponseEntity<ResponseObject> deleteProductById(long id);
 
     ResponseEntity<ResponseObject> searchTours(String keyword);
+
+    ResponseEntity<ResponseObject> getTopTours();
 }

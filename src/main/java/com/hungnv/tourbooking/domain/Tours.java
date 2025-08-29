@@ -41,6 +41,30 @@ public class Tours {
     @JoinColumn(name = "created_by_id")
     private User createdBy;
 
+    @Column(name = "average_rating")
+    private Double averageRating;
+
+    @Column(name = "review_count")
+    private Integer reviewCount;
+
+    public Tours() {
+    }
+
+    public Tours(Long id, String tourName, Integer reviewCount, String description, LocalDate startDate, BigDecimal price, LocalDate endDate, String location, String transportation, String imageUrl, User createdBy, Double averageRating) {
+        this.id = id;
+        this.tourName = tourName;
+        this.reviewCount = reviewCount;
+        this.description = description;
+        this.startDate = startDate;
+        this.price = price;
+        this.endDate = endDate;
+        this.location = location;
+        this.transportation = transportation;
+        this.imageUrl = imageUrl;
+        this.createdBy = createdBy;
+        this.averageRating = averageRating;
+    }
+
     public Long getId() {
         return id;
     }
@@ -121,20 +145,20 @@ public class Tours {
         this.createdBy = createdBy;
     }
 
-    public Tours() {
+    public Double getAverageRating() {
+        return averageRating;
     }
 
-    public Tours(Long id, String tourName, String description, BigDecimal price, LocalDate startDate, String location, LocalDate endDate, String transportation, String imageUrl, User createdBy) {
-        this.id = id;
-        this.tourName = tourName;
-        this.description = description;
-        this.price = price;
-        this.startDate = startDate;
-        this.location = location;
-        this.endDate = endDate;
-        this.transportation = transportation;
-        this.imageUrl = imageUrl;
-        this.createdBy = createdBy;
+    public void setAverageRating(Double averageRating) {
+        this.averageRating = averageRating;
+    }
+
+    public Integer getReviewCount() {
+        return reviewCount;
+    }
+
+    public void setReviewCount(Integer reviewCount) {
+        this.reviewCount = reviewCount;
     }
 
     @Override

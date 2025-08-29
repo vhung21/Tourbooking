@@ -26,11 +26,23 @@ export default class HomeComponent implements OnInit, OnDestroy {
 
   constructor(private http: HttpClient) {}
 
+  images = [
+    // 'content/images/Tour_du_lich_xuyen_viet.svg',
+    'content/images/Tour_du_lich_chau_a_img.svg',
+    // 'content/images/Tour_du_lich_chau_au.svg',
+  ];
+  currentIndex = 0;
+  intervalId: any;
+
   ngOnInit(): void {
     this.accountService
       .getAuthenticationState()
       .pipe(takeUntil(this.destroy$))
       .subscribe(account => this.account.set(account));
+
+    this.intervalId = setInterval(() => {
+      this.nextSlide();
+    }, 3000);
   }
 
   login(): void {
@@ -40,20 +52,12 @@ export default class HomeComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
+
+    if (this.intervalId) clearInterval(this.intervalId);
   }
 
-  search(): void {
-    if (!this.keyword.trim()) return;
-
-    const url = `/api/tour/search?keyword=${encodeURIComponent(this.keyword)}`;
-
-    this.http.get(url).subscribe({
-      next: (result) => {
-        console.log('Kết quả tìm:', result);
-      },
-      error: (err) => {
-        console.error('Lỗi khi tìm:', err);
-      },
-    });
+  nextSlide() {
+    this.currentIndex = (this.currentIndex + 1) % this.images.length;
   }
+
 }

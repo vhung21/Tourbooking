@@ -22,6 +22,8 @@ public class TourDTO {
     private String transportation;
     private String imageUrl;
     private User createdBy;
+    private Double averageRating;
+    private Integer reviewCount;
 
     public TourDTO(Tours tours) {
         this.id = tours.getId();
@@ -34,6 +36,8 @@ public class TourDTO {
         this.transportation = tours.getTransportation();
         this.imageUrl = tours.getImageUrl();
         this.createdBy = tours.getCreatedBy();
+        this.averageRating = tours.getAverageRating();
+        this.reviewCount = tours.getReviewCount();
     }
 
     public TourDTO() {
@@ -117,5 +121,21 @@ public class TourDTO {
 
     public void setCreatedBy(User createdBy) {
         this.createdBy = createdBy;
+    }
+
+    public Integer getReviewCount() {
+        return reviewCount;
+    }
+
+    public void setReviewCount(Integer reviewCount) {
+        this.reviewCount = reviewCount;
+    }
+
+    public Double getAverageRating() {
+        return averageRating;
+    }
+
+    public void setAverageRating(Double averageRating) {
+        this.averageRating = averageRating;
     }
 }

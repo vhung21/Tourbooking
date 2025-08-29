@@ -19,6 +19,7 @@ Navbar
 .navbar {
   flex-direction: column;
   padding: 0.2rem 1rem;
+  z-index: 1050;
   .dropdown-item.active,
   .dropdown-item.active:focus,
   .dropdown-item.active:hover {
@@ -37,7 +38,7 @@ Navbar
 
   .navbar-menu {
     background: #6BCDEC;
-    width: 100vw;
+    width: 99vw;
     list-style: none;
     display: flex;
     gap: 20px;

@@ -8,6 +8,7 @@ import com.hungnv.tourbooking.payload.ResponseObject;
 import com.hungnv.tourbooking.repository.TourRepository;
 import com.hungnv.tourbooking.service.TourService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -40,6 +41,20 @@ public class TourServiceImpl implements TourService {
         }
     }
 
+    public ResponseEntity<ResponseObject> getTopTours(){
+        try{
+            List<Tours> Tours = tourRepository.findTopToursByWeightedScore(PageRequest.of(0, 9));
+            List<TourDTO> tourDTOS = new ArrayList<>();
+            for (Tours Tour : Tours) {
+                tourDTOS.add(tourMapper.mapToDTO(Tour));
+            }
+            return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("success", "Get all tour successfully", tourDTOS));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(new ResponseObject("failed", "An error occurred while fetching tour list", null));
+        }
+    }
+
     public ResponseEntity<ResponseObject> findById(long id){
         try{
             Optional<Tours> Tour = tourRepository.findById(id);
@@ -58,6 +73,7 @@ public class TourServiceImpl implements TourService {
                     new ResponseObject("failed", "Tour name already exists", null)
                 );
             }
+
             Tours Tour = new Tours();
             Tour.setTourName(tourDTO.getTourName());
             Tour.setDescription(tourDTO.getDescription());
@@ -69,6 +85,8 @@ public class TourServiceImpl implements TourService {
             Tour.setTransportation(tourDTO.getTransportation());
             Tour.setImageUrl(tourDTO.getImageUrl());
             Tour.setCreatedBy(tourDTO.getCreatedBy());
+            Tour.setAverageRating(0.0);
+            Tour.setReviewCount(0);
             tourRepository.save(Tour);
             return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseObject("success", "Create tour successfully", tourMapper.mapToDTO(Tour)));
         } catch (Exception e) {
@@ -100,6 +118,8 @@ public class TourServiceImpl implements TourService {
             Tour.setTransportation(tourDTO.getTransportation());
             Tour.setImageUrl(tourDTO.getImageUrl());
             Tour.setCreatedBy(tourDTO.getCreatedBy());
+            Tour.setAverageRating(0.0);
+            Tour.setReviewCount(0);
             tourRepository.save(Tour);
             return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseObject("success", "Update tour successfully", tourMapper.mapToDTO(Tour)));
         } catch (Exception e) {
