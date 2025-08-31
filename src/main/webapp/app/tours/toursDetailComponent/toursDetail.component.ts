@@ -2,20 +2,24 @@ import {Component, OnInit} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
 import {TourService} from "../tours.service";
 import {ActivatedRoute} from "@angular/router";
-import {Tours} from "../tours.modal";
-import {NgIf} from "@angular/common";
+import {Itinerary, Tours} from "../tours.modal";
+import {CommonModule, NgForOf, NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-tour-detail',
   templateUrl: './toursDetail.component.html',
+  standalone: true,
   imports: [
-    NgIf
+    NgIf,
+    NgForOf,
+    [CommonModule]
   ],
   styleUrls: ['./toursDetail.component.scss']
 })
 export class ToursDetailComponent implements OnInit {
   tourId!: number;
   tourData?: Tours;
+  isOpen: boolean[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -32,5 +36,9 @@ export class ToursDetailComponent implements OnInit {
         },
       error: err => console.error(err)
     });
+  }
+
+  toggleAccordion(index: number) {
+    this.isOpen[index] = !this.isOpen[index];
   }
 }

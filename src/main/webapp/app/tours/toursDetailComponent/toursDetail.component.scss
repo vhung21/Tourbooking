@@ -46,13 +46,101 @@
   }
 
   .tour-images,
-  .tour-info {
+  {
     width: 100%;
   }
 
   .sub-imgs {
     grid-template-columns: repeat(2, 1fr); /* trên mobile chia 2 ảnh 1 dòng cho đẹp */
   }
+}
+
+.tour-detail{
+  margin-top: 80px;
+}
+
+.detail-item{
+  background: #F8F8F8;
+  border-radius: 4px;
+}
+
+.detail-header{
+  padding: 27px;
+  display: flex;
+  font-size: 22px;
+  font-weight: 600;
+  justify-content: space-between;
+  color: #0a0a0a;
+}
+
+.detail-content {
+  padding: 0px 27px 27px 27px;
+  animation: fadeIn 1s ease-in;
+  font-size: 16px;
+  color: #0a0a0a;
+}
+
+.detail-inclusions-header {
+  padding: 0px 27px 27px 27px;
+  animation: fadeIn 1s ease-in;
+  font-size: 18px;
+}
+
+.detail-icon{
+  transition: transform 1s;
+}
+
+.detail-icon.rotate {
+  transform: rotate(180deg);
+}
+
+.timeline {
+  position: relative;
+}
+
+.timeline-item {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  column-gap: 16px;
+  align-items: start;
+  position: relative;
+  padding-bottom: 20px;
+}
+
+.timeline-node {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: #6BCDEC;
+  color: #0a0a0a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  z-index: 1;
+  position: relative;
+}
+
+.timeline-line {
+  position: absolute;
+  left: 20px;
+  top: 40px;
+  width: 2px;
+  height: calc(100% - 40px);
+  background: #6BCDEC;
+}
+
+.timeline-title {
+  margin: 0 0 6px 0;
+  font-size: 18px;
+  color: #0a0a0a;
+  font-weight: 600;
+}
+.timeline-desc {
+  margin: 0;
+  color: #0a0a0a;
+  line-height: 1.5;
+  font-size: 16px;
 }
 
 .price {

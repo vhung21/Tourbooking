@@ -19,4 +19,6 @@ public interface TourRepository extends JpaRepository<Tours, Long> {
 
     @Query("SELECT t FROM Tours t ORDER BY (t.averageRating * LOG(t.reviewCount + 1)) DESC")
     List<Tours> findTopToursByWeightedScore(PageRequest pageable);
+
+    boolean existsByTourNameAndIdNot(String tourName, Long id);
 }

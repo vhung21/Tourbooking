@@ -2,9 +2,15 @@ package com.hungnv.tourbooking.service.impl;
 
 
 import com.hungnv.tourbooking.domain.Tours;
+import com.hungnv.tourbooking.domain.ToursDetail;
+import com.hungnv.tourbooking.domain.ToursInclusion;
+import com.hungnv.tourbooking.domain.ToursItinerary;
 import com.hungnv.tourbooking.dto.TourDTO;
+import com.hungnv.tourbooking.dto.TourInclusionDTO;
+import com.hungnv.tourbooking.dto.TourItineraryDTO;
 import com.hungnv.tourbooking.mapper.TourMapper;
 import com.hungnv.tourbooking.payload.ResponseObject;
+import com.hungnv.tourbooking.repository.TourDetailRepository;
 import com.hungnv.tourbooking.repository.TourRepository;
 import com.hungnv.tourbooking.service.TourService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +29,9 @@ import java.util.Optional;
 public class TourServiceImpl implements TourService {
     @Autowired
     TourRepository tourRepository;
+
+    @Autowired
+    TourDetailRepository tourDetailRepository;
 
     @Autowired
     TourMapper tourMapper;
@@ -87,6 +96,43 @@ public class TourServiceImpl implements TourService {
             Tour.setCreatedBy(tourDTO.getCreatedBy());
             Tour.setAverageRating(0.0);
             Tour.setReviewCount(0);
+
+            ToursDetail detail = new ToursDetail();
+            if (tourDTO.getDetail() != null) {
+                detail.setOverview(tourDTO.getDetail().getOverview());
+                detail.setChildrenPolicy(tourDTO.getDetail().getChildrenPolicy());
+                detail.setBookingGuide(tourDTO.getDetail().getBookingGuide());
+                detail.setPayment(tourDTO.getDetail().getPayment());
+                detail.setCancellationPolicy(tourDTO.getDetail().getCancellationPolicy());
+                detail.setTermsNotes(tourDTO.getDetail().getTermsNotes());
+                detail.setAdditionalInfo(tourDTO.getDetail().getAdditionalInfo());
+            }
+            Tour.setDetails(detail);
+
+            List<ToursItinerary> toursItineraries = new ArrayList<>();
+            if (tourDTO.getItineraries() != null) {
+                for (TourItineraryDTO i : tourDTO.getItineraries()) {
+                    ToursItinerary toursItinerary = new ToursItinerary();
+                    toursItinerary.setTour(Tour);
+                    toursItinerary.setToursItineraryTitle(i.getToursItineraryTitle());
+                    toursItinerary.setToursItineraryDescription(i.getToursItineraryDescription());
+                    toursItineraries.add(toursItinerary);
+                }
+            }
+            Tour.setItineraries(toursItineraries);
+
+            List<ToursInclusion> toursInclusions = new ArrayList<>();
+            if (tourDTO.getInclusions() != null) {
+                for (TourInclusionDTO i : tourDTO.getInclusions()) {
+                    ToursInclusion toursInclusion = new ToursInclusion();
+                    toursInclusion.setTour(Tour);
+                    toursInclusion.setToursInclusionName(i.getToursInclusionName());
+                    toursInclusion.setToursIncluded(i.getToursIncluded());
+                    toursInclusions.add(toursInclusion);
+                }
+            }
+            Tour.setInclusions(toursInclusions);
+
             tourRepository.save(Tour);
             return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseObject("success", "Create tour successfully", tourMapper.mapToDTO(Tour)));
         } catch (Exception e) {
@@ -101,27 +147,58 @@ public class TourServiceImpl implements TourService {
             if(existingTour.isEmpty()) {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseObject("failed", "Tour not found", null));
             }
-            if(tourRepository.existsByTourName(tourDTO.getTourName()))
-            {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(
-                    new ResponseObject("failed", "Tour name already exists", null)
-                );
+
+            Tours tour = existingTour.get();
+            tour.setTourName(tourDTO.getTourName());
+            tour.setDescription(tourDTO.getDescription());
+            tour.setPrice(tourDTO.getPrice());
+            tour.setStartDate(tourDTO.getStartDate());
+            tour.setEndDate(tourDTO.getEndDate());
+            tour.setLocation(tourDTO.getLocation());
+            tour.setTransportation(tourDTO.getTransportation());
+            tour.setImageUrl(tourDTO.getImageUrl());
+            tour.setCreatedBy(tourDTO.getCreatedBy());
+
+            ToursDetail detail = tour.getDetails();
+            if (detail == null) {
+                detail = new ToursDetail();
+                detail.setTours(tour);
             }
-            Tours Tour = existingTour.get();
-            Tour.setTourName(tourDTO.getTourName());
-            Tour.setDescription(tourDTO.getDescription());
-            Tour.setPrice(tourDTO.getPrice());
-            Tour.setStartDate(tourDTO.getStartDate());
-            Tour.setEndDate(tourDTO.getEndDate());
-            Tour.setLocation(tourDTO.getLocation());
-            Tour.setLocation(tourDTO.getLocation());
-            Tour.setTransportation(tourDTO.getTransportation());
-            Tour.setImageUrl(tourDTO.getImageUrl());
-            Tour.setCreatedBy(tourDTO.getCreatedBy());
-            Tour.setAverageRating(0.0);
-            Tour.setReviewCount(0);
-            tourRepository.save(Tour);
-            return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseObject("success", "Update tour successfully", tourMapper.mapToDTO(Tour)));
+            if (tourDTO.getDetail() != null) {
+                detail.setOverview(tourDTO.getDetail().getOverview());
+                detail.setChildrenPolicy(tourDTO.getDetail().getChildrenPolicy());
+                detail.setBookingGuide(tourDTO.getDetail().getBookingGuide());
+                detail.setPayment(tourDTO.getDetail().getPayment());
+                detail.setCancellationPolicy(tourDTO.getDetail().getCancellationPolicy());
+                detail.setTermsNotes(tourDTO.getDetail().getTermsNotes());
+                detail.setAdditionalInfo(tourDTO.getDetail().getAdditionalInfo());
+            }
+            tour.setDetails(detail);
+
+            if (tourDTO.getItineraries() != null) {
+                tour.getItineraries().clear();
+                for (TourItineraryDTO i : tourDTO.getItineraries()) {
+                    ToursItinerary toursItinerary = new ToursItinerary();
+                    toursItinerary.setTour(tour);
+                    toursItinerary.setToursItineraryTitle(i.getToursItineraryTitle());
+                    toursItinerary.setToursItineraryDescription(i.getToursItineraryDescription());
+                    tour.getItineraries().add(toursItinerary);
+                }
+            }
+
+            if (tourDTO.getInclusions() != null) {
+                tour.getInclusions().clear();
+                for (TourInclusionDTO i : tourDTO.getInclusions()) {
+                    ToursInclusion toursInclusion = new ToursInclusion();
+                    toursInclusion.setTour(tour);
+                    toursInclusion.setToursInclusionName(i.getToursInclusionName());
+                    toursInclusion.setToursIncluded(i.getToursIncluded());
+                    tour.getInclusions().add(toursInclusion);
+                }
+            }
+
+            tourRepository.save(tour);
+            return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseObject("success", "Update tour successfully", tourMapper.mapToDTO(tour)));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(new ResponseObject("failed", "An error occurred while updating tour", null));

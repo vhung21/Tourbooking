@@ -2,7 +2,7 @@
   <div style="font-size: 16px">
     <b>Trang chủ </b>
     <img src="/content/images/toursImg/toursDetailImg/mingcute_Icon.svg" alt="Icon">
-    <b>Đặt Tour  </b>
+    <b>Đặt Tour </b>
     <img src="/content/images/toursImg/toursDetailImg/mingcute_Icon.svg" alt="Icon">
     <b>Danh sách Tour </b>
     <img src="/content/images/toursImg/toursDetailImg/mingcute_Icon.svg" alt="Icon">
@@ -23,20 +23,147 @@
     </div>
     <div class="tour-info">
       <div class="info-box" style="margin-bottom: 26px">
-        <h3 style="font-size: 24px; color: #0a0a0a;font-weight: bold;">{{ tourData.tourName }}</h3>
+        <h3 style="font-size: 24px; color: #0a0a0a;font-weight: 600;">{{ tourData.tourName }}</h3>
         <div>
           <b style="font-size: 14px">Giá từ:</b>
-          <div style="color: #D32D2D; font-size: 20px; font-weight: bold;">{{ tourData.price}} VNĐ</div>
+          <div style="color: #D32D2D; font-size: 20px; font-weight: 600;">{{ tourData.price }} VNĐ</div>
         </div>
         <button class="btn-book">Đặt ngay</button>
       </div>
       <div class="info-box" style="height: auto">
-        <h4 style="font-size: 24px; color: #0a0a0a; margin-bottom: 26px;font-weight: bold;">Thông tin Tour</h4>
-        <div style="margin-bottom: 16px"><b>Điểm đến:</b> 3</div>
-        <div style="margin-bottom: 16px"><b>Ngày khởi hành:</b> {{tourData.startDate}}</div>
+        <h4 style="font-size: 24px; color: #0a0a0a; margin-bottom: 26px;font-weight: 600;">Thông tin Tour</h4>
+        <div style="margin-bottom: 16px"><b>{{ tourData.description }}</b></div>
+        <div style="margin-bottom: 16px"><b>Ngày khởi hành:</b> {{ tourData.startDate }}</div>
         <div style="margin-bottom: 16px"><b>Thời gian:</b> 3N2Đ</div>
-        <div><b>Điểm khởi hành:</b> {{tourData.location}}</div>
+        <div><b>Điểm khởi hành:</b> {{ tourData.location }}</div>
       </div>
     </div>
   </div>
+
+  <div class="tour-detail">
+
+    <div class="detail-item" style="margin-bottom: 8px">
+      <div class="detail-header" (click)="toggleAccordion(0)">
+        <span>Tổng quan tour du lịch</span>
+        <img src="content/images/toursImg/toursDetailImg/mingcute_down-line.svg" alt="detail-icon" class="detail-icon"
+             [class.rotate]="isOpen[0]">
+      </div>
+      <div class="detail-content" *ngIf="isOpen[0]">
+        <div><b>{{ tourData?.detail?.overview }}</b></div>
+      </div>
+    </div>
+
+    <div class="detail-item" style="margin-bottom: 8px">
+      <div class="detail-header" (click)="toggleAccordion(1)">
+        <span>Lịch trình</span>
+        <img src="content/images/toursImg/toursDetailImg/mingcute_down-line.svg"
+             alt="detail-icon" class="detail-icon"
+             [class.rotate]="isOpen[1]">
+      </div>
+      <div class="detail-content" *ngIf="isOpen[1]">
+        <div class="timeline">
+          <div class="timeline-item" *ngFor="let i of tourData?.itineraries; index as idx; let last = last">
+            <div class="timeline-node">{{ idx + 1 }}</div>
+            <div class="timeline-content">
+              <h4 class="timeline-title">{{ i.toursItineraryTitle }}</h4>
+              <p class="timeline-desc">{{ i.toursItineraryDescription }}</p>
+            </div>
+            <div class="timeline-line" *ngIf="!last"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="detail-item" style="margin-bottom: 8px">
+      <div class="detail-header" (click)="toggleAccordion(2)">
+        <span>Giá tour chi tiết</span>
+        <img src="content/images/toursImg/toursDetailImg/mingcute_down-line.svg" alt="detail-icon" class="detail-icon"
+             [class.rotate]="isOpen[2]">
+      </div>
+      <div class="detail-inclusions-header" *ngIf="isOpen[2]">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; text-align: left;">
+          <div style="border-right: 2px solid #adadad; padding: 0px 15px">
+            <span style="color: #6BCDEC;margin-bottom: 18px;font-weight: 600;">Bao gồm</span>
+            <div *ngFor="let i of tourData?.inclusions">
+              <div *ngIf="i.toursIncluded == 1" style="margin-top: 16px; margin-left: 10px;color: #0a0a0a"><b> - {{i.toursInclusionName}}</b></div>
+            </div>
+          </div>
+          <div style="padding: 0px 15px">
+            <span style="color: #6BCDEC;margin-bottom: 18px;font-weight: 600;">Không bao gồm</span>
+            <div *ngFor="let i of tourData?.inclusions">
+              <div *ngIf="i.toursIncluded == 0" style="margin-top: 16px; margin-left: 10px;color: #0a0a0a"><b> - {{i.toursInclusionName}}</b></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="detail-item" style="margin-bottom: 8px">
+      <div class="detail-header" (click)="toggleAccordion(3)">
+        <span>Chính sách trẻ em</span>
+        <img src="content/images/toursImg/toursDetailImg/mingcute_down-line.svg" alt="detail-icon" class="detail-icon"
+             [class.rotate]="isOpen[3]">
+      </div>
+      <div class="detail-content" *ngIf="isOpen[3]">
+        <div><b>{{ tourData?.detail?.childrenPolicy }}</b></div>
+      </div>
+    </div>
+
+    <div class="detail-item" style="margin-bottom: 8px">
+      <div class="detail-header" (click)="toggleAccordion(4)">
+        <span>Hướng dẫn đặt tour</span>
+        <img src="content/images/toursImg/toursDetailImg/mingcute_down-line.svg" alt="detail-icon" class="detail-icon"
+             [class.rotate]="isOpen[4]">
+      </div>
+      <div class="detail-content" *ngIf="isOpen[4]">
+        <div><b>{{ tourData?.detail?.bookingGuide }}</b></div>
+      </div>
+    </div>
+
+    <div class="detail-item" style="margin-bottom: 8px">
+      <div class="detail-header" (click)="toggleAccordion(5)">
+        <span>Thanh toán</span>
+        <img src="content/images/toursImg/toursDetailImg/mingcute_down-line.svg" alt="detail-icon" class="detail-icon"
+             [class.rotate]="isOpen[5]">
+      </div>
+      <div class="detail-content" *ngIf="isOpen[5]">
+        <div><b>{{ tourData?.detail?.payment }}</b></div>
+      </div>
+    </div>
+
+    <div class="detail-item" style="margin-bottom: 8px">
+      <div class="detail-header" (click)="toggleAccordion(6)">
+        <span>Điều kiện hủy tour</span>
+        <img src="content/images/toursImg/toursDetailImg/mingcute_down-line.svg" alt="detail-icon" class="detail-icon"
+             [class.rotate]="isOpen[6]">
+      </div>
+      <div class="detail-content" *ngIf="isOpen[6]">
+        <div><b>{{ tourData?.detail?.cancellationPolicy }}</b></div>
+      </div>
+    </div>
+
+    <div class="detail-item" style="margin-bottom: 8px">
+      <div class="detail-header" (click)="toggleAccordion(7)">
+        <span>Điều khiển & lưu ý</span>
+        <img src="content/images/toursImg/toursDetailImg/mingcute_down-line.svg" alt="detail-icon" class="detail-icon"
+             [class.rotate]="isOpen[7]">
+      </div>
+      <div class="detail-content" *ngIf="isOpen[7]">
+        <div><b>{{ tourData?.detail?.termsNotes }}</b></div>
+      </div>
+    </div>
+
+    <div class="detail-item" style="margin-bottom: 8px">
+      <div class="detail-header" (click)="toggleAccordion(8)">
+        <span>Thông tin thêm/ FAQ</span>
+        <img src="content/images/toursImg/toursDetailImg/mingcute_down-line.svg" alt="detail-icon" class="detail-icon"
+             [class.rotate]="isOpen[8]">
+      </div>
+      <div class="detail-content" *ngIf="isOpen[8]">
+        <div><b>{{ tourData?.detail?.additionalInfo }}</b></div>
+      </div>
+    </div>
+  </div>
+
+
 </div>

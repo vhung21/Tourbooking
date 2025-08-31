@@ -10,6 +10,29 @@ export interface Tours {
   imageUrl?: string;
   averageRating?: number;
   reviewCount?: number;
+  detail?: TourDetail;
+  itineraries?: Itinerary[];
+  inclusions?: Inclusion[];
+}
+
+export interface TourDetail {
+  overview?: string;
+  childrenPolicy?: string;
+  bookingGuide?: string;
+  payment?: string;
+  cancellationPolicy?: string;
+  termsNotes?: string;
+  additionalInfo?: string;
+}
+
+export interface Itinerary {
+  toursItineraryTitle: string;
+  toursItineraryDescription: string;
+}
+
+export interface Inclusion {
+  toursInclusionName: string;
+  toursIncluded: number;
 }
 
 export interface ResponseObject<T> {

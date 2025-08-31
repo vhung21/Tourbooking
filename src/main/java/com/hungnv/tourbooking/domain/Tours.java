@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 @Table(name = "Tours")
 @Entity
@@ -21,6 +23,15 @@ public class Tours {
 
     @Column(name = "price")
     private BigDecimal price;
+
+    @OneToOne(mappedBy = "tours", cascade = CascadeType.ALL)
+    private ToursDetail details;
+
+    @OneToMany(mappedBy = "tours", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ToursItinerary> itineraries = new ArrayList<>();
+
+    @OneToMany(mappedBy = "tours", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ToursInclusion> inclusions = new ArrayList<>();
 
     @Column(name = "start_date")
     private LocalDate startDate;
@@ -159,6 +170,28 @@ public class Tours {
 
     public void setReviewCount(Integer reviewCount) {
         this.reviewCount = reviewCount;
+    }
+
+    public ToursDetail getDetails() { return details; }
+    public void setDetails(ToursDetail details) {
+        this.details = details;
+
+    }
+
+    public List<ToursItinerary> getItineraries() {
+        return itineraries;
+    }
+
+    public void setItineraries(List<ToursItinerary> itineraries) {
+        this.itineraries = itineraries;
+    }
+
+    public List<ToursInclusion> getInclusions() {
+        return inclusions;
+    }
+
+    public void setInclusions(List<ToursInclusion> inclusions) {
+        this.inclusions = inclusions;
     }
 
     @Override

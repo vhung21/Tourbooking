@@ -6,10 +6,9 @@ import lombok.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @AllArgsConstructor
-@Getter
-@Setter
 @Data
 public class TourDTO {
     private Long id;
@@ -25,20 +24,9 @@ public class TourDTO {
     private Double averageRating;
     private Integer reviewCount;
 
-    public TourDTO(Tours tours) {
-        this.id = tours.getId();
-        this.tourName = tours.getTourName();
-        this.description = tours.getDescription();
-        this.price = tours.getPrice();
-        this.startDate = tours.getStartDate();
-        this.endDate = tours.getEndDate();
-        this.location = tours.getLocation();
-        this.transportation = tours.getTransportation();
-        this.imageUrl = tours.getImageUrl();
-        this.createdBy = tours.getCreatedBy();
-        this.averageRating = tours.getAverageRating();
-        this.reviewCount = tours.getReviewCount();
-    }
+    private TourDetailDTO detail;
+    private List<TourItineraryDTO> itineraries;
+    private List<TourInclusionDTO> inclusions;
 
     public TourDTO() {
     }
@@ -137,5 +125,29 @@ public class TourDTO {
 
     public void setAverageRating(Double averageRating) {
         this.averageRating = averageRating;
+    }
+
+    public TourDetailDTO getDetail() {
+        return detail;
+    }
+
+    public void setDetail(TourDetailDTO detail) {
+        this.detail = detail;
+    }
+
+    public List<TourItineraryDTO> getItineraries() {
+        return itineraries;
+    }
+
+    public void setItineraries(List<TourItineraryDTO> itineraries) {
+        this.itineraries = itineraries;
+    }
+
+    public List<TourInclusionDTO> getInclusions() {
+        return inclusions;
+    }
+
+    public void setInclusions(List<TourInclusionDTO> inclusions) {
+        this.inclusions = inclusions;
     }
 }
