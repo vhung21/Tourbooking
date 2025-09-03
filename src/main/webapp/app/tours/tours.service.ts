@@ -18,6 +18,14 @@ export class TourService {
       );
   }
 
+  getAllTours(): Observable<Tours[]> {
+    return this.http
+      .get<ResponseObject<Tours[]>>(`${this.resourceUrl}`)
+      .pipe(
+        map(res => res.data)
+      );
+  }
+
   getById(id: number): Observable<any> {
     return this.http.get<any>(`${this.resourceUrl}/${id}`);
   }

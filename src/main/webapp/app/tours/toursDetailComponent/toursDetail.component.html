@@ -165,5 +165,130 @@
     </div>
   </div>
 
-
+  <div class="rating-container">
+    <div class="rating-container-header">
+      <span>Trải nghiệm khách hàng</span>
+    </div>
+    <div>
+      <div class="rating-container-title">
+        <div class="rating-container-title-d" (click)="ratingDetail()">
+          <div>
+            <span>Đánh giá</span>
+          </div>
+        </div>
+        <div class="rating-container-title-d" (click)="addRating()">
+          <div>
+            <span>Thêm đánh giá</span>
+          </div>
+        </div>
+      </div>
+      <div class="rating-container-content">
+        <div *ngIf="this.rating" style="display: flex">
+          <div class="rating-box">
+            <div class="rating-score">{{tourData?.averageRating}}</div>
+            <div class="rating-stars">
+              <ng-container *ngFor="let star of stars; let i = index">
+                <i *ngIf="star === 'full'" class="fas fa-star"></i>
+                <i *ngIf="star === 'half'" class="fas fa-star-half-alt"></i>
+                <i *ngIf="star === 'empty'" class="far fa-star"></i>
+              </ng-container>
+            </div>
+            <div class="rating-count">{{tourData?.reviewCount}} lượt đánh giá</div>
+          </div>
+          <div class="rating-box-2">
+            <div class="rating-row" *ngFor="let percent of ratingPercentages; let i = index">
+              <div class="star-row">
+                <span class="star-label" style="margin: 0px !important;">{{ 5 - i }}</span>
+                <i class="fas fa-star"></i>
+              </div>
+              <div class="bar">
+                <div class="fill" [style.width.%]="ratingPercentages[4 - i]"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div *ngIf="!this.rating" class="review-box">
+          <div class="stars">
+            <span style="font-weight: 600;white-space: nowrap;">Đánh giá xếp hạng</span>
+            <div class="stars-list" (mouseleave)="hovered = 0">
+              <span class="star"
+                  *ngFor="let s of [1,2,3,4,5]"
+                  (mousemove)="previewHalf($event, s)"
+                  (click)="selectHalf($event, s)">
+                <ng-container [ngSwitch]="getState(s)">
+                  <i *ngSwitchCase="'full'" class="fas fa-star"></i>
+                  <i *ngSwitchCase="'half'" class="fas fa-star-half-alt"></i>
+                  <i *ngSwitchDefault class="far fa-star"></i>
+                </ng-container>
+              </span>
+            </div>
+          </div>
+          <textarea [(ngModel)]="comment" placeholder="Nhập đánh giá của bạn..."></textarea>
+          <div class="btn-box">
+            <button (click)="submitReview()" class="submitReview">Đánh giá</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="rating-container-header" style="margin: 20px 0px">
+      <span>Đánh giá của khách hàng</span>
+    </div>
+    <div>
+      <div *ngFor="let i of reviews">
+        <div class="review-card">
+          <div class="review-header">
+            <div class="review-avatar">A</div>
+            <div>
+              <h4 class="review-name">{{i.customer.fullName}}</h4>
+            </div>
+          </div>
+          <div style="width: 70%">
+            <div class="review-rating">
+              <ng-container *ngFor="let star of i.stars">
+                <i *ngIf="star === 'full'" class="fas fa-star"></i>
+                <i *ngIf="star === 'half'" class="fas fa-star-half-alt"></i>
+                <i *ngIf="star === 'empty'" class="far fa-star"></i>
+              </ng-container>
+            </div>
+            <span class="review-date">01/09/2025 03:22</span>
+            <div class="review-content">
+              Tour này rất tuyệt vời, hướng dẫn viên nhiệt tình!
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="list-tour">
+    <span style="font-weight: 600; font-size: 24px">Các tour tương tự</span>
+    <button style="font-size: 16px; border-radius: 8px; background: #6BCDEC; border: none; padding: 10px 16px; color: white; font-weight: 600">
+      Xem tất cả</button>
+  </div>
+  <div class="tours-grid">
+    <div *ngFor="let tour of tours; let i = index" class="tours-card">
+      <div>
+        <div class="tours-img-wrapper">
+          <img *ngIf="tour.imageUrl" [src]="tour.imageUrl" alt="{{ tour.tourName }}" class="tours-img"/>
+        </div>
+        <div style="padding: 20px;">
+          <div>
+            <h3 style="color:black; font-size: 24px;font-weight: bold;">{{ tour.tourName }}</h3>
+            <div style="font-size: 14px">
+              <div style="margin-bottom: 16px"><b>Điểm khởi hành:</b> {{ tour.location }}</div>
+              <div style="margin-bottom: 16px"><b>Ngày khởi hành:</b> {{ tour.startDate }}</div>
+              <div style="margin-bottom: 16px"><b>Đánh giá:</b> {{ tour.averageRating }}/5 ({{ tour.reviewCount }} reviews)</div>
+            </div>
+          </div>
+          <div style="display: flex;align-items: center;justify-content: space-between;margin-bottom: 4px;">
+            <div><b>Giá từ:</b>
+              <div style="color: #D32D2D; font-size: 20px; font-weight: bold;">{{ tour.price }} VNĐ</div>
+            </div>
+            <div>
+              <button class="btn-book-1" [routerLink]="[tour.id]">Đặt ngay</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

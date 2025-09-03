@@ -21,7 +21,7 @@ public class TourDTO {
     private String transportation;
     private String imageUrl;
     private User createdBy;
-    private Double averageRating;
+    private BigDecimal averageRating;
     private Integer reviewCount;
 
     private TourDetailDTO detail;
@@ -119,11 +119,11 @@ public class TourDTO {
         this.reviewCount = reviewCount;
     }
 
-    public Double getAverageRating() {
+    public BigDecimal getAverageRating() {
         return averageRating;
     }
 
-    public void setAverageRating(Double averageRating) {
+    public void setAverageRating(BigDecimal averageRating) {
         this.averageRating = averageRating;
     }
 

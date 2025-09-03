@@ -20,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -94,7 +95,7 @@ public class TourServiceImpl implements TourService {
             Tour.setTransportation(tourDTO.getTransportation());
             Tour.setImageUrl(tourDTO.getImageUrl());
             Tour.setCreatedBy(tourDTO.getCreatedBy());
-            Tour.setAverageRating(0.0);
+            Tour.setAverageRating(BigDecimal.valueOf(0.0));
             Tour.setReviewCount(0);
 
             ToursDetail detail = new ToursDetail();

@@ -53,15 +53,18 @@ public class Tours {
     private User createdBy;
 
     @Column(name = "average_rating")
-    private Double averageRating;
+    private BigDecimal averageRating;
 
     @Column(name = "review_count")
     private Integer reviewCount;
 
+    @OneToMany(mappedBy = "tours", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Review> reviews = new ArrayList<>();
+
     public Tours() {
     }
 
-    public Tours(Long id, String tourName, Integer reviewCount, String description, LocalDate startDate, BigDecimal price, LocalDate endDate, String location, String transportation, String imageUrl, User createdBy, Double averageRating) {
+    public Tours(Long id, String tourName, Integer reviewCount, String description, LocalDate startDate, BigDecimal price, LocalDate endDate, String location, String transportation, String imageUrl, User createdBy, BigDecimal averageRating) {
         this.id = id;
         this.tourName = tourName;
         this.reviewCount = reviewCount;
@@ -156,11 +159,11 @@ public class Tours {
         this.createdBy = createdBy;
     }
 
-    public Double getAverageRating() {
+    public BigDecimal getAverageRating() {
         return averageRating;
     }
 
-    public void setAverageRating(Double averageRating) {
+    public void setAverageRating(BigDecimal averageRating) {
         this.averageRating = averageRating;
     }
 
