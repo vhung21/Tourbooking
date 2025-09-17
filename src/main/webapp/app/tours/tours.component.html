@@ -1,53 +1,83 @@
 <div class="tours-banner">
-  <img src="/content/images/home_img.png" class="banner-img" alt="Banner" />
+  <img src="/content/images/toursImg/backgroundImg.svg" class="banner-img" alt="Banner"/>
+
 
   <div class="slideshow-container">
     <img [src]="images[currentIndex]" class="slide" style="border-radius: 4px"/>
   </div>
 
-  <div class="search-bar">
-    <div class="search-item">
-      <label>Điểm khởi hành</label>
-      <select>
-        <option>Tất cả</option>
-        <option>Hà Nội</option>
-        <option>Hồ Chí Minh</option>
-      </select>
-    </div>
 
-    <div class="search-item">
-      <label> Điểm đến</label>
-      <select>
-        <option>Tất cả</option>
-        <option>Đà Nẵng</option>
-        <option>Nha Trang</option>
-      </select>
-    </div>
+  <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+    <div class="search-bar">
+      <div class="search-item">
+        <label>Điểm khởi hành</label>
+        <input
+          style="font-size: 16px; border-radius: 8px;margin-right: 20px;border: 2px solid #6BCDEC;"
+          type="text"
+          formControlName="departure"
+          (input)="onInputChangeDeparture($event)"
+        />
+        <ul class="suggestions" *ngIf="departureSuggestions.length > 0">
+          <li
+            *ngFor="let s of departureSuggestions "
+            (click)="selectDeparture(s)"
+            class="suggestion-item"
+          >
+            {{ s.name }}
+          </li>
+        </ul>
+      </div>
 
-    <div class="search-item">
-      <label> Ngày khởi hành</label>
-      <select>
-        <option>Tất cả</option>
-        <option>Tháng 8</option>
-        <option>Tháng 9</option>
-      </select>
-    </div>
+      <div class="search-item">
+        <label>Điểm đến</label>
+        <input
+          style="font-size: 16px; border-radius: 8px;margin-right: 20px;border: 2px solid #6BCDEC;"
+          type="text"
+          formControlName="destination"
+          (input)="onInputChangeDestinetion($event)"
+        />
+        <ul class="suggestions" *ngIf="destinationSuggestions.length > 0">
+          <li
+            *ngFor="let s of destinationSuggestions"
+            (click)="selectDestination(s)"
+            class="suggestion-item"
+          >
+            {{ s.name }}
+          </li>
+        </ul>
+      </div>
 
-    <div class="search-item">
-      <label> Ngân sách</label>
-      <select>
-        <option>Chọn mức giá</option>
-        <option>Dưới 5 triệu</option>
-        <option>5 - 10 triệu</option>
-      </select>
-    </div>
+      <div class="search-item">
+        <label>Ngày khởi hành</label>
+        <input
+          type="date"
+          formControlName="departure_date"
+          style="font-size: 16px; border-radius: 8px; margin-right: 20px;padding: 1px 2px; border: 2px solid #6BCDEC;"
+        />
+      </div>
 
-    <button class="search-btn">TÌM KIẾM</button>
-  </div>
+      <div class="search-item">
+        <label> Ngân sách</label>
+        <select
+          formControlName="budget"
+          style="font-size: 16px; border-radius: 8px; margin-right: 20px; border: 2px solid #6BCDEC; padding: 1px 2px; background-color: white; cursor: pointer;"
+        >
+          <option value="">Chọn mức giá</option>
+          <option value="under_10">Dưới 10 triệu</option>
+          <option value="10_25">10 - 25 triệu</option>
+          <option value="above_25">Trên 25 triệu</option>
+        </select>
+      </div>
+
+      <button type="submit" class="search-btn">TÌM KIẾM</button>
+    </div>
+  </form>
 </div>
 
+
 <div class="container" style="margin-top: 50px">
-  <h1 style="text-align: center; font-size: 40px; color: #6BCDEC;font-weight: bold; margin-bottom: 36px">TOUR ĐƯỢC ĐẶT NHIỀU NHẤT</h1>
+  <h1 style="text-align: center; font-size: 40px; color: #6BCDEC;font-weight: bold; margin-bottom: 36px">TOUR ĐƯỢC ĐẶT
+    NHIỀU NHẤT</h1>
 
   <div *ngIf="visibleTours.length > 0" class="tour-container">
     <div class="tour-grid">
@@ -64,9 +94,12 @@
             <div>
               <h3 style="color:black; font-size: 24px;font-weight: bold;">{{ tour.tourName }}</h3>
               <div style="font-size: 14px">
-                <div style="margin-bottom: 16px"><b>Điểm khởi hành:</b> {{ tour.location }}</div>
+                <div style="margin-bottom: 16px"><b>Điểm khởi hành:</b> {{ tour.departures }}</div>
+                <div style="margin-bottom: 16px"><b>Điểm đến:</b> {{ tour.destination }}</div>
                 <div style="margin-bottom: 16px"><b>Ngày khởi hành:</b> {{ tour.startDate }}</div>
-                <div style="margin-bottom: 16px"><b>Đánh giá:</b> {{ tour.averageRating }}/5 ({{ tour.reviewCount }} reviews)</div>
+                <div style="margin-bottom: 16px"><b>Đánh giá:</b> {{ tour.averageRating }}/5 ({{ tour.reviewCount }}
+                  reviews)
+                </div>
               </div>
             </div>
             <div class="price-row">
@@ -74,7 +107,7 @@
                 <div style="color: #D32D2D; font-size: 20px; font-weight: bold;">{{ tour.price }} VNĐ</div>
               </div>
               <div>
-                <button class="btn-book" [routerLink]="[tour.id]">Đặt ngay</button>
+                <button class="btn-book" [routerLink]="[tour.id]">Xem chi tiết</button>
               </div>
             </div>
           </div>

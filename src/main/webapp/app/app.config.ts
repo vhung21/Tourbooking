@@ -8,7 +8,7 @@ import {
   provideRouter,
   withComponentInputBinding,
   withDebugTracing,
-  withNavigationErrorHandler,
+  withNavigationErrorHandler, withInMemoryScrolling,
 } from '@angular/router';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
@@ -45,7 +45,14 @@ if (environment.DEBUG_INFO_ENABLED) {
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideRouter(routes, ...routerFeatures),
+    provideRouter(
+      routes,
+      ...routerFeatures,
+      withInMemoryScrolling({
+        scrollPositionRestoration: 'enabled',
+        anchorScrolling: 'enabled'
+      })
+    ),
     importProvidersFrom(BrowserModule),
     // Set this to true to enable service worker (PWA)
     importProvidersFrom(ServiceWorkerModule.register('ngsw-worker.js', { enabled: false })),

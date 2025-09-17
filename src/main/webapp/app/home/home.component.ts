@@ -27,9 +27,9 @@ export default class HomeComponent implements OnInit, OnDestroy {
   constructor(private http: HttpClient) {}
 
   images = [
-    // 'content/images/Tour_du_lich_xuyen_viet.svg',
+    'content/images/Tour_du_lich_xuyen_viet.svg',
     'content/images/Tour_du_lich_chau_a_img.svg',
-    // 'content/images/Tour_du_lich_chau_au.svg',
+    'content/images/Tour_du_lich_chau_au.svg',
   ];
   currentIndex = 0;
   intervalId: any;

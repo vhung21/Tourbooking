@@ -39,8 +39,11 @@ public class Tours {
     @Column(name = "end_date")
     private LocalDate endDate;
 
-    @Column(name = "location", nullable = false, length = 300)
-    private String location;
+    @Column(name = "departures", nullable = false, length = 300)
+    private String departures;
+
+    @Column(name = "destination", nullable = false, length = 300)
+    private String destination;
 
     @Column(name = "transportation", nullable = false, length = 300)
     private String transportation;
@@ -64,19 +67,21 @@ public class Tours {
     public Tours() {
     }
 
-    public Tours(Long id, String tourName, Integer reviewCount, String description, LocalDate startDate, BigDecimal price, LocalDate endDate, String location, String transportation, String imageUrl, User createdBy, BigDecimal averageRating) {
+    public Tours(Long id, String tourName, BigDecimal price, String description, ToursDetail details, LocalDate startDate, LocalDate endDate, String departures, String destination, String transportation, String imageUrl, User createdBy, BigDecimal averageRating, Integer reviewCount) {
         this.id = id;
         this.tourName = tourName;
-        this.reviewCount = reviewCount;
-        this.description = description;
-        this.startDate = startDate;
         this.price = price;
+        this.description = description;
+        this.details = details;
+        this.startDate = startDate;
         this.endDate = endDate;
-        this.location = location;
+        this.departures = departures;
+        this.destination = destination;
         this.transportation = transportation;
         this.imageUrl = imageUrl;
         this.createdBy = createdBy;
         this.averageRating = averageRating;
+        this.reviewCount = reviewCount;
     }
 
     public Long getId() {
@@ -127,12 +132,20 @@ public class Tours {
         this.endDate = endDate;
     }
 
-    public String getLocation() {
-        return location;
+    public String getDepartures() {
+        return departures;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setDepartures(String departures) {
+        this.departures = departures;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
     }
 
     public String getImageUrl() {
@@ -204,12 +217,16 @@ public class Tours {
             ", tourName='" + tourName + '\'' +
             ", description='" + description + '\'' +
             ", price=" + price +
+            ", details=" + details +
             ", startDate=" + startDate +
             ", endDate=" + endDate +
-            ", location='" + location + '\'' +
+            ", departures='" + departures + '\'' +
+            ", destination='" + destination + '\'' +
             ", transportation='" + transportation + '\'' +
             ", imageUrl='" + imageUrl + '\'' +
             ", createdBy=" + createdBy +
+            ", averageRating=" + averageRating +
+            ", reviewCount=" + reviewCount +
             '}';
     }
 }

@@ -5,6 +5,7 @@ import { Authority } from 'app/config/authority.constants';
 import { UserRouteAccessService } from 'app/core/auth/user-route-access.service';
 import { errorRoute } from './layouts/error/error.route';
 
+// @ts-ignore
 const routes: Routes = [
   {
     path: '',
@@ -15,7 +16,11 @@ const routes: Routes = [
     path: 'tours',
     loadComponent: () => import('./tours/tours.component'),
   },
-
+  {
+    path: 'tours/list',
+    loadComponent: () => import('./tours/listToursComponent/listTours.component')
+      .then(m => m.ListToursComponent),
+  },
   {
     path: 'tours/:id',
     loadComponent: () => import('./tours/toursDetailComponent/toursDetail.component')

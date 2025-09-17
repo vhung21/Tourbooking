@@ -17,7 +17,8 @@ public class TourDTO {
     private BigDecimal price;
     private LocalDate startDate;
     private LocalDate endDate;
-    private String location;
+    private String departures;
+    private String destination;
     private String transportation;
     private String imageUrl;
     private User createdBy;
@@ -79,12 +80,20 @@ public class TourDTO {
         this.endDate = endDate;
     }
 
-    public String getLocation() {
-        return location;
+    public String getDepartures() {
+        return departures;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setDepartures(String departures) {
+        this.departures = departures;
+    }
+
+    public String getDestination() {
+        return destination;
+    }
+
+    public void setDestination(String destination) {
+        this.destination = destination;
     }
 
     public String getTransportation() {

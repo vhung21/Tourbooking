@@ -1,12 +1,15 @@
-<div style="padding: 28px 80px">
-  <div style="font-size: 16px">
-    <b>Trang chủ </b>
+<div
+  class="container"
+  style="padding-top: 30px"
+>
+  <div style="font-size: 16px;font-weight: bold;">
+    <a [routerLink]="['/']" style="text-decoration: none; cursor: pointer;">Trang chủ </a>
     <img src="/content/images/toursImg/toursDetailImg/mingcute_Icon.svg" alt="Icon">
-    <b>Đặt Tour </b>
+    <a [routerLink]="['/tours']" style="text-decoration: none; cursor: pointer;" >Đặt Tour </a>
     <img src="/content/images/toursImg/toursDetailImg/mingcute_Icon.svg" alt="Icon">
-    <b>Danh sách Tour </b>
+    <a [routerLink]="['/tours/list']" style="text-decoration: none; cursor: pointer;" >Danh sách Tour </a>
     <img src="/content/images/toursImg/toursDetailImg/mingcute_Icon.svg" alt="Icon">
-    <b>Chi tiết Tour</b>
+    <a>Chi tiết Tour</a>
   </div>
 
   <div *ngIf="tourData" class="tour-container">
@@ -33,9 +36,10 @@
       <div class="info-box" style="height: auto">
         <h4 style="font-size: 24px; color: #0a0a0a; margin-bottom: 26px;font-weight: 600;">Thông tin Tour</h4>
         <div style="margin-bottom: 16px"><b>{{ tourData.description }}</b></div>
+        <div style="margin-bottom: 16px"><b>Điểm khởi hành:</b> {{ tourData.departures }}</div>
+        <div style="margin-bottom: 16px"><b>Điểm đến:</b> {{ tourData.destination }}</div>
         <div style="margin-bottom: 16px"><b>Ngày khởi hành:</b> {{ tourData.startDate }}</div>
-        <div style="margin-bottom: 16px"><b>Thời gian:</b> 3N2Đ</div>
-        <div><b>Điểm khởi hành:</b> {{ tourData.location }}</div>
+        <div><b>Thời gian:</b> 3N2Đ</div>
       </div>
     </div>
   </div>
@@ -85,13 +89,15 @@
           <div style="border-right: 2px solid #adadad; padding: 0px 15px">
             <span style="color: #6BCDEC;margin-bottom: 18px;font-weight: 600;">Bao gồm</span>
             <div *ngFor="let i of tourData?.inclusions">
-              <div *ngIf="i.toursIncluded == 1" style="margin-top: 16px; margin-left: 10px;color: #0a0a0a"><b> - {{i.toursInclusionName}}</b></div>
+              <div *ngIf="i.toursIncluded == 1" style="margin-top: 16px; margin-left: 10px;color: #0a0a0a"><b>
+                - {{ i.toursInclusionName }}</b></div>
             </div>
           </div>
           <div style="padding: 0px 15px">
             <span style="color: #6BCDEC;margin-bottom: 18px;font-weight: 600;">Không bao gồm</span>
             <div *ngFor="let i of tourData?.inclusions">
-              <div *ngIf="i.toursIncluded == 0" style="margin-top: 16px; margin-left: 10px;color: #0a0a0a"><b> - {{i.toursInclusionName}}</b></div>
+              <div *ngIf="i.toursIncluded == 0" style="margin-top: 16px; margin-left: 10px;color: #0a0a0a"><b>
+                - {{ i.toursInclusionName }}</b></div>
             </div>
           </div>
         </div>
@@ -185,7 +191,7 @@
       <div class="rating-container-content">
         <div *ngIf="this.rating" style="display: flex">
           <div class="rating-box">
-            <div class="rating-score">{{tourData?.averageRating}}</div>
+            <div class="rating-score">{{ tourData?.averageRating }}</div>
             <div class="rating-stars">
               <ng-container *ngFor="let star of stars; let i = index">
                 <i *ngIf="star === 'full'" class="fas fa-star"></i>
@@ -193,7 +199,7 @@
                 <i *ngIf="star === 'empty'" class="far fa-star"></i>
               </ng-container>
             </div>
-            <div class="rating-count">{{tourData?.reviewCount}} lượt đánh giá</div>
+            <div class="rating-count">{{ tourData?.reviewCount }} lượt đánh giá</div>
           </div>
           <div class="rating-box-2">
             <div class="rating-row" *ngFor="let percent of ratingPercentages; let i = index">
@@ -212,9 +218,9 @@
             <span style="font-weight: 600;white-space: nowrap;">Đánh giá xếp hạng</span>
             <div class="stars-list" (mouseleave)="hovered = 0">
               <span class="star"
-                  *ngFor="let s of [1,2,3,4,5]"
-                  (mousemove)="previewHalf($event, s)"
-                  (click)="selectHalf($event, s)">
+                    *ngFor="let s of [1,2,3,4,5]"
+                    (mousemove)="previewHalf($event, s)"
+                    (click)="selectHalf($event, s)">
                 <ng-container [ngSwitch]="getState(s)">
                   <i *ngSwitchCase="'full'" class="fas fa-star"></i>
                   <i *ngSwitchCase="'half'" class="fas fa-star-half-alt"></i>
@@ -239,7 +245,7 @@
           <div class="review-header">
             <div class="review-avatar">A</div>
             <div>
-              <h4 class="review-name">{{i.customer.fullName}}</h4>
+              <h4 class="review-name">{{ i.customer.fullName }}</h4>
             </div>
           </div>
           <div style="width: 70%">
@@ -261,12 +267,15 @@
   </div>
   <div class="list-tour">
     <span style="font-weight: 600; font-size: 24px">Các tour tương tự</span>
-    <button style="font-size: 16px; border-radius: 8px; background: #6BCDEC; border: none; padding: 10px 16px; color: white; font-weight: 600">
-      Xem tất cả</button>
+    <button
+      [routerLink]="['/tours/list']"
+      style="font-size: 16px; border-radius: 8px; background: #6BCDEC; border: none; padding: 10px 16px; color: white; font-weight: 600">
+      Xem tất cả
+    </button>
   </div>
   <div class="tours-grid">
-    <div *ngFor="let tour of tours; let i = index" class="tours-card">
-      <div>
+    <ng-container *ngFor="let tour of tours;">
+      <div *ngIf="tour.id !== currentTourId" class="tours-card">
         <div class="tours-img-wrapper">
           <img *ngIf="tour.imageUrl" [src]="tour.imageUrl" alt="{{ tour.tourName }}" class="tours-img"/>
         </div>
@@ -274,9 +283,12 @@
           <div>
             <h3 style="color:black; font-size: 24px;font-weight: bold;">{{ tour.tourName }}</h3>
             <div style="font-size: 14px">
-              <div style="margin-bottom: 16px"><b>Điểm khởi hành:</b> {{ tour.location }}</div>
+              <div style="margin-bottom: 16px"><b>Điểm khởi hành:</b> {{ tour.departures }}</div>
+              <div style="margin-bottom: 16px"><b>Điểm đến:</b> {{ tour.destination }}</div>
               <div style="margin-bottom: 16px"><b>Ngày khởi hành:</b> {{ tour.startDate }}</div>
-              <div style="margin-bottom: 16px"><b>Đánh giá:</b> {{ tour.averageRating }}/5 ({{ tour.reviewCount }} reviews)</div>
+              <div style="margin-bottom: 16px"><b>Đánh giá:</b> {{ tour.averageRating }}/5 ({{ tour.reviewCount }}
+                reviews)
+              </div>
             </div>
           </div>
           <div style="display: flex;align-items: center;justify-content: space-between;margin-bottom: 4px;">
@@ -284,11 +296,11 @@
               <div style="color: #D32D2D; font-size: 20px; font-weight: bold;">{{ tour.price }} VNĐ</div>
             </div>
             <div>
-              <button class="btn-book-1" [routerLink]="[tour.id]">Đặt ngay</button>
+              <button class="btn-book-1" [routerLink]="['/tours', tour.id]">Xem chi tiết</button>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </ng-container>
   </div>
 </div>

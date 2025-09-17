@@ -35,7 +35,6 @@ public class Booking {
     @Enumerated(EnumType.STRING)
     private BookingStatus status; // PENDING, PAID, CANCELED
 
-
     private LocalDateTime createdAt;
 
     private LocalDateTime paidAt;

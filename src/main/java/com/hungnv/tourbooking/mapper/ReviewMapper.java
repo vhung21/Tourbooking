@@ -42,7 +42,8 @@ public class ReviewMapper {
             tourDTO.setPrice(tours.getPrice());
             tourDTO.setStartDate(tours.getStartDate());
             tourDTO.setEndDate(tours.getEndDate());
-            tourDTO.setLocation(tours.getLocation());
+            tourDTO.setDepartures(tours.getDepartures());
+            tourDTO.setDestination(tours.getDestination());
             tourDTO.setTransportation(tours.getTransportation());
             tourDTO.setImageUrl(tours.getImageUrl());
             tourDTO.setAverageRating(tours.getAverageRating());

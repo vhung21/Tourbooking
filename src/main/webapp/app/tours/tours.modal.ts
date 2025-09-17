@@ -5,7 +5,8 @@ export interface Tours {
   price?: number;
   startDate?: string;
   endDate?: string;
-  location?: string;
+  departures?: string;
+  destination?: string;
   transportation?: string;
   imageUrl?: string;
   averageRating?: number;

@@ -22,7 +22,8 @@ public class TourMapper {
         tourDTO.setPrice(Tour.getPrice());
         tourDTO.setStartDate(Tour.getStartDate());
         tourDTO.setEndDate(Tour.getEndDate());
-        tourDTO.setLocation(Tour.getLocation());
+        tourDTO.setDepartures(Tour.getDepartures());
+        tourDTO.setDestination(Tour.getDestination());
         tourDTO.setTransportation(Tour.getTransportation());
         tourDTO.setImageUrl(Tour.getImageUrl());
         tourDTO.setCreatedBy(Tour.getCreatedBy());

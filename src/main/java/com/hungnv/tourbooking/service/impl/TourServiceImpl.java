@@ -90,8 +90,8 @@ public class TourServiceImpl implements TourService {
             Tour.setPrice(tourDTO.getPrice());
             Tour.setStartDate(tourDTO.getStartDate());
             Tour.setEndDate(tourDTO.getEndDate());
-            Tour.setLocation(tourDTO.getLocation());
-            Tour.setLocation(tourDTO.getLocation());
+            Tour.setDepartures(tourDTO.getDepartures());
+            Tour.setDestination(tourDTO.getDestination());
             Tour.setTransportation(tourDTO.getTransportation());
             Tour.setImageUrl(tourDTO.getImageUrl());
             Tour.setCreatedBy(tourDTO.getCreatedBy());
@@ -100,6 +100,7 @@ public class TourServiceImpl implements TourService {
 
             ToursDetail detail = new ToursDetail();
             if (tourDTO.getDetail() != null) {
+                detail.setTours(Tour);
                 detail.setOverview(tourDTO.getDetail().getOverview());
                 detail.setChildrenPolicy(tourDTO.getDetail().getChildrenPolicy());
                 detail.setBookingGuide(tourDTO.getDetail().getBookingGuide());
@@ -155,7 +156,8 @@ public class TourServiceImpl implements TourService {
             tour.setPrice(tourDTO.getPrice());
             tour.setStartDate(tourDTO.getStartDate());
             tour.setEndDate(tourDTO.getEndDate());
-            tour.setLocation(tourDTO.getLocation());
+            tour.setDepartures(tourDTO.getDepartures());
+            tour.setDestination(tourDTO.getDestination());
             tour.setTransportation(tourDTO.getTransportation());
             tour.setImageUrl(tourDTO.getImageUrl());
             tour.setCreatedBy(tourDTO.getCreatedBy());

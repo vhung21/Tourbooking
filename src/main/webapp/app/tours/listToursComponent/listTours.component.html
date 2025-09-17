@@ -1,0 +1,146 @@
+<div class="container" style="padding-top: 30px">
+  <div style="font-size: 16px">
+    <a [routerLink]="['/']" style="font-weight: bold; text-decoration: none; cursor: pointer;" >
+      Trang chủ
+    </a>
+    <img src="/content/images/toursImg/toursDetailImg/mingcute_Icon.svg" alt="Icon">
+    <a [routerLink]="['/tours']" style="font-weight: bold; text-decoration: none; cursor: pointer;" >
+      Đặt Tour
+    </a>
+    <img src="/content/images/toursImg/toursDetailImg/mingcute_Icon.svg" alt="Icon">
+    <a style="font-weight: bold;" >Danh sách Tour </a>
+  </div>
+
+  <!--    <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">-->
+  <!--      <div class="search-bar">-->
+  <!--        <div class="search-item">-->
+  <!--          <label>Điểm khởi hành</label>-->
+  <!--          <input-->
+  <!--            style="font-size: 16px; border-radius: 8px;margin-right: 20px;border: 2px solid #6BCDEC;"-->
+  <!--            type="text"-->
+  <!--            formControlName="departure"-->
+  <!--            (input)="onInputChangeDeparture($event)"-->
+  <!--          />-->
+  <!--          <ul class="suggestions" *ngIf="departureSuggestions.length > 0">-->
+  <!--            <li-->
+  <!--              *ngFor="let s of departureSuggestions "-->
+  <!--              (click)="selectDeparture(s)"-->
+  <!--              class="suggestion-item"-->
+  <!--            >-->
+  <!--              {{ s.name }}-->
+  <!--            </li>-->
+  <!--          </ul>-->
+  <!--        </div>-->
+
+  <!--        <div class="search-item">-->
+  <!--          <label>Điểm đến</label>-->
+  <!--          <input-->
+  <!--            style="font-size: 16px; border-radius: 8px;margin-right: 20px;border: 2px solid #6BCDEC;"-->
+  <!--            type="text"-->
+  <!--            formControlName="destination"-->
+  <!--            (input)="onInputChangeDestinetion($event)"-->
+  <!--          />-->
+  <!--          <ul class="suggestions" *ngIf="destinationSuggestions.length > 0">-->
+  <!--            <li-->
+  <!--              *ngFor="let s of destinationSuggestions"-->
+  <!--              (click)="selectDestination(s)"-->
+  <!--              class="suggestion-item"-->
+  <!--            >-->
+  <!--              {{ s.name }}-->
+  <!--            </li>-->
+  <!--          </ul>-->
+  <!--        </div>-->
+
+  <!--        <div class="search-item">-->
+  <!--          <label>Ngày khởi hành</label>-->
+  <!--          <input-->
+  <!--            type="date"-->
+  <!--            formControlName="departure_date"-->
+  <!--            style="font-size: 16px; border-radius: 8px; margin-right: 20px;padding: 1px 2px; border: 2px solid #6BCDEC;"-->
+  <!--          />-->
+  <!--        </div>-->
+
+  <!--        <div class="search-item">-->
+  <!--          <label> Ngân sách</label>-->
+  <!--          <select-->
+  <!--            formControlName="budget"-->
+  <!--            style="font-size: 16px; border-radius: 8px; margin-right: 20px; border: 2px solid #6BCDEC; padding: 1px 2px; background-color: white; cursor: pointer;"-->
+  <!--          >-->
+  <!--            <option value="">Chọn mức giá</option>-->
+  <!--            <option value="under_10">Dưới 10 triệu</option>-->
+  <!--            <option value="10_25">10 - 25 triệu</option>-->
+  <!--            <option value="above_25">Trên 25 triệu</option>-->
+  <!--          </select>-->
+  <!--        </div>-->
+
+  <!--        <button type="submit" class="search-btn">TÌM KIẾM</button>-->
+  <!--      </div>-->
+  <!--    </form>-->
+  <div class="tour-page">
+    <div class="filter-sidebar">
+      <h3>Bộ lọc</h3>
+      <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+        <!-- Giá -->
+        <div class="filter-group">
+          <label>Ngân sách</label>
+          <select formControlName="budget">
+            <option value="">Tất cả</option>
+            <option value="under_10">Dưới 10 triệu</option>
+            <option value="10_25">10 - 25 triệu</option>
+            <option value="above_25">Trên 25 triệu</option>
+          </select>
+        </div>
+
+        <!-- Điểm khởi hành -->
+        <div class="filter-group">
+          <label>Điểm khởi hành</label>
+          <input type="text" formControlName="departure" placeholder="Nhập điểm khởi hành"/>
+        </div>
+
+        <!-- Điểm đến -->
+        <div class="filter-group">
+          <label>Điểm đến</label>
+          <input type="text" formControlName="destination" placeholder="Nhập điểm đến"/>
+        </div>
+
+        <!-- Phương tiện -->
+        <div class="filter-group">
+          <label>Phương tiện</label>
+          <select formControlName="transport">
+            <option value="">Tất cả</option>
+            <option value="plane">Máy bay</option>
+            <option value="bus">Xe khách</option>
+            <option value="train">Tàu hỏa</option>
+          </select>
+        </div>
+
+        <button type="submit" class="apply-btn">Áp dụng</button>
+      </form>
+    </div>
+
+    <div class="tour-list">
+      <div *ngIf="tours.length > 0; else noData" class="tour-container">
+        <div class="tour-grid">
+          <div *ngFor="let tour of tours" class="tour-card">
+            <!-- Ảnh tour -->
+            <div class="tour-img-wrapper">
+              <img *ngIf="tour.imageUrl" [src]="tour.imageUrl" alt="{{ tour.tourName }}" class="tour-img"/>
+            </div>
+
+            <!-- Nội dung tour -->
+            <div class="tour-content">
+              <h3 class="tour-title">{{ tour.tourName }}</h3>
+              <p>Điểm khởi hành: {{ tour.location }}</p>
+              <p class="tour-date">Ngày khởi hành: {{ tour.startDate }}</p>
+              <p class="tour-price">Giá: {{ tour.price | number }} VND</p>
+              <button class="tour-btn" [routerLink]="['/tours', tour.id]">Xem chi tiết</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <ng-template #noData>
+        <p class="no-data">Không tìm thấy tour phù hợp</p>
+      </ng-template>
+    </div>
+  </div>
+</div>

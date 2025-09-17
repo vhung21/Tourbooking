@@ -4,9 +4,9 @@ import {TourService} from "../tours.service";
 import {ActivatedRoute, RouterLink} from "@angular/router";
 import {Itinerary, Tours} from "../tours.modal";
 import {CommonModule, NgForOf, NgIf} from "@angular/common";
-import {ReviewsService} from "../reviews.service";
+import {ReviewsService} from "../../entities/review/reviews.service";
 import {FormsModule} from "@angular/forms";
-import {CustomersService} from "../../customers/customers.service";
+import {CustomersService} from "../../entities/customers/customers.service";
 
 @Component({
   selector: 'app-tour-detail',
@@ -22,6 +22,7 @@ import {CustomersService} from "../../customers/customers.service";
   styleUrls: ['./toursDetail.component.scss']
 })
 export class ToursDetailComponent implements OnInit {
+  currentTourId!: number;
   tourId!: number;
   tourData?: Tours;
   tours: Tours[] = [];
@@ -49,27 +50,34 @@ export class ToursDetailComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.tourId = Number(this.route.snapshot.paramMap.get('id'));
-    this.toursService.getById(this.tourId).subscribe({
-      next: res => {
-        this.tourData = res.data;
-        console.log("Dữ liệu tour:", this.tourData);
-        this.avgRating = this.tourData?.averageRating ?? 0;
-        this.generateStars(this.avgRating);
-        },
-      error: err => console.error(err)
-    });
-    this.reviewService.getAllReviewsByTourId(this.tourId).subscribe({
-      next: res => {
-        this.reviews = res.data;
-        console.log("Danh sách reviews:", this.reviews);
-        this.calculateRatingDistribution(this.reviews);
-        this.reviews.forEach(review => {
-          review.stars = this.generateStarsReview(review.rating);
+    this.route.paramMap.subscribe(params => {
+      const idParam = params.get('id');
+      if (idParam) {
+        this.tourId = +idParam;
+        this.currentTourId = this.tourId;
+        this.toursService.getById(this.tourId).subscribe({
+          next: res => {
+            this.tourData = res.data;
+            console.log("Dữ liệu tour:", this.tourData);
+            this.avgRating = this.tourData?.averageRating ?? 0;
+            this.generateStars(this.avgRating);
+          },
+          error: err => console.error(err)
         });
-      },
-      error: err => console.error(err)
+        this.reviewService.getAllReviewsByTourId(this.tourId).subscribe({
+          next: res => {
+            this.reviews = res.data;
+            console.log("Danh sách reviews:", this.reviews);
+            this.calculateRatingDistribution(this.reviews);
+            this.reviews.forEach(review => {
+              review.stars = this.generateStarsReview(review.rating);
+            });
+          },
+          error: err => console.error(err)
+        });
+      }
     });
+
     this.customersService.getMyProfile().subscribe({
       next: res => {
         this.customer = res;
@@ -79,10 +87,14 @@ export class ToursDetailComponent implements OnInit {
     });
     this.toursService.getAllTours().subscribe({
       next: (data) => {
-        this.tours = data.slice(0,3);
+        this.tours = data.slice(0,4);
         console.log("AllTours: ", this.tours);
       },
     });
+    const idParam = this.route.snapshot.paramMap.get('id');
+    if (idParam) {
+      this.currentTourId = +idParam;
+    }
   }
 
   toggleAccordion(index: number) {
@@ -128,10 +140,8 @@ export class ToursDetailComponent implements OnInit {
   }
 
   calculateRatingDistribution(reviews: any[]) {
-    // reset lại
     this.ratingDistribution = [0, 0, 0, 0, 0];
 
-    // đếm số lượng review theo sao
     reviews.forEach(r => {
       const star = Math.floor(r.rating);
       if (star >= 1 && star <= 5) {
