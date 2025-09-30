@@ -31,7 +31,6 @@ export default class HomeComponent implements OnInit, OnDestroy {
     'content/images/Tour_du_lich_chau_a_img.svg',
     'content/images/Tour_du_lich_chau_au.svg',
   ];
-  currentIndex = 0;
   intervalId: any;
 
   ngOnInit(): void {
@@ -39,10 +38,6 @@ export default class HomeComponent implements OnInit, OnDestroy {
       .getAuthenticationState()
       .pipe(takeUntil(this.destroy$))
       .subscribe(account => this.account.set(account));
-
-    this.intervalId = setInterval(() => {
-      this.nextSlide();
-    }, 3000);
   }
 
   login(): void {
@@ -54,10 +49,6 @@ export default class HomeComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
 
     if (this.intervalId) clearInterval(this.intervalId);
-  }
-
-  nextSlide() {
-    this.currentIndex = (this.currentIndex + 1) % this.images.length;
   }
 
 }

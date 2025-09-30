@@ -1,48 +1,62 @@
 <div class="home-banner">
-  <img src="/content/images/home_img.png" class="banner-img" alt="Banner" />
+  <img src="/content/images/toursImg/backgroundImg.svg" class="banner-img" alt="Banner"/>
 
-  <div class="slideshow-container">
-    <img [src]="images[currentIndex]" class="slide" style="border-radius: 4px"/>
-  </div>
+  <div class="banner-content">
+    <h1 class="hero-title">TRẢI NGHIỆM DU LỊCH XỨNG TẦM</h1>
 
-  <div class="search-bar">
-    <div class="search-item">
-      <label>Điểm khởi hành</label>
-      <select>
-        <option>Tất cả</option>
-        <option>Hà Nội</option>
-        <option>Hồ Chí Minh</option>
-      </select>
+    <!-- Tabs dịch vụ -->
+    <div class="service-tabs">
+      <button class="tab active">
+        <img src="/content/images/home/Vector_1.svg" class="icon" alt="vector_1"> Tour</button>
+      <button class="tab">
+        <img src="/content/images/home/Vector_2.svg" class="icon" alt="vector_2"> Khách sạn</button>
+      <button class="tab">
+        <img src="/content/images/home/Vector_3.svg" class="icon" alt="vector_3"> Vé máy bay</button>
+      <button class="tab">
+        <img src="/content/images/home/Vector_4.svg" class="icon" alt="vector_4"> Du thuyền</button>
+      <button class="tab">
+        <img src="/content/images/home/Vector_5.svg" class="icon" alt="vector_5"> Hoạt động vui chơi</button>
     </div>
 
-    <div class="search-item">
-      <label> Điểm đến</label>
-      <select>
-        <option>Tất cả</option>
-        <option>Đà Nẵng</option>
-        <option>Nha Trang</option>
-      </select>
-    </div>
+    <div class="search-bar">
+      <div class="search-item">
+        <label>Điểm khởi hành</label>
+        <select>
+          <option>Tất cả</option>
+          <option>Hà Nội</option>
+          <option>Hồ Chí Minh</option>
+        </select>
+      </div>
 
-    <div class="search-item">
-      <label> Ngày khởi hành</label>
-      <select>
-        <option>Tất cả</option>
-        <option>Tháng 8</option>
-        <option>Tháng 9</option>
-      </select>
-    </div>
+      <div class="search-item">
+        <label> Điểm đến</label>
+        <select>
+          <option>Tất cả</option>
+          <option>Đà Nẵng</option>
+          <option>Nha Trang</option>
+        </select>
+      </div>
 
-    <div class="search-item">
-      <label> Ngân sách</label>
-      <select>
-        <option>Chọn mức giá</option>
-        <option>Dưới 5 triệu</option>
-        <option>5 - 10 triệu</option>
-      </select>
-    </div>
+      <div class="search-item">
+        <label> Ngày khởi hành</label>
+        <select>
+          <option>Tất cả</option>
+          <option>Tháng 8</option>
+          <option>Tháng 9</option>
+        </select>
+      </div>
 
-    <button class="search-btn">TÌM KIẾM</button>
+      <div class="search-item">
+        <label> Ngân sách</label>
+        <select>
+          <option>Chọn mức giá</option>
+          <option>Dưới 5 triệu</option>
+          <option>5 - 10 triệu</option>
+        </select>
+      </div>
+
+      <button class="search-btn">TÌM KIẾM</button>
+    </div>
   </div>
 </div>
 

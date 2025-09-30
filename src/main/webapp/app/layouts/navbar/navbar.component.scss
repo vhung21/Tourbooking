@@ -37,35 +37,45 @@ Navbar
   }
 
   .navbar-menu {
-    background: #6BCDEC;
-    width: 99vw;
+    width: 100%;
     list-style: none;
     display: flex;
     gap: 20px;
     height: 70px;
     justify-content: center;
     align-items: center;
+    background: rgba(255, 255, 255, 0);
 
     li {
       text-decoration: none;
-      color: #000;
-      font-weight: 500;
       font-size: 20px;
       padding: 20px;
-
-      &:hover {
-        color: #0288d1;
-      }
     }
 
     a {
+      position: relative;
       text-decoration: none;
-      color: #000;
-      font-weight: 500;
+      color: #ffffff;
+      font-weight: bold;
       font-size: 20px;
 
+      &::after {
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: -5px;
+        width: 100%;
+        height: 2px;
+        background-color: #ffffff;
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.3s ease-in-out;
+      }
+
       &:hover {
-        color: #0288d1;
+        &::after {
+          transform: scaleX(1);
+        }
       }
     }
   }
@@ -103,7 +113,7 @@ Logo styles
   left: 0;
   width: 100%;
   z-index: 1000;
-  background-color: rgba(255, 255, 255, 0);;
+  background-color: rgba(255, 255, 255, 0);
 }
 
 .navbar-default {

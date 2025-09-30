@@ -215,12 +215,15 @@
       </ul>
     </div>
   </div>
-  <div class="navbar-menu">
+  <div
+    class="navbar-menu"
+    *jhiHasAnyAuthority="['ROLE_USER']"
+  >
     <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
       <a class="nav-link" routerLink="/" (click)="collapseNavbar()"
          [ngClass]="{ 'text-black': isHomePage, 'text-white': !isHomePage }">
             <span>
-              <img src="/content/images/lucide_home.png" alt=""/>
+              <img src="/content/images/home/lucide_home.svg" alt=""/>
             </span>
       </a>
     </li>
