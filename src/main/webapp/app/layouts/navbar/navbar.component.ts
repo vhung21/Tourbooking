@@ -35,6 +35,7 @@ export default class NavbarComponent implements OnInit {
   private readonly profileService = inject(ProfileService);
   private readonly router = inject(Router);
   isHomePage: boolean = false;
+  isAdminPage: boolean = false;
 
   constructor() {
     const { VERSION } = environment;
@@ -44,14 +45,17 @@ export default class NavbarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.isHomePage = this.router.url === '/';
     this.entitiesNavbarItems = EntityNavbarItems;
     this.profileService.getProfileInfo().subscribe(profileInfo => {
       this.inProduction = profileInfo.inProduction;
       this.openAPIEnabled = profileInfo.openAPIEnabled;
     });
-    this.router.events.subscribe(() => {
-      this.isHomePage = this.router.url === '/';
+    this.router.events.subscribe(event => {
+      if (event instanceof NavigationEnd) {
+        const url = this.router.url;
+        this.isHomePage = url === '/' || url.startsWith('/home');
+        this.isAdminPage = url.startsWith('/admin');
+      }
     });
   }
 

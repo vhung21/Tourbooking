@@ -1,0 +1,27 @@
+<div class="admin-layout">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <nav>
+      <div class="menu">
+        <!-- DASHBOARD -->
+        <div class="menu-item">
+          <div routerLink="/admin/dashboard" routerLinkActive="active" class="menu-title">
+            <span>Dashboard</span>
+          </div>
+        </div>
+
+        <!-- TOUR MENU -->
+        <div class="menu-item">
+          <div routerLink="/admin/tourListing" routerLinkActive="active" class="menu-title" >
+            <span>Tour Listing</span>
+          </div>
+        </div>
+      </div>
+    </nav>
+  </aside>
+
+  <!-- Nội dung -->
+  <main class="content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

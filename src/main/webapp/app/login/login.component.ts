@@ -104,10 +104,13 @@ export default class LoginComponent implements OnInit, AfterViewInit {
     this.loginService.login(this.loginForm.getRawValue()).subscribe({
       next: () => {
         this.authenticationError.set(false);
-        if (!this.router.getCurrentNavigation()) {
-          // There were no routing during login (eg from navigationToStoredUrl)
-          this.router.navigate(['']);
-        }
+        this.accountService.identity().subscribe(account => {
+          if (account?.authorities?.includes('ROLE_ADMIN')) {
+            this.router.navigate(['/admin/dashboard']); // Admin
+          } else {
+            this.router.navigate(['']); // User thường
+          }
+        });
       },
       error: () => this.authenticationError.set(true),
     });

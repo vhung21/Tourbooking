@@ -19,4 +19,11 @@ export class LoginService {
   logout(): void {
     this.authServerProvider.logout().subscribe({ complete: () => this.accountService.authenticate(null) });
   }
+
+  getUserRoles(): string[] {
+    const token = localStorage.getItem('authenticationToken');
+    if (!token) return [];
+    const payload = JSON.parse(atob(token.split('.')[1])); // decode JWT
+    return payload.authorities || [];
+  }
 }

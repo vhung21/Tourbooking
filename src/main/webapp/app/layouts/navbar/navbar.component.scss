@@ -82,7 +82,7 @@ Navbar
 }
 
 .custom-navbar {
-  height: 190px;
+  height: auto;
 }
 
 /* ==========================================================================
@@ -128,3 +128,10 @@ Logo styles
 .text-white {
   color: white !important;
 }
+
+.navbar-admin {
+  height: 50px;
+  background: #0a0a0a;
+  color: #fff;
+}
+

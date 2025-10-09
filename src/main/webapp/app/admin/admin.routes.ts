@@ -2,6 +2,14 @@ import { Routes } from '@angular/router';
 /* jhipster-needle-add-admin-module-import - JHipster will add admin modules imports here */
 
 const routes: Routes = [
+  { path: 'dashboard',
+    loadComponent: () => import('./dashboard/dashboard.component'),
+    title: 'dashboard.title',
+  },
+  { path: 'tourListing',
+    loadComponent: () => import('./tourListing/tourListing.component'),
+    title: 'dashboard.title',
+  },
   {
     path: 'user-management',
     loadChildren: () => import('./user-management/user-management.route'),
