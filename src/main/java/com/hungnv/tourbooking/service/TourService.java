@@ -13,7 +13,7 @@ public interface TourService {
 
     ResponseEntity<ResponseObject> updateTour(TourDTO tourDTO);
 
-    ResponseEntity<ResponseObject> deleteProductById(long id);
+    ResponseEntity<ResponseObject> deleteTourById(long id);
 
     ResponseEntity<ResponseObject> searchTours(String keyword);
 

@@ -6,9 +6,10 @@ const routes: Routes = [
     loadComponent: () => import('./dashboard/dashboard.component'),
     title: 'dashboard.title',
   },
-  { path: 'tourListing',
-    loadComponent: () => import('./tourListing/tourListing.component'),
-    title: 'dashboard.title',
+  {
+    path: 'tour-management',
+    loadChildren: () => import('./tour-management/tour-management.route'),
+    title: 'tourManagement.home.title',
   },
   {
     path: 'user-management',

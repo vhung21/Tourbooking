@@ -29,5 +29,9 @@ export class TourService {
   getById(id: number): Observable<any> {
     return this.http.get<any>(`${this.resourceUrl}/${id}`);
   }
+
+  delete(id:number): Observable<any> {
+    return this.http.delete<any>(`${this.resourceUrl}/${id}`)
+  }
 }
 

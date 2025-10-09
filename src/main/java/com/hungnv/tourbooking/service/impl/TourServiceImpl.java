@@ -147,7 +147,7 @@ public class TourServiceImpl implements TourService {
         try{
             Optional<Tours> existingTour = tourRepository.findById(tourDTO.getId());
             if(existingTour.isEmpty()) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseObject("failed", "Tour not found", null));
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject("failed", "Tour not found", null));
             }
 
             Tours tour = existingTour.get();
@@ -208,14 +208,13 @@ public class TourServiceImpl implements TourService {
         }
     }
 
-    public ResponseEntity<ResponseObject> deleteProductById(long id){
+    public ResponseEntity<ResponseObject> deleteTourById(long id){
+        if (!tourRepository.existsById(id)) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ResponseObject("failed", "Tour not found", null));
+        }
         try {
-            Optional<Tours> existingTour = tourRepository.findById(id);
-            if(existingTour.isEmpty()) {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ResponseObject("failed", "Tour not found", null));
-            }
             tourRepository.deleteById(id);
-            return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("success", "Deleted tour successfully", existingTour.get()));
+            return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("success", "Deleted tour successfully", null));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(new ResponseObject("failed", "An error occurred while deleting tour", null));

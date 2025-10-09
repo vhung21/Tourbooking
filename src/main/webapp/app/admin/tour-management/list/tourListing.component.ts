@@ -1,9 +1,9 @@
-import {Component} from "@angular/core";
+import {Component, OnInit} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {TourService} from "../../tours/tours.service";
+import {TourService} from "../../../tours/tours.service";
 import {FormsModule} from "@angular/forms";
 import {CommonModule, NgClass} from "@angular/common";
-import {RouterLink, RouterLinkActive} from "@angular/router";
+import {Router, RouterLink, RouterLinkActive} from "@angular/router";
 import {FaIconComponent} from "@fortawesome/angular-fontawesome";
 
 @Component({
@@ -18,7 +18,7 @@ import {FaIconComponent} from "@fortawesome/angular-fontawesome";
     RouterLinkActive,
   ]
 })
-export default class TourListingComponent {
+export default class TourListingComponent implements OnInit{
   tours: any[] = [];
   filteredTours: any[] = [];
   searchTerm = '';
@@ -27,6 +27,7 @@ export default class TourListingComponent {
   constructor(
     private http: HttpClient,
     private toursService: TourService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -49,5 +50,21 @@ export default class TourListingComponent {
     this.filteredTours = this.tours.filter(tour =>
       tour.title.toLowerCase().includes(this.searchTerm.toLowerCase())
     );
+  }
+
+  editTour(id: number): void {
+    this.router.navigate(['/admin/tour-management/edit', id]);
+  }
+
+  deleteTour(id: number): void {
+    if (confirm('Bạn có chắc chắn muốn xóa tour này?')) {
+      this.toursService.delete(id).subscribe({
+        next: () => {
+          alert('Xóa thành công!');
+          window.location.reload();
+        },
+        error: err => alert('Xóa thất bại!'),
+      });
+    }
   }
 }

@@ -38,7 +38,7 @@ public class TourResource {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<ResponseObject> deleteTour(@PathVariable Long id) {
-        return tourService.deleteProductById(id);
+        return tourService.deleteTourById(id);
     }
 
     @GetMapping("/search")

@@ -13,7 +13,7 @@
   <div class="box">
     <div style="display: flex; justify-content: space-between;">
       <div>
-        <button class="add-btn" routerLink="/admin/addTour" routerLinkActive="active">
+        <button class="add-btn" routerLink="/admin/tour-management/create" routerLinkActive="active">
           <span>Add New</span>
           <i class="fas fa-plus"></i>
         </button>
@@ -69,15 +69,15 @@
           <!--            </span>-->
           <!--          </td>-->
           <td>
-            <button class="action-btn edit fas fa-edit"></button>
-            <button class="action-btn delete fas fa-trash-alt"></button>
+            <button class="action-btn edit fas fa-edit" (click)="editTour(tour.id)"></button>
+            <button class="action-btn delete fas fa-trash-alt" (click)="deleteTour(tour.id)"></button>
           </td>
         </tr>
         </tbody>
       </table>
     </div>
     <div>
-    
+
     </div>
   </div>
 </div>
