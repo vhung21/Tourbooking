@@ -35,13 +35,10 @@ public class Customer {
     @Column(name = "address")
     private String address;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Booking> bookings = new HashSet<>();
-
     public Customer() {
     }
 
-    public Customer(Long id, String fullName, String email, String phone, String gender, LocalDate dateOfBirth, String address, Set<Booking> bookings) {
+    public Customer(Long id, String fullName, String email, String phone, String gender, LocalDate dateOfBirth, String address) {
         this.id = id;
         this.fullName = fullName;
         this.email = email;
@@ -49,7 +46,6 @@ public class Customer {
         this.gender = gender;
         this.dateOfBirth = dateOfBirth;
         this.address = address;
-        this.bookings = bookings;
     }
 
     public Long getId() {
@@ -114,14 +110,6 @@ public class Customer {
 
     public void setAddress(String address) {
         this.address = address;
-    }
-
-    public Set<Booking> getBookings() {
-        return bookings;
-    }
-
-    public void setBookings(Set<Booking> bookings) {
-        this.bookings = bookings;
     }
 
     @Override

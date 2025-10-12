@@ -1,11 +1,8 @@
 package com.hungnv.tourbooking.dto;
 
-import com.hungnv.tourbooking.domain.Booking;
 import com.hungnv.tourbooking.domain.User;
-import jakarta.persistence.*;
 
 import java.time.LocalDate;
-import java.util.HashSet;
 import java.util.Set;
 
 public class CustomerDTO {
@@ -17,12 +14,11 @@ public class CustomerDTO {
     private String gender;
     private LocalDate dateOfBirth;
     private String address;
-    private Set<Booking> bookings;
 
     public CustomerDTO() {
     }
 
-    public CustomerDTO(Long id, User user, String fullName, String email, String phone, String gender, LocalDate dateOfBirth, String address, Set<Booking> bookings) {
+    public CustomerDTO(Long id, User user, String fullName, String email, String phone, String gender, LocalDate dateOfBirth, String address) {
         this.id = id;
         this.user = user;
         this.fullName = fullName;
@@ -31,7 +27,6 @@ public class CustomerDTO {
         this.gender = gender;
         this.dateOfBirth = dateOfBirth;
         this.address = address;
-        this.bookings = bookings;
     }
 
     public Long getId() {
@@ -98,16 +93,6 @@ public class CustomerDTO {
         this.address = address;
     }
 
-    public Set<Booking> getBookings() {
-        return bookings;
-    }
-
-    public void setBookings(Set<Booking> bookings) {
-        this.bookings = bookings;
-    }
-
-
-
     @Override
     public String toString() {
         return "CustomerDTO{" +
@@ -119,7 +104,6 @@ public class CustomerDTO {
             ", gender='" + gender + '\'' +
             ", dateOfBirth=" + dateOfBirth +
             ", address='" + address + '\'' +
-            ", bookings=" + bookings +
             '}';
     }
 }
