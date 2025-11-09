@@ -7,71 +7,73 @@
   </div>
 
 
-  <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
-    <div class="search-bar">
-      <div class="search-item">
-        <label>Điểm khởi hành</label>
-        <input
-          style="font-size: 16px; border-radius: 8px;margin-right: 20px;border: 2px solid #6BCDEC;"
-          type="text"
-          formControlName="departure"
-          (input)="onInputChangeDeparture($event)"
-        />
-        <ul class="suggestions" *ngIf="departureSuggestions.length > 0">
-          <li
-            *ngFor="let s of departureSuggestions "
-            (click)="selectDeparture(s)"
-            class="suggestion-item"
+  <div class="banner-content">
+    <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+      <div class="search-bar">
+        <div class="search-item">
+          <label>Điểm khởi hành</label>
+          <input
+            style="font-size: 16px; border-radius: 8px;margin-right: 20px;border: 2px solid #0a0a0a;"
+            type="text"
+            formControlName="departure"
+            (input)="onInputChangeDeparture($event)"
+          />
+          <ul class="suggestions" *ngIf="departureSuggestions.length > 0">
+            <li
+              *ngFor="let s of departureSuggestions "
+              (click)="selectDeparture(s)"
+              class="suggestion-item"
+            >
+              {{ s.name }}
+            </li>
+          </ul>
+        </div>
+
+        <div class="search-item">
+          <label>Điểm đến</label>
+          <input
+            style="font-size: 16px; border-radius: 8px;margin-right: 20px;border: 2px solid #0a0a0a;"
+            type="text"
+            formControlName="destination"
+            (input)="onInputChangeDestinetion($event)"
+          />
+          <ul class="suggestions" *ngIf="destinationSuggestions.length > 0">
+            <li
+              *ngFor="let s of destinationSuggestions"
+              (click)="selectDestination(s)"
+              class="suggestion-item"
+            >
+              {{ s.name }}
+            </li>
+          </ul>
+        </div>
+
+        <div class="search-item">
+          <label>Ngày khởi hành</label>
+          <input
+            type="date"
+            formControlName="departure_date"
+            style="font-size: 16px; border-radius: 8px; margin-right: 20px;padding: 1px 2px; border: 2px solid #0a0a0a;"
+          />
+        </div>
+
+        <div class="search-item">
+          <label> Ngân sách</label>
+          <select
+            formControlName="budget"
+            style="font-size: 16px; border-radius: 8px; margin-right: 20px; border: 2px solid #0a0a0a; padding: 1px 2px; background-color: white; cursor: pointer;"
           >
-            {{ s.name }}
-          </li>
-        </ul>
-      </div>
+            <option value="">Chọn mức giá</option>
+            <option value="under_10">Dưới 10 triệu</option>
+            <option value="10_25">10 - 25 triệu</option>
+            <option value="above_25">Trên 25 triệu</option>
+          </select>
+        </div>
 
-      <div class="search-item">
-        <label>Điểm đến</label>
-        <input
-          style="font-size: 16px; border-radius: 8px;margin-right: 20px;border: 2px solid #6BCDEC;"
-          type="text"
-          formControlName="destination"
-          (input)="onInputChangeDestinetion($event)"
-        />
-        <ul class="suggestions" *ngIf="destinationSuggestions.length > 0">
-          <li
-            *ngFor="let s of destinationSuggestions"
-            (click)="selectDestination(s)"
-            class="suggestion-item"
-          >
-            {{ s.name }}
-          </li>
-        </ul>
+        <button type="submit" class="search-btn">TÌM KIẾM</button>
       </div>
-
-      <div class="search-item">
-        <label>Ngày khởi hành</label>
-        <input
-          type="date"
-          formControlName="departure_date"
-          style="font-size: 16px; border-radius: 8px; margin-right: 20px;padding: 1px 2px; border: 2px solid #6BCDEC;"
-        />
-      </div>
-
-      <div class="search-item">
-        <label> Ngân sách</label>
-        <select
-          formControlName="budget"
-          style="font-size: 16px; border-radius: 8px; margin-right: 20px; border: 2px solid #6BCDEC; padding: 1px 2px; background-color: white; cursor: pointer;"
-        >
-          <option value="">Chọn mức giá</option>
-          <option value="under_10">Dưới 10 triệu</option>
-          <option value="10_25">10 - 25 triệu</option>
-          <option value="above_25">Trên 25 triệu</option>
-        </select>
-      </div>
-
-      <button type="submit" class="search-btn">TÌM KIẾM</button>
-    </div>
-  </form>
+    </form>
+  </div>
 </div>
 
 

@@ -12,6 +12,11 @@ const routes: Routes = [
     title: 'tourManagement.home.title',
   },
   {
+    path: 'hotel-management',
+    loadChildren: () => import('./hotel-management/hotel-management.route'),
+    title: 'hotelManagement.home.title',
+  },
+  {
     path: 'user-management',
     loadChildren: () => import('./user-management/user-management.route'),
     title: 'userManagement.home.title',

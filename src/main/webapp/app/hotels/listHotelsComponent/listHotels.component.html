@@ -1,0 +1,146 @@
+<div class="container page-wrap">
+  <div style="display:flex; font-size: 16px; margin-bottom: 30px">
+    <a [routerLink]="['/']" style="font-weight: bold; text-decoration: none; cursor: pointer;">
+      Trang chủ
+    </a>
+    <img src="/content/images/toursImg/toursDetailImg/mingcute_Icon.svg" alt="Icon">
+    <a [routerLink]="['/hotels']" style="font-weight: bold; text-decoration: none; cursor: pointer;">
+      Đặt khách sạn
+    </a>
+    <img src="/content/images/toursImg/toursDetailImg/mingcute_Icon.svg" alt="Icon">
+    <a style="font-weight: bold;">Danh sách khách sạn </a>
+  </div>
+  <div class="row">
+    <!-- LEFT SIDEBAR -->
+    <aside class="col-12 col-lg-4 col-xl-3 sidebar">
+      <div class="widget widget--boxed" style="border: 1px solid #e0e0e0; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
+        <h3 class="widget__title">Sort By Filter</h3>
+
+        <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+          <!-- Destination -->
+          <div class="form-group">
+            <label class="label">Destination</label>
+            <input type="text" formControlName="city" class="form-control" placeholder="Enter a city">
+          </div>
+
+          <!-- Category -->
+          <div class="form-group">
+            <label class="label">Category</label>
+            <ul class="checklist">
+              <li>
+                <label class="check">
+                  <input type="checkbox" value="apartment"> <span>Apartment</span>
+                </label>
+              </li>
+              <li>
+                <label class="check">
+                  <input type="checkbox" value="bnb"> <span>Bed &amp; Breakfast</span>
+                </label>
+              </li>
+              <li>
+                <label class="check">
+                  <input type="checkbox" value="guesthouse"> <span>Guest House</span>
+                </label>
+              </li>
+              <li>
+                <label class="check">
+                  <input type="checkbox" value="hotel"> <span>Hotels</span>
+                </label>
+              </li>
+              <li>
+                <label class="check">
+                  <input type="checkbox" value="residence"> <span>Residence</span>
+                </label>
+              </li>
+              <li>
+                <label class="check">
+                  <input type="checkbox" value="resort"> <span>Resorts</span>
+                </label>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Facility -->
+          <div class="form-group">
+            <label class="label">Facility</label>
+            <ul class="checklist checklist--two">
+              <li><label class="check"><input type="checkbox" value="ac"> <span>Air Conditioning</span></label></li>
+              <li><label class="check"><input type="checkbox" value="bathroom"> <span>Bathroom</span></label></li>
+              <li><label class="check"><input type="checkbox" value="cable"> <span>Cable Tv</span></label></li>
+              <li><label class="check"><input type="checkbox" value="parking"> <span>Parking</span></label></li>
+              <li><label class="check"><input type="checkbox" value="pool"> <span>Pool</span></label></li>
+              <li><label class="check"><input type="checkbox" value="wifi"> <span>Wi-fi</span></label></li>
+            </ul>
+          </div>
+
+          <!-- Rating -->
+          <div class="form-group">
+            <label class="label">Rating</label>
+            <select class="form-control" formControlName="rating">
+              <option [ngValue]="''">Any rating</option>
+              <option [ngValue]="5">5 Star</option>
+              <option [ngValue]="4">4 Star</option>
+              <option [ngValue]="3">3 Star</option>
+              <option [ngValue]="2">2 Star</option>
+              <option [ngValue]="1">1 Star</option>
+            </select>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-block">Apply Filter</button>
+        </form>
+      </div>
+
+      <!-- Need Help box (giống demo) -->
+      <div class="widget widget--boxed widget-help"
+           style="border: 1px solid #e0e0e0; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);">
+        <h3 class="widget__title">Need Help</h3>
+        <p>Lorem ipsum dolor sit amet, ad duo fugit aeque fabulas.</p>
+        <a href="tel:+11231234567" class="help-phone">+1 123 1234567</a>
+      </div>
+    </aside>
+
+    <!-- RIGHT CONTENT -->
+    <section class="col-12 col-lg-8 col-xl-9 content-side">
+      <div *ngIf="(hotels?.length ?? 0) > 0; else noData" class="hotel-list">
+        <article *ngFor="let hotel of hotels" class="hotel-card"
+                 style="border: 1px solid #e0e0e0; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); height: 240px">
+          <!-- MEDIA -->
+          <div class="hotel-card__media">
+            <img class="hotel-card__img" [src]="hotel.imageUrl" [alt]="hotel.name">
+
+            <!-- Price + Rating overlay -->
+            <div class="hotel-card__pricebar">
+              <div class="price">
+                <span class="price__value">
+                  {{ (hotel.rooms?.[0]?.price || 0) | number:'1.0-0' }} VND
+                </span>
+                <span class="price__note">| Avg/Night</span>
+              </div>
+
+              <div class="rating" *ngIf="hotel.rating as r">
+                <span class="star" *ngFor="let s of [1,2,3,4,5]; let i=index" [class.filled]="i < r">★</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- BODY -->
+          <div class="hotel-card__body">
+            <h3 class="hotel-card__title">{{ hotel.name }}</h3>
+            <div class="hotel-card__from" *ngIf="hotel.city">
+              Thành phố: {{ hotel.city }}
+            </div>
+            <p class="hotel-card__desc">
+              {{ hotel.description }}
+            </p>
+
+            <a class="btn btn-accent" [routerLink]="['/hotels', hotel.id]">View More</a>
+          </div>
+        </article>
+      </div>
+
+      <ng-template #noData>
+        <p class="no-data">No matching hotels found.</p>
+      </ng-template>
+    </section>
+  </div>
+</div>

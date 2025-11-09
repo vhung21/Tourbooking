@@ -7,7 +7,7 @@ import {TourLocation} from "../../entities/location/location.modal";
 import {LocationService} from "../../entities/location/location.service";
 
 @Component({
-  selector: 'app-list-tour',
+  selector: 'jhi-list-tour',
   templateUrl: './listTours.component.html',
   standalone: true,
   imports: [
@@ -66,13 +66,11 @@ export class ListToursComponent implements OnInit {
         match = match && t.destination.toLowerCase().includes(destination.toLowerCase());
       }
 
-      // lọc theo ngày (nếu có chọn)
       if (date) {
         const selectedDate = new Date(date);
         match = match && new Date(t.startDate) > selectedDate;
       }
 
-      // lọc theo ngân sách
       if (budget) {
         if (budget === 'under_10') {
           match = match && t.price < 3000000;

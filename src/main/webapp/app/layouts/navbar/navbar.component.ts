@@ -53,7 +53,8 @@ export default class NavbarComponent implements OnInit {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         const url = this.router.url;
-        this.isHomePage = url === '/' || url.startsWith('/home');
+        this.isHomePage =
+          url === '/' || url === '/tours' || url === '/hotels';
         this.isAdminPage = url.startsWith('/admin');
       }
     });

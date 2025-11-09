@@ -1,7 +1,9 @@
 <nav data-cy="navbar" class="navbar navbar-dark navbar-expand-md custom-navbar"
-     [ngClass]="{ 'navbar-home': isHomePage,'navbar-admin': isAdminPage, 'navbar-default': !isHomePage }" xmlns="http://www.w3.org/1999/html">
+     [ngClass]="{ 'navbar-home': isHomePage,'navbar-admin': isAdminPage, 'navbar-default': !isHomePage }"
+     xmlns="http://www.w3.org/1999/html">
   <div class="container-fluid" style="height: 120px">
-    <a class="navbar-brand" [ngClass]="{ 'logohome-img': isHomePage, 'logo-img': !isHomePage }" routerLink="/" (click)="collapseNavbar()">
+    <a class="navbar-brand" [ngClass]="{ 'logohome-img': isHomePage, 'logo-img': !isHomePage }" routerLink="/"
+       (click)="collapseNavbar()">
     </a>
     <a
       class="navbar-toggler d-lg-none"
@@ -17,36 +19,36 @@
     </a>
     <div class="navbar-collapse collapse" id="navbarResponsive" [ngbCollapse]="isNavbarCollapsed()">
       <ul class="navbar-nav ms-auto">
-<!--        <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">-->
-<!--          <a class="nav-link" routerLink="/" (click)="collapseNavbar()"-->
-<!--             [ngClass]="{ 'text-black': isHomePage, 'text-white': !isHomePage }">-->
-<!--            <span>-->
-<!--              <fa-icon icon="home"></fa-icon>-->
-<!--              <span jhiTranslate="global.menu.home">Trang chủ</span>-->
-<!--            </span>-->
-<!--          </a>-->
-<!--        </li>-->
+        <!--        <li class="nav-item" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">-->
+        <!--          <a class="nav-link" routerLink="/" (click)="collapseNavbar()"-->
+        <!--             [ngClass]="{ 'text-black': isHomePage, 'text-white': !isHomePage }">-->
+        <!--            <span>-->
+        <!--              <fa-icon icon="home"></fa-icon>-->
+        <!--              <span jhiTranslate="global.menu.home">Trang chủ</span>-->
+        <!--            </span>-->
+        <!--          </a>-->
+        <!--        </li>-->
         <!-- jhipster-needle-add-element-to-menu - JHipster will add new menu items here -->
-<!--        @if (account() !== null) {-->
-<!--          <li-->
-<!--            ngbDropdown-->
-<!--            class="nav-item dropdown pointer"-->
-<!--            display="dynamic"-->
-<!--            routerLinkActive="active"-->
-<!--            [routerLinkActiveOptions]="{ exact: true }"-->
-<!--          >-->
-<!--            <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu" data-cy="entity"-->
-<!--               [ngClass]="{ 'text-black': isHomePage, 'text-white': !isHomePage }">-->
-<!--              <span>-->
-<!--                <fa-icon icon="th-list"></fa-icon>-->
-<!--                <span jhiTranslate="global.menu.entities.main">Thực thể</span>-->
-<!--              </span>-->
-<!--            </a>-->
-<!--            <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="entity-menu">-->
-<!--              &lt;!&ndash; jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here &ndash;&gt;-->
-<!--            </ul>-->
-<!--          </li>-->
-<!--        }-->
+        <!--        @if (account() !== null) {-->
+        <!--          <li-->
+        <!--            ngbDropdown-->
+        <!--            class="nav-item dropdown pointer"-->
+        <!--            display="dynamic"-->
+        <!--            routerLinkActive="active"-->
+        <!--            [routerLinkActiveOptions]="{ exact: true }"-->
+        <!--          >-->
+        <!--            <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="entity-menu" data-cy="entity"-->
+        <!--               [ngClass]="{ 'text-black': isHomePage, 'text-white': !isHomePage }">-->
+        <!--              <span>-->
+        <!--                <fa-icon icon="th-list"></fa-icon>-->
+        <!--                <span jhiTranslate="global.menu.entities.main">Thực thể</span>-->
+        <!--              </span>-->
+        <!--            </a>-->
+        <!--            <ul class="dropdown-menu" ngbDropdownMenu aria-labelledby="entity-menu">-->
+        <!--              &lt;!&ndash; jhipster-needle-add-entity-to-menu - JHipster will add entities to the menu here &ndash;&gt;-->
+        <!--            </ul>-->
+        <!--          </li>-->
+        <!--        }-->
         @if (account() !== null) {
           <li
             *jhiHasAnyAuthority="['ROLE_ADMIN', 'ROLE_STAFF']"
@@ -125,7 +127,8 @@
         }
         @if (languages && languages.length > 1) {
           <li ngbDropdown class="nav-item dropdown pointer" display="dynamic">
-            <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);" id="languagesnavBarDropdown">
+            <a class="nav-link dropdown-toggle" ngbDropdownToggle href="javascript:void(0);"
+               id="languagesnavBarDropdown">
               <span>
                 <fa-icon icon="flag"></fa-icon>
                 <span jhiTranslate="global.menu.language">Ngôn ngữ</span>
@@ -139,7 +142,7 @@
                     [jhiActiveMenu]="language"
                     href="javascript:void(0);"
                     (click)="changeLanguage(language); collapseNavbar()"
-                    >{{ language | findLanguageFromKey }}</a
+                  >{{ language | findLanguageFromKey }}</a
                   >
                 </li>
               }
@@ -154,7 +157,8 @@
           [routerLinkActiveOptions]="{ exact: true }"
         >
           @let accountRef = account();
-          <a class="nav-link dropdown-toggle" style="margin-right: 5vw" ngbDropdownToggle href="javascript:void(0);" id="account-menu" data-cy="accountMenu">
+          <a class="nav-link dropdown-toggle" style="margin-right: 5vw" ngbDropdownToggle href="javascript:void(0);"
+             id="account-menu" data-cy="accountMenu">
             @if (!accountRef?.imageUrl) {
               <span>
                 <fa-icon icon="user"></fa-icon>
@@ -162,7 +166,7 @@
               </span>
             } @else {
               <span>
-                <img [src]="accountRef!.imageUrl" class="profile-image rounded-circle" alt="Avatar" />
+                <img [src]="accountRef!.imageUrl" class="profile-image rounded-circle" alt="Avatar"/>
               </span>
             }
           </a>
@@ -242,7 +246,7 @@
       </li>
     </div>
     <div>
-      <li><a href="#">KHUYẾN MẠI</a></li>
+      <li><a routerLink="/hotels">KHÁCH SẠN</a></li>
     </div>
     <div>
       <li><a href="#">VỀ NOTTINGHILL TRAVEL</a></li>

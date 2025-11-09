@@ -1,0 +1,93 @@
+<div class="hotels-banner">
+  <img src="/content/images/toursImg/backgroundImg.svg" class="banner-img" alt="Banner"/>
+
+  <div class="banner-content">
+    <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
+      <div class="search-bar">
+        <div class="search-item">
+          <label>Chọn thành phố</label>
+          <input
+            style="font-size: 16px; border-radius: 8px;margin-right: 20px;border: 2px solid #0a0a0a;"
+            type="text"
+            formControlName="city"
+            (input)="onInputChangeDestinetion($event)"
+          />
+          <ul class="suggestions" *ngIf="destinationSuggestions.length > 0">
+            <li
+              *ngFor="let s of destinationSuggestions"
+              (click)="selectDestination(s)"
+              class="suggestion-item"
+            >
+              {{ s.name }}
+            </li>
+          </ul>
+        </div>
+
+        <div class="search-item">
+          <label> Đánh giá</label>
+          <select
+            formControlName="rating"
+            style="font-size: 16px; border-radius: 8px; margin-right: 20px; border: 2px solid #0a0a0a; padding: 1px 2px; background-color: white; cursor: pointer;"
+          >
+            <option value="5">5 sao</option>
+            <option value="4">4 sao</option>
+            <option value="3">3 sao</option>
+            <option value="2">2 sao</option>
+            <option value="1">1 sao</option>
+          </select>
+        </div>
+
+        <button type="submit" class="search-btn">TÌM KIẾM</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+<!--<div class="container" style="margin-top: 50px">-->
+<!--  <h1 style="text-align: center; font-size: 40px; color: #6BCDEC;font-weight: bold; margin-bottom: 36px">TOUR ĐƯỢC ĐẶT-->
+<!--    NHIỀU NHẤT</h1>-->
+
+<!--  <div *ngIf="visibleTours.length > 0" class="tour-container">-->
+<!--    <div class="tour-grid">-->
+<!--      <div *ngFor="let tour of visibleTours; let i = index" class="tour-card">-->
+<!--        <div>-->
+<!--          <div class="tour-img-wrapper">-->
+<!--            <img *ngIf="tour.imageUrl" [src]="tour.imageUrl" alt="{{ tour.tourName }}" class="tour-img"/>-->
+<!--            <div class="tour-img-container">-->
+<!--              <img src="/content/images/Rank_img.svg" class="rank-img" alt="Rank"/>-->
+<!--              <div class="rank-badge">{{ i + 1 + (currentPage * pageSize) }}</div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--          <div style="padding: 20px;">-->
+<!--            <div>-->
+<!--              <h3 style="color:black; font-size: 24px;font-weight: bold;">{{ tour.tourName }}</h3>-->
+<!--              <div style="font-size: 14px">-->
+<!--                <div style="margin-bottom: 16px"><b>Điểm khởi hành:</b> {{ tour.departures }}</div>-->
+<!--                <div style="margin-bottom: 16px"><b>Điểm đến:</b> {{ tour.destination }}</div>-->
+<!--                <div style="margin-bottom: 16px"><b>Ngày khởi hành:</b> {{ tour.startDate }}</div>-->
+<!--                <div style="margin-bottom: 16px"><b>Đánh giá:</b> {{ tour.averageRating }}/5 ({{ tour.reviewCount }}-->
+<!--                  reviews)-->
+<!--                </div>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="price-row">-->
+<!--              <div><b>Giá từ:</b>-->
+<!--                <div style="color: #D32D2D; font-size: 20px; font-weight: bold;">{{ tour.price }} VNĐ</div>-->
+<!--              </div>-->
+<!--              <div>-->
+<!--                <button class="btn-book" [routerLink]="[tour.id]">Xem chi tiết</button>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="controls">-->
+<!--      <button (click)="prevPage()" [disabled]="currentPage === 0">Previous</button>-->
+<!--      <button (click)="nextPage()" [disabled]="(currentPage+1) * pageSize >= tours.length">Next</button>-->
+<!--    </div>-->
+<!--  </div>-->
+
+<!--</div>-->
+

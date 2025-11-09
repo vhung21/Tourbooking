@@ -9,7 +9,7 @@ import {FormsModule} from "@angular/forms";
 import {CustomersService} from "../../entities/customers/customers.service";
 
 @Component({
-  selector: 'app-tour-detail',
+  selector: 'jhi-tour-detail',
   templateUrl: './toursDetail.component.html',
   standalone: true,
   imports: [

@@ -1,0 +1,67 @@
+<div
+  class="container"
+  style="padding-top: 30px"
+>
+  <div style="font-size: 16px;font-weight: bold;">
+    <a [routerLink]="['/']" style="text-decoration: none; cursor: pointer;">Trang chủ </a>
+    <img src="/content/images/toursImg/toursDetailImg/mingcute_Icon.svg" alt="Icon">
+    <a [routerLink]="['/hotels']" style="text-decoration: none; cursor: pointer;">Đặt khách sạn </a>
+    <img src="/content/images/toursImg/toursDetailImg/mingcute_Icon.svg" alt="Icon">
+    <a [routerLink]="['/hotels/list']" style="text-decoration: none; cursor: pointer;">Danh sách khách sạn </a>
+    <img src="/content/images/toursImg/toursDetailImg/mingcute_Icon.svg" alt="Icon">
+    <a>Chi tiết khách sạn</a>
+  </div>
+
+  <div *ngIf="hotelData" class="hotel-container">
+    <div class="hotel-header" style="display: flex;flex-wrap: wrap;gap: 30px;margin-top: 30px;align-items: flex-start;">
+      <!-- ẢNH KHÁCH SẠN -->
+      <div class="hotel-images" style="flex: 1;min-width: 350px;max-width: 600px;">
+        <div class="main-img" style="border-radius: 12px;overflow: hidden;box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);">
+          <img [src]="hotelData.imageUrl" alt="{{ hotelData.name }}" style="width: 100%; height: auto; display: block;">
+        </div>
+      </div>
+      <!-- THÔNG TIN KHÁCH SẠN -->
+      <div class="hotel-info" style="flex: 1;min-width: 320px;background-color: #fafafa;border-radius: 12px;padding: 20px 24px;box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);">
+        <div class="info-box" style="margin-bottom: 26px">
+          <h3 style="font-size: 26px; color: #0a0a0a; font-weight: 700;margin-bottom: 16px;">{{ hotelData.name }}</h3>
+          <div style="margin-bottom: 8px;">
+            <b>Địa chỉ:</b> {{ hotelData.address }}
+          </div>
+          <div style="margin-bottom: 8px;">
+            <b>Thành phố:</b> {{ hotelData.city }}
+          </div>
+          <div style="margin-bottom: 8px;">
+            <b>Đánh giá:</b> ⭐ {{ hotelData.rating }}/5
+          </div>
+          <div style="margin-bottom: 8px;">
+            <b>Số điện thoại:</b> {{ hotelData.phone }}
+          </div>
+          <div style="margin-top: 16px;">
+            <b>Mô tả:</b> {{ hotelData.description }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- DANH SÁCH CÁC PHÒNG -->
+    <div class="rooms-section" *ngIf="hotelData && hotelData.rooms">
+      <h3 style="font-size: 24px; margin-bottom: 20px; font-weight: 600;">Danh sách phòng</h3>
+
+      <div *ngFor="let room of hotelData.rooms" class="room-box" style="margin-bottom: 20px; border: 1px solid #ddd; border-radius: 10px; padding: 16px;">
+        <div class="room-header">
+          <h4 style="font-size: 20px; color: #0a0a0a; font-weight: 600;">
+            {{ room.roomType }}
+          </h4>
+        </div>
+        <div class="room-body" style="display: flex; gap: 16px; align-items: flex-start;">
+          <div class="room-image" style="width: 250px;">
+            <img [src]="room.imageUrl" alt="{{ room.roomType }}" style="width: 100%; border-radius: 10px;">
+          </div>
+          <div class="room-description" style="flex: 1;">
+            <p>Mô tả: {{ room.description }}</p>
+            <p>Giá: {{ room.price }} VNĐ</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

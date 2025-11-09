@@ -28,6 +28,20 @@ const routes: Routes = [
       .then(m => m.ToursDetailComponent),
   },
   {
+    path: 'hotels',
+    loadComponent: () => import('./hotels/hotels.component'),
+  },
+  {
+    path: 'hotels/list',
+    loadComponent: () => import('./hotels/listHotelsComponent/listHotels.component')
+      .then(m => m.ListHotelsComponent),
+  },
+  {
+    path: 'hotels/:id',
+    loadComponent: () => import('./hotels/hotelDetailComponent/hotelDetail.component')
+      .then(m => m.HotelDetailComponent),
+  },
+  {
     path: '',
     loadComponent: () => import('./layouts/navbar/navbar.component'),
     outlet: 'navbar',
