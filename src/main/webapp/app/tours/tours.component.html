@@ -77,12 +77,12 @@
 </div>
 
 
-<div class="container" style="margin-top: 50px">
+<div class="container" style="margin-top: 80px; margin-bottom: 80px">
   <h1 style="text-align: center; font-size: 40px; color: #6BCDEC;font-weight: bold; margin-bottom: 36px">TOUR ĐƯỢC ĐẶT
     NHIỀU NHẤT</h1>
-
   <div *ngIf="visibleTours.length > 0" class="tour-container">
     <div class="tour-grid">
+      <button class="nav-btn prev-btn" (click)="prevPage()">&#10094;</button>
       <div *ngFor="let tour of visibleTours; let i = index" class="tour-card">
         <div>
           <div class="tour-img-wrapper">
@@ -115,11 +115,125 @@
           </div>
         </div>
       </div>
-    </div>
-    <div class="controls">
-      <button (click)="prevPage()" [disabled]="currentPage === 0">Previous</button>
-      <button (click)="nextPage()" [disabled]="(currentPage+1) * pageSize >= tours.length">Next</button>
+      <button class="nav-btn next-btn" (click)="nextPage()">&#10095;</button>
     </div>
   </div>
-
+  <div class="view-all">
+    <button class="btn" (click)="viewAll()"> View all</button>
+  </div>
 </div>
+
+<div style="background: #6BCDEC; color: #0a0a0a; padding-top: 80px; padding-bottom: 80px">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 col-lg-3 features">
+        <div style="text-align: center">
+          <span>
+            <i class="fa fa-dollar"></i>
+          </span>
+          <h3 style="color: #0a0a0a; font-weight: 600">
+            Bảo đám giá tốt nhất
+          </h3>
+          <p>
+            Chúng tôi luôn so sánh và tối ưu chi phí để mang đến mức giá cạnh tranh nhất cho khách hàng
+          </p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3 features">
+        <div style="text-align: center">
+          <span>
+            <i class="fa fa-lock"></i>
+          </span>
+          <h3 style="color: #0a0a0a; font-weight: 600">
+            An toàn và bảo mật
+          </h3>
+          <p>
+            Mọi thông tin cá nhân và giao dịch của bạn luôn được bảo vệ bằng hệ thống bảo mật hiện đại
+          </p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3 features">
+        <div style="text-align: center">
+          <span>
+            <i class="fa fa-thumbs-up"></i>
+          </span>
+          <h3 style="color: #0a0a0a; font-weight: 600">
+            Đại lý du lịch tốt nhất
+          </h3>
+          <p>
+            Đội ngũ tư vấn chuyên nghiệp, hỗ trợ chọn tour phù hợp và mang đến trải nghiệm du lịch trọn vẹn
+          </p>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3 features">
+        <div style="text-align: center">
+          <span>
+            <i class="fa fa-bars"></i>
+          </span>
+          <h3 style="color: #0a0a0a; font-weight: 600">
+            Hướng dẫn du lịch
+          </h3>
+          <p>
+            Cung cấp thông tin, mẹo và kinh nghiệm du lịch giúp chuyến đi của bạn thuận lợi và thú vị hơn
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="top-offer-section">
+  <div class="container">
+    <div class="row align-items-center">
+
+      <!-- IMAGE -->
+      <div class="col-md-12 col-lg-12 col-xl-7" style="margin-right: 0 !important;">
+        <div class="offer-img-wrapper">
+          <img *ngIf="firstTour.imageUrl"
+               [src]="firstTour.imageUrl"
+               alt="{{ firstTour.tourName }}"
+               class="offer-img"/>
+        </div>
+      </div>
+
+      <!-- TEXT -->
+      <div class="col-md-12 col-lg-12 col-xl-5 offer-text" style="height: 500px;">
+        <div class="text-box">
+          <h3 class="offer-title">ƯU ĐÃI HẤP DẪN</h3>
+          <h2 class="offer-tour-name">{{ firstTour.tourName }}</h2>
+          <p class="offer-price">CHỈ {{ firstTour.price }} VNĐ/NGƯỜI</p>
+          <button class="offer-btn" [routerLink]="[firstTour.id]">Xem chi tiết</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<section class="testimonials-section">
+  <div class="overlay"></div>
+
+  <div class="content">
+    <h2 class="title">Hành trình của bạn – Niềm vui của chúng tôi</h2>
+    <div class="line"></div>
+
+    <p class="desc fade" [class.show]="show">
+      {{ currentTestimonial.text }}
+    </p>
+
+    <div class="stars">★★★★★</div>
+
+    <h3 class="name fade" [class.show]="show">
+      {{ currentTestimonial.name }}
+    </h3>
+
+    <div class="avatars">
+      <img
+        *ngFor="let item of testimonials; let i = index"
+        [src]="item.avatar"
+        [class.active]="i === activeIndex"
+        (click)="manualSelect(i)"
+      />
+    </div>
+  </div>
+</section>

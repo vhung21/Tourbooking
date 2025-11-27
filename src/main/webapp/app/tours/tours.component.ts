@@ -22,7 +22,28 @@ export default class ToursComponent implements OnInit, OnDestroy{
   destinationSuggestions: TourLocation[] = [];
   selectedLocationId: number | null = null;
 
+  testimonials = [
+    {
+      name: "Minh Anh",
+      text: "“Chuyến đi thật tuyệt! Mọi thứ được sắp xếp chu đáo và tôi cảm giác rất an tâm khi đồng hành cùng dịch vụ.”",
+      avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=200&q=60"
+    },
+    {
+      name: "Quang Huy",
+      text: "“Tôi bất ngờ vì đội ngũ hỗ trợ quá nhiệt tình. Lịch trình rõ ràng, gợi ý địa điểm rất hợp gu. Rất đáng để trải nghiệm!”",
+      avatar: "https://images.unsplash.com/photo-1599566150163-29194dcaad36?auto=format&fit=crop&w=200&q=60"
+    },
+    {
+      name: "Thu Trang",
+      text: "“Mình đi du lịch một mình nhưng không hề cảm thấy lạc lõng. Nhân viên tư vấn rất dễ thương và đưa nhiều mẹo hay.”",
+      avatar: "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=200&q=60"
+    }
+  ];
+  activeIndex = 0;
+  show = true;
+
   tours: Tours[] = [];
+  firstTour: any;
   visibleTours: Tours[] = [];
   currentPage = 0;
   pageSize = 3;
@@ -53,12 +74,13 @@ export default class ToursComponent implements OnInit, OnDestroy{
     this.toursService.getTopTours().subscribe({
       next: (data) => {
         this.tours = data;
+        this.firstTour = data[0];
         this.showPage(0);
+        console.log(this.tours);
+        console.log(this.firstTour);
       },
     });
-    this.intervalId = setInterval(() => {
-      this.nextSlide();
-    }, 3000);
+    this.startSlider();
   }
 
   showPage(page: number) {
@@ -81,12 +103,12 @@ export default class ToursComponent implements OnInit, OnDestroy{
   }
 
   ngOnDestroy(): void {
-    if (this.intervalId) clearInterval(this.intervalId);
+    clearInterval(this.intervalId);
   }
 
-  nextSlide() {
-    this.currentIndex = (this.currentIndex + 1) % this.images.length;
-  }
+  // nextSlide() {
+  //   this.currentIndex = (this.currentIndex + 1) % this.images.length;
+  // }
 
   onInputChangeDeparture(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -152,5 +174,30 @@ export default class ToursComponent implements OnInit, OnDestroy{
     });
   }
 
+  viewAll(): void{
+    this.router.navigate(['tours/list'])
+  }
 
+  get currentTestimonial() {
+    return this.testimonials[this.activeIndex];
+  }
+
+  manualSelect(i: number) {
+    this.show = false;
+    setTimeout(() => {
+      this.activeIndex = i;
+      this.show = true;
+    }, 200);
+  }
+
+  startSlider() {
+    this.intervalId = setInterval(() => {
+      this.show = false;
+
+      setTimeout(() => {
+        this.activeIndex = (this.activeIndex + 1) % this.testimonials.length;
+        this.show = true;
+      }, 200); // fade out trước khi đổi nội dung
+    }, 3000);
+  }
 }
