@@ -1,10 +1,7 @@
 package com.hungnv.tourbooking.service.impl;
 
 
-import com.hungnv.tourbooking.domain.Tours;
-import com.hungnv.tourbooking.domain.ToursDetail;
-import com.hungnv.tourbooking.domain.ToursInclusion;
-import com.hungnv.tourbooking.domain.ToursItinerary;
+import com.hungnv.tourbooking.domain.*;
 import com.hungnv.tourbooking.dto.TourDTO;
 import com.hungnv.tourbooking.dto.TourInclusionDTO;
 import com.hungnv.tourbooking.dto.TourItineraryDTO;
@@ -65,13 +62,44 @@ public class TourServiceImpl implements TourService {
         }
     }
 
+    public ResponseEntity<ResponseObject> getTopToursByViewCount(){
+        try{
+            List<Tours> Tours = tourRepository.findTopToursByViewCount(PageRequest.of(0, 9));
+            List<TourDTO> tourDTOS = new ArrayList<>();
+            for (Tours Tour : Tours) {
+                tourDTOS.add(tourMapper.mapToDTO(Tour));
+            }
+            return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("success", "Get all tour successfully", tourDTOS));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(new ResponseObject("failed", "An error occurred while fetching tour list", null));
+        }
+    }
+
     public ResponseEntity<ResponseObject> findById(long id){
         try{
             Optional<Tours> Tour = tourRepository.findById(id);
+            Tours tour = Tour.get();
+            tour.setViewCount(tour.getViewCount() + 1);
+            tourRepository.save(tour);
             return ResponseEntity.status(HttpStatus.OK).body(new ResponseObject("success", "Get tour by id successfully", tourMapper.mapToDTO(Tour.get())));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body(new ResponseObject("failed", "An error occurred while fetching tour by id", id));
+        }
+    }
+
+    public ResponseEntity<ResponseObject> getToursBySeason(Season season) {
+        try {
+            List<Tours> tours = tourRepository.findBySeason(season, PageRequest.of(0, 9));
+            List<TourDTO> dtos = tours.stream()
+                .map(tourMapper::mapToDTO)
+                .toList();
+
+            return ResponseEntity.ok(new ResponseObject("success", "Get tours by season", dtos));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(new ResponseObject("failed", "Error get tours by season", null));
         }
     }
 
@@ -97,6 +125,8 @@ public class TourServiceImpl implements TourService {
             Tour.setCreatedBy(tourDTO.getCreatedBy());
             Tour.setAverageRating(BigDecimal.valueOf(0.0));
             Tour.setReviewCount(0);
+            Tour.setSeason(tourDTO.getSeason());
+            Tour.setViewCount(0L);
 
             ToursDetail detail = new ToursDetail();
             if (tourDTO.getDetail() != null) {
@@ -161,6 +191,7 @@ public class TourServiceImpl implements TourService {
             tour.setTransportation(tourDTO.getTransportation());
             tour.setImageUrl(tourDTO.getImageUrl());
             tour.setCreatedBy(tourDTO.getCreatedBy());
+            tour.setSeason(tourDTO.getSeason());
 
             ToursDetail detail = tour.getDetails();
             if (detail == null) {

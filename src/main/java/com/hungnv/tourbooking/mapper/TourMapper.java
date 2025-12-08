@@ -29,6 +29,8 @@ public class TourMapper {
         tourDTO.setCreatedBy(Tour.getCreatedBy());
         tourDTO.setAverageRating(Tour.getAverageRating());
         tourDTO.setReviewCount(Tour.getReviewCount());
+        tourDTO.setViewCount(Tour.getViewCount());
+        tourDTO.setSeason(Tour.getSeason());
 
         if (Tour.getDetails() != null) {
             ToursDetail detail = Tour.getDetails();

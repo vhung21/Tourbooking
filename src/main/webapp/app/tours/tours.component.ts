@@ -45,6 +45,13 @@ export default class ToursComponent implements OnInit, OnDestroy{
   tours: Tours[] = [];
   firstTour: any;
   visibleTours: Tours[] = [];
+  toursByViewCount: Tours[] = [];
+  firstTourByViewCount: any;
+  visibleToursByViewCount: Tours[] = [];
+  toursBySeason: Tours[] = [];
+  firstTourBySeason: any;
+  visibleToursBySeason: Tours[] = [];
+
   currentPage = 0;
   pageSize = 3;
 
@@ -76,9 +83,34 @@ export default class ToursComponent implements OnInit, OnDestroy{
         this.tours = data;
         this.firstTour = data[0];
         this.showPage(0);
-        console.log(this.tours);
-        console.log(this.firstTour);
+        console.log("tours",this.tours);
+        console.log("firstTour",this.firstTour);
       },
+    });
+    this.toursService.getTopToursByViewCount().subscribe({
+      next: (data) => {
+        this.toursByViewCount = data;
+        this.firstTourByViewCount = data[0];
+        this.showPage(0);
+        console.log("toursByViewCount",this.toursByViewCount);
+        console.log("firstTourByViewCount",this.firstTourByViewCount);
+      },
+    });
+    const currentSeason = this.getCurrentSeason();
+    console.log("Season now:", currentSeason);
+
+    // Lấy tour theo mùa hiện tại
+    this.toursService.getToursBySeason(currentSeason).subscribe({
+      next: (data) => {
+        this.toursBySeason = data;
+        this.firstTourBySeason = data[0];
+        this.showPage(0);
+        console.log("toursBySeason",this.toursBySeason);
+        console.log("firstTourBySeason",this.firstTourBySeason);
+      },
+      error: (err) => {
+        console.error("Error fetching tours by season:", err);
+      }
     });
     this.startSlider();
   }
@@ -88,6 +120,8 @@ export default class ToursComponent implements OnInit, OnDestroy{
     const start = page * this.pageSize;
     const end = start + this.pageSize;
     this.visibleTours = this.tours.slice(start, end);
+    this.visibleToursByViewCount = this.toursByViewCount.slice(start, end);
+    this.visibleToursBySeason = this.toursBySeason.slice(start, end);
   }
 
   nextPage() {
@@ -199,5 +233,14 @@ export default class ToursComponent implements OnInit, OnDestroy{
         this.show = true;
       }, 200); // fade out trước khi đổi nội dung
     }, 3000);
+  }
+
+  getCurrentSeason(): string {
+    const month = new Date().getMonth() + 1;
+
+    if (month >= 3 && month <= 5) return 'SPRING';
+    if (month >= 6 && month <= 8) return 'SUMMER';
+    if (month >= 9 && month <= 11) return 'AUTUMN';
+    return 'WINTER';
   }
 }

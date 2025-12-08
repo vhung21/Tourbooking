@@ -42,6 +42,16 @@
           <input type="date" [(ngModel)]="tourData.endDate" name="endDate" />
         </div>
 
+        <div class="form-group">
+          <label>Mùa</label>
+          <select [(ngModel)]="tourData.season" name="season" required>
+            <option value="SPRING"> Xuân</option>
+            <option value="SUMMER"> Hạ</option>
+            <option value="AUTUMN"> Thu</option>
+            <option value="WINTER"> Đông</option>
+          </select>
+        </div>
+
         <div class="form-group full-width">
           <label>Ảnh đại diện</label>
           <input type="text" [(ngModel)]="tourData.imageUrl" name="imageUrl" placeholder="URL ảnh..." />

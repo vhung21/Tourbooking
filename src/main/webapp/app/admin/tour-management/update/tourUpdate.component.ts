@@ -39,7 +39,8 @@ export default class EditTourComponent implements OnInit {
       additionalInfo: ''
     },
     itineraries: [],
-    inclusions: []
+    inclusions: [],
+    season: ''
   };
 
   constructor(

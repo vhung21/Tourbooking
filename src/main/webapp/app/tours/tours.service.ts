@@ -33,5 +33,21 @@ export class TourService {
   delete(id:number): Observable<any> {
     return this.http.delete<any>(`${this.resourceUrl}/${id}`)
   }
+
+  getTopToursByViewCount(): Observable<Tours[]> {
+    return this.http
+      .get<ResponseObject<Tours[]>>(`${this.resourceUrl}/getTopToursByViewCount`)
+      .pipe(
+        map(res => res.data)
+      );
+  }
+
+  getToursBySeason(season: string): Observable<Tours[]> {
+    return this.http
+      .get<ResponseObject<Tours[]>>(`${this.resourceUrl}/season/${season}`)
+      .pipe(
+        map(res => res.data)
+      );
+  }
 }
 

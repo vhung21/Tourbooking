@@ -42,6 +42,11 @@ const routes: Routes = [
       .then(m => m.HotelDetailComponent),
   },
   {
+    path: 'tours/:id/order',
+    loadComponent: () => import('./order/orderTours/orderTours.component')
+      .then(m => m.OrderToursComponent),
+  },
+  {
     path: '',
     loadComponent: () => import('./layouts/navbar/navbar.component'),
     outlet: 'navbar',

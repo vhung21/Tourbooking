@@ -1,5 +1,6 @@
 package com.hungnv.tourbooking.dto;
 
+import com.hungnv.tourbooking.domain.Season;
 import com.hungnv.tourbooking.domain.Tours;
 import com.hungnv.tourbooking.domain.User;
 import lombok.*;
@@ -28,6 +29,8 @@ public class TourDTO {
     private TourDetailDTO detail;
     private List<TourItineraryDTO> itineraries;
     private List<TourInclusionDTO> inclusions;
+    private Long viewCount;
+    private Season season;
 
     public TourDTO() {
     }
@@ -158,5 +161,21 @@ public class TourDTO {
 
     public void setInclusions(List<TourInclusionDTO> inclusions) {
         this.inclusions = inclusions;
+    }
+
+    public Long getViewCount() {
+        return viewCount;
+    }
+
+    public void setViewCount(Long viewCount) {
+        this.viewCount = viewCount;
+    }
+
+    public Season getSeason() {
+        return season;
+    }
+
+    public void setSeason(Season season) {
+        this.season = season;
     }
 }

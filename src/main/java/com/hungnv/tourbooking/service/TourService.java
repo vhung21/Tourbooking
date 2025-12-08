@@ -1,7 +1,9 @@
 package com.hungnv.tourbooking.service;
 
+import com.hungnv.tourbooking.domain.Season;
 import com.hungnv.tourbooking.dto.TourDTO;
 import com.hungnv.tourbooking.payload.ResponseObject;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 
 public interface TourService {
@@ -18,4 +20,8 @@ public interface TourService {
     ResponseEntity<ResponseObject> searchTours(String keyword);
 
     ResponseEntity<ResponseObject> getTopTours();
+
+    ResponseEntity<ResponseObject> getToursBySeason(Season season);
+
+    ResponseEntity<ResponseObject> getTopToursByViewCount();
 }

@@ -22,6 +22,11 @@ const routes: Routes = [
     title: 'userManagement.home.title',
   },
   {
+    path: 'customer-care-management',
+    loadChildren: () => import('./customer-care-management/customer-care-management.route'),
+    title: 'customerCareManagement.home.title',
+  },
+  {
     path: 'docs',
     loadComponent: () => import('./docs/docs.component'),
     title: 'global.menu.admin.apidocs',

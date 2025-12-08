@@ -1,0 +1,71 @@
+<div class="tour-listing-container">
+
+  <!-- Header -->
+  <div class="header">
+    <div style="margin: 40px 0; color: #0a0a0a; font-size: 28px; font-weight: bold">Hotel Listing</div>
+    <div class="breadcrumb">
+      <span class="separator">›</span>
+      <span>Listing</span>
+      <span class="separator">›</span>
+      <span>All</span>
+    </div>
+  </div>
+  <div class="box">
+    <!-- Control bar -->
+    <div class="table-controls">
+      <div class="entries">
+        <label>Show</label>
+        <select style="min-width: 50px; height: 27px" [(ngModel)]="pageSize" (change)="onPageSizeChange()">
+          <option *ngFor="let size of [5,10,25,50]" [value]="size">{{ size }}</option>
+        </select>
+        <span>entries</span>
+      </div>
+      <div class="actions">
+        <label>
+          Search:
+          <input type="text" style="font-size: 14px; font-weight: 600; border-radius: 10px" [(ngModel)]="searchTerm"
+                 placeholder="Search tours..."/>
+        </label>
+      </div>
+    </div>
+    <!-- Table -->
+    <div class="table-wrapper">
+      <table class="tour-table">
+        <thead>
+        <tr>
+          <th>Tên khách hàng</th>
+          <th>Số điện thoại</th>
+          <th>Email</th>
+          <th>Ngày mua dịch vụ</th>
+          <th>Loại dịch vụ</th>
+          <th>Trạng thái</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let orders of filteredOrders">
+          <td>{{ orders.fullName }}</td>
+          <td>{{ orders.phone }}</td>
+          <td>{{ orders.email }}</td>
+          <td>{{ orders.orderDate }}</td>
+          <td>TOUR</td>
+          <td>{{ orders.paymentStatus }}</td>
+<!--          <td>{{ hotel.city }}</td>-->
+<!--          <td>{{ hotel.rating }} sao</td>-->
+          <!--          <td>-->
+          <!--            <span class="status" [ngClass]="tour.status.toLowerCase()">-->
+          <!--              {{ tour.status }}-->
+          <!--            </span>-->
+          <!--          </td>-->
+<!--          <td>-->
+<!--            <button class="action-btn edit fas fa-edit" (click)="editTour(hotel.id)"></button>-->
+<!--            <button class="action-btn delete fas fa-trash-alt" (click)="deleteTour(hotel.id)"></button>-->
+<!--          </td>-->
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+
+    </div>
+  </div>
+</div>

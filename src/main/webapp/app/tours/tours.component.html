@@ -78,8 +78,7 @@
 
 
 <div class="container" style="margin-top: 80px; margin-bottom: 80px">
-  <h1 style="text-align: center; font-size: 40px; color: #6BCDEC;font-weight: bold; margin-bottom: 36px">TOUR ĐƯỢC ĐẶT
-    NHIỀU NHẤT</h1>
+  <h1 style="text-align: center; font-size: 40px; color: #6BCDEC;font-weight: bold; margin-bottom: 36px">TOUR CÓ ĐÁNH GIÁ CAO NHẤT</h1>
   <div *ngIf="visibleTours.length > 0" class="tour-container">
     <div class="tour-grid">
       <button class="nav-btn prev-btn" (click)="prevPage()">&#10094;</button>
@@ -102,6 +101,110 @@
                 <div style="margin-bottom: 16px"><b>Đánh giá:</b> {{ tour.averageRating }}/5 ({{ tour.reviewCount }}
                   reviews)
                 </div>
+                <div style="margin-bottom: 16px"><b>Lượt xem:</b> {{ tour.viewCount }}</div>
+              </div>
+            </div>
+            <div class="price-row">
+              <div><b>Giá từ:</b>
+                <div style="color: #D32D2D; font-size: 20px; font-weight: bold;">{{ tour.price }} VNĐ</div>
+              </div>
+              <div>
+                <button class="btn-book" [routerLink]="[tour.id]">Xem chi tiết</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="nav-btn next-btn" (click)="nextPage()">&#10095;</button>
+    </div>
+  </div>
+  <div class="view-all">
+    <button class="btn" (click)="viewAll()"> View all</button>
+  </div>
+</div>
+
+<div class="container" style="margin-top: 80px; margin-bottom: 80px">
+  <h1 style="text-align: center; font-size: 40px; color: #6BCDEC;font-weight: bold; margin-bottom: 36px">TOUR ĐƯỢC XEM NHIỀU NHẤT </h1>
+  <div *ngIf="visibleToursByViewCount.length > 0" class="tour-container">
+    <div class="tour-grid">
+      <button class="nav-btn prev-btn" (click)="prevPage()">&#10094;</button>
+      <div *ngFor="let tour of visibleToursByViewCount; let i = index" class="tour-card">
+        <div>
+          <div class="tour-img-wrapper">
+            <img *ngIf="tour.imageUrl" [src]="tour.imageUrl" alt="{{ tour.tourName }}" class="tour-img"/>
+            <div class="tour-img-container">
+              <img src="/content/images/Rank_img.svg" class="rank-img" alt="Rank"/>
+              <div class="rank-badge">{{ i + 1 + (currentPage * pageSize) }}</div>
+            </div>
+          </div>
+          <div style="padding: 20px;">
+            <div>
+              <h3 style="color:black; font-size: 24px;font-weight: bold;">{{ tour.tourName }}</h3>
+              <div style="font-size: 14px">
+                <div style="margin-bottom: 16px"><b>Điểm khởi hành:</b> {{ tour.departures }}</div>
+                <div style="margin-bottom: 16px"><b>Điểm đến:</b> {{ tour.destination }}</div>
+                <div style="margin-bottom: 16px"><b>Ngày khởi hành:</b> {{ tour.startDate }}</div>
+                <div style="margin-bottom: 16px"><b>Đánh giá:</b> {{ tour.averageRating }}/5 ({{ tour.reviewCount }}
+                  reviews)
+                </div>
+                <div style="margin-bottom: 16px"><b>Lượt xem:</b> {{ tour.viewCount }}</div>
+              </div>
+            </div>
+            <div class="price-row">
+              <div><b>Giá từ:</b>
+                <div style="color: #D32D2D; font-size: 20px; font-weight: bold;">{{ tour.price }} VNĐ</div>
+              </div>
+              <div>
+                <button class="btn-book" [routerLink]="[tour.id]">Xem chi tiết</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <button class="nav-btn next-btn" (click)="nextPage()">&#10095;</button>
+    </div>
+  </div>
+  <div class="view-all">
+    <button class="btn" (click)="viewAll()"> View all</button>
+  </div>
+</div>
+
+<div class="container" style="margin-top: 80px; margin-bottom: 80px">
+  <h1 *ngIf="this.getCurrentSeason() === 'SPRING' " style="text-align: center; font-size: 40px; color: #6BCDEC;font-weight: bold; margin-bottom: 36px">
+    TOUR NÊN ĐI TRONG THÁNG 3 - THÁNG 5
+  </h1>
+  <h1 *ngIf="this.getCurrentSeason() === 'SUMMER' " style="text-align: center; font-size: 40px; color: #6BCDEC;font-weight: bold; margin-bottom: 36px">
+    TOUR NÊN ĐI TRONG THÁNG 6 - THÁNG 8
+  </h1>
+  <h1 *ngIf="this.getCurrentSeason() === 'AUTUMN' " style="text-align: center; font-size: 40px; color: #6BCDEC;font-weight: bold; margin-bottom: 36px">
+    TOUR NÊN ĐI TRONG THÁNG 9 - THÁNG 11
+  </h1>
+  <h1 *ngIf="this.getCurrentSeason() === 'WINTER' " style="text-align: center; font-size: 40px; color: #6BCDEC;font-weight: bold; margin-bottom: 36px">
+    TOUR NÊN ĐI TRONG THÁNG 12 - THÁNG 2
+  </h1>
+  <div *ngIf="visibleToursBySeason.length > 0" class="tour-container">
+    <div class="tour-grid">
+      <button class="nav-btn prev-btn" (click)="prevPage()">&#10094;</button>
+      <div *ngFor="let tour of visibleToursBySeason; let i = index" class="tour-card">
+        <div>
+          <div class="tour-img-wrapper">
+            <img *ngIf="tour.imageUrl" [src]="tour.imageUrl" alt="{{ tour.tourName }}" class="tour-img"/>
+            <div class="tour-img-container">
+              <img src="/content/images/Rank_img.svg" class="rank-img" alt="Rank"/>
+              <div class="rank-badge">{{ i + 1 + (currentPage * pageSize) }}</div>
+            </div>
+          </div>
+          <div style="padding: 20px;">
+            <div>
+              <h3 style="color:black; font-size: 24px;font-weight: bold;">{{ tour.tourName }}</h3>
+              <div style="font-size: 14px">
+                <div style="margin-bottom: 16px"><b>Điểm khởi hành:</b> {{ tour.departures }}</div>
+                <div style="margin-bottom: 16px"><b>Điểm đến:</b> {{ tour.destination }}</div>
+                <div style="margin-bottom: 16px"><b>Ngày khởi hành:</b> {{ tour.startDate }}</div>
+                <div style="margin-bottom: 16px"><b>Đánh giá:</b> {{ tour.averageRating }}/5 ({{ tour.reviewCount }}
+                  reviews)
+                </div>
+                <div style="margin-bottom: 16px"><b>Lượt xem:</b> {{ tour.viewCount }}</div>
               </div>
             </div>
             <div class="price-row">

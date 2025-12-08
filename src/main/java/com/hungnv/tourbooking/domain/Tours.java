@@ -64,6 +64,13 @@ public class Tours {
     @OneToMany(mappedBy = "tours", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Review> reviews = new ArrayList<>();
 
+    @Column(name = "view_count")
+    private Long viewCount = 0L;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "season", nullable = false, length = 20)
+    private Season season;
+
     public Tours() {
     }
 
@@ -208,6 +215,22 @@ public class Tours {
 
     public void setInclusions(List<ToursInclusion> inclusions) {
         this.inclusions = inclusions;
+    }
+
+    public Long getViewCount() {
+        return viewCount;
+    }
+
+    public void setViewCount(Long viewCount) {
+        this.viewCount = viewCount;
+    }
+
+    public Season getSeason() {
+        return season;
+    }
+
+    public void setSeason(Season season) {
+        this.season = season;
     }
 
     @Override

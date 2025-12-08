@@ -14,6 +14,8 @@ export interface Tours {
   detail?: TourDetail;
   itineraries?: Itinerary[];
   inclusions?: Inclusion[];
+  viewCount?: number;
+  season?: string;
 }
 
 export interface TourDetail {

@@ -1,5 +1,6 @@
 package com.hungnv.tourbooking.web.rest;
 
+import com.hungnv.tourbooking.domain.Season;
 import com.hungnv.tourbooking.dto.TourDTO;
 import com.hungnv.tourbooking.payload.ResponseObject;
 import com.hungnv.tourbooking.service.TourService;
@@ -49,5 +50,15 @@ public class TourResource {
     @GetMapping("/getTopTours")
     public ResponseEntity<ResponseObject> getTopTours() {
         return tourService.getTopTours();
+    }
+
+    @GetMapping("/season/{season}")
+    public ResponseEntity<ResponseObject> getToursBySeason(@PathVariable Season season) {
+        return tourService.getToursBySeason(season);
+    }
+
+    @GetMapping("/getTopToursByViewCount")
+    public ResponseEntity<ResponseObject> getTopToursByViewCount() {
+        return tourService.getTopToursByViewCount();
     }
 }

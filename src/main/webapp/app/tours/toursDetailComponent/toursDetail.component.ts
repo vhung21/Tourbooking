@@ -1,7 +1,7 @@
 import {Component, OnInit} from "@angular/core";
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {TourService} from "../tours.service";
-import {ActivatedRoute, RouterLink} from "@angular/router";
+import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {Itinerary, Tours} from "../tours.modal";
 import {CommonModule, NgForOf, NgIf} from "@angular/common";
 import {ReviewsService} from "../../entities/review/reviews.service";
@@ -44,6 +44,7 @@ export class ToursDetailComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private http: HttpClient,
+    private router: Router,
     private toursService: TourService,
     private reviewService: ReviewsService,
     private customersService: CustomersService
@@ -226,5 +227,9 @@ export class ToursDetailComponent implements OnInit {
       this.selectedStar = this.valueFromEvent(e, star);
     }
     this.hovered = 0;
+  }
+
+  goToOrder(): void {
+    this.router.navigate(['/tours', this.currentTourId, 'order']);
   }
 }
