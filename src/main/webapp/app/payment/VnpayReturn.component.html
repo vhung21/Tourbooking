@@ -1,0 +1,23 @@
+<div class="vnpay-return" *ngIf="!loading; else loadingTpl">
+  <h2>Kết quả thanh toán VNPay</h2>
+
+  <p *ngIf="success; else failTpl">
+    ✅ Thanh toán thành công cho đơn hàng
+    <strong *ngIf="orderId">#{{ orderId }}</strong>.
+  </p>
+
+  <ng-template #failTpl>
+    <p>❌ Thanh toán không thành công hoặc đã bị hủy.</p>
+  </ng-template>
+
+  <p *ngIf="message">{{ message }}</p>
+  <p *ngIf="responseCode">Mã phản hồi VNPay: {{ responseCode }}</p>
+
+  <a routerLink="/" style="display:inline-block;margin-top:16px;">
+    ← Quay về trang chủ
+  </a>
+</div>
+
+<ng-template #loadingTpl>
+  <p>Đang xử lý kết quả thanh toán...</p>
+</ng-template>

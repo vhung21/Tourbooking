@@ -93,6 +93,17 @@ management:
 google:
     clientId: 108387489501-071tvlasb3uk19v7gs3m61qjga3l70v6.apps.googleusercontent.com
 
+vnpay:
+    tmn-code: IOI7GJA6        # mã site được VNPay cấp
+    secret-key: IYGD78HG6BAAZISNM5YK8TI8EZJF8BHW     # key bí mật
+    pay-url: https://sandbox.vnpayment.vn/paymentv2/vpcpay.html
+    return-url: http://localhost:4200/payment/vnpay-return
+    ipn-url: https://your-backend-domain.com/api/payments/vnpay/ipn
+    version: 2.1.0
+    command: pay
+    curr-code: VND
+    locale: vn
+
 spring:
   application:
     name: tourbooking

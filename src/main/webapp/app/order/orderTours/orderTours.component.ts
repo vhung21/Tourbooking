@@ -4,6 +4,9 @@ import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {TourService} from "../../tours/tours.service";
 import {OrderToursService} from "./orderTours.service";
 import {DecimalPipe, NgIf} from "@angular/common";
+import {PaymentService} from "../../payment/CreateVnPayPaymentResponse.service";
+import {firstValueFrom} from "rxjs";
+import { QRCodeComponent } from 'angularx-qrcode';
 
 @Component({
   selector: 'app-order',
@@ -12,7 +15,8 @@ import {DecimalPipe, NgIf} from "@angular/common";
     ReactiveFormsModule,
     RouterLink,
     DecimalPipe,
-    NgIf
+    NgIf,
+    QRCodeComponent
   ],
   styleUrls: ['./orderTours.component.scss']
 })
@@ -22,12 +26,14 @@ export class OrderToursComponent implements OnInit {
   tourData: any;
   totalPrice: number = 0;
   loading: boolean = false;
+  paymentUrl: string | null = null;
 
   constructor(
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private orderService: OrderToursService,
     private tourService: TourService,
+    private paymentService: PaymentService,
     private router: Router
   ) {}
 
@@ -67,7 +73,7 @@ export class OrderToursComponent implements OnInit {
     this.totalPrice = price * num;
   }
 
-  submit(): void {
+  async submit(): Promise<void> {
     if (this.orderForm.invalid) {
       this.orderForm.markAllAsTouched();
       return;
@@ -84,18 +90,21 @@ export class OrderToursComponent implements OnInit {
       totalPrice: this.totalPrice
     };
 
-    // Giả sử “Thanh toán xong” là bấm nút này
-    this.orderService.createOrder(body).subscribe({
-      next: (res) => {
-        this.loading = false;
-        alert('Thanh toán & đặt tour thành công!');
-        this.router.navigate(['/tours', this.tourId]); // quay lại trang chi tiết hoặc trang khác tùy bạn
-      },
-      error: (err) => {
-        this.loading = false;
-        console.error(err);
-        alert('Có lỗi xảy ra khi thanh toán. Vui lòng thử lại.');
-      }
-    });
+    try {
+      // 1. Tạo Order (status = PENDING)
+      const orderRes = await firstValueFrom(this.orderService.createOrder(body));
+      const orderId = orderRes.id; // tùy backend trả về
+
+      // 2. Gọi BE tạo VNPay paymentUrl
+      const payRes = await firstValueFrom(this.paymentService.createVnPayPayment(orderId));
+
+      this.paymentUrl = payRes.paymentUrl;
+      // Không redirect ngay, mà hiện QR cho khách quét
+    } catch (err) {
+      console.error(err);
+      alert('Có lỗi xảy ra khi tạo thanh toán VNPay.');
+    } finally {
+      this.loading = false;
+    }
   }
 }

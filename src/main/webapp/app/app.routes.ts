@@ -5,6 +5,7 @@ import { Authority } from 'app/config/authority.constants';
 import { UserRouteAccessService } from 'app/core/auth/user-route-access.service';
 import { errorRoute } from './layouts/error/error.route';
 import {AdminLayoutComponent} from "./layouts/Adminlayout/adminLayout.component";
+import {VnPayReturnComponent} from "./payment/VnPayReturnComponent.component";
 
 // @ts-ignore
 const routes: Routes = [
@@ -46,6 +47,7 @@ const routes: Routes = [
     loadComponent: () => import('./order/orderTours/orderTours.component')
       .then(m => m.OrderToursComponent),
   },
+  { path: 'payment/vnpay-return', component: VnPayReturnComponent },
   {
     path: '',
     loadComponent: () => import('./layouts/navbar/navbar.component'),

@@ -44,6 +44,21 @@
       </form>
     </div>
 
+    <div *ngIf="paymentUrl" style="margin-top: 24px; text-align: center;">
+      <h3>Quét QR để thanh toán bằng VNPay</h3>
+
+      <qrcode
+        [qrdata]="paymentUrl"
+        [width]="256"
+        [errorCorrectionLevel]="'M'">
+      </qrcode>
+
+      <p style="margin-top: 12px;">
+        Nếu bạn đang dùng điện thoại, hãy
+        <a [href]="paymentUrl" target="_blank">bấm vào đây để thanh toán với VNPay</a>.
+      </p>
+    </div>
+
     <!-- Box tóm tắt tour & tổng tiền -->
     <div class="order-summary-box" style="background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 2px 6px rgba(0,0,0,0.1);">
       <h3 style="font-size: 20px; font-weight: 600; margin-bottom: 16px;">Tóm tắt tour</h3>

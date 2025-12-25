@@ -14,7 +14,7 @@ public class ToursDetail {
     private Tours tours;
 
     @Column(columnDefinition = "TEXT")
-    private String overview;
+        private String overview;
 
     @Column(columnDefinition = "TEXT")
     private String childrenPolicy;
