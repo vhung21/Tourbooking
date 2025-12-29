@@ -1,0 +1,37 @@
+<!-- Nút tròn nổi -->
+<button class="chat-fab" (click)="toggle()" aria-label="Chat">
+  <!-- icon tin nhắn (SVG đơn giản) -->
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+    <path
+      d="M20 12c0 3.866-3.582 7-8 7-1.01 0-1.98-.163-2.875-.46L4 20l1.58-3.06C4.6 15.72 4 13.93 4 12c0-3.866 3.582-7 8-7s8 3.134 8 7Z"
+      stroke="currentColor" stroke-width="2" stroke-linejoin="round"
+    />
+  </svg>
+</button>
+
+<!-- Panel chat -->
+<div class="chat-panel" [class.open]="isOpen">
+  <div class="chat-header">
+    <div class="title">Chatbot</div>
+    <button class="close" (click)="toggle()">✕</button>
+  </div>
+
+  <div class="chat-body" #scrollRef>
+    <div class="msg" *ngFor="let m of messages" [class.user]="m.role==='user'" [class.bot]="m.role==='bot'">
+      <div class="bubble">{{ m.text }}</div>
+    </div>
+
+    <div class="typing" *ngIf="sending">Bot đang trả lời...</div>
+  </div>
+
+  <div class="chat-input">
+    <textarea
+      [(ngModel)]="input"
+      (keydown)="onEnter($event)"
+      rows="2"
+      placeholder="Nhập tin nhắn..."
+      [disabled]="sending"
+    ></textarea>
+    <button (click)="send()" [disabled]="sending || !input.trim()">Gửi</button>
+  </div>
+</div>
