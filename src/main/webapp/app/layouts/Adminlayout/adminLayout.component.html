@@ -1,54 +1,67 @@
 <div class="admin-layout">
   <!-- Sidebar -->
   <aside class="sidebar">
+    <div class="sidebar-header">
+      <div class="logo">
+        <i class="fas fa-plane-departure"></i>
+        <span class="logo-text">TourBooking</span>
+      </div>
+    </div>
     <nav>
       <div class="menu">
         <!-- DASHBOARD -->
         <div class="menu-item">
           <div routerLink="/admin/dashboard" routerLinkActive="active" class="menu-title">
-            <span style="margin-right: 10px ">
-              <i class="fa fa-home link-icon"></i>
-            </span>
+            <i class="fa fa-chart-line link-icon"></i>
             <span>Dashboard</span>
           </div>
         </div>
 
         <!-- TOUR MENU -->
         <div class="menu-item">
-          <div routerLink="/admin/tour-management/list" routerLinkActive="active" class="menu-title" >
-            <span style="margin-right: 10px ">
-              <i class="fas fa-torii-gate"></i>
-            </span>
+          <div routerLink="/admin/tour-management/list" routerLinkActive="active" class="menu-title">
+            <i class="fas fa-torii-gate link-icon"></i>
             <span>Quản lý tour</span>
           </div>
         </div>
 
         <!-- HOTEL MENU -->
         <div class="menu-item">
-          <div routerLink="/admin/hotel-management/list" routerLinkActive="active" class="menu-title" >
-            <span style="margin-right: 10px ">
-              <i class="fas fa-hotel"></i>
-            </span>
+          <div routerLink="/admin/hotel-management/list" routerLinkActive="active" class="menu-title">
+            <i class="fas fa-hotel link-icon"></i>
             <span>Quản lý khách sạn</span>
           </div>
         </div>
 
         <!-- CUSTOMER CARE MENU -->
         <div class="menu-item">
-          <div routerLink="/admin/customer-care-management/list" routerLinkActive="active" class="menu-title" >
-            <span style="margin-right: 10px ">
-              <i class="fas fa-user-tie"></i>
-            </span>
+          <div routerLink="/admin/customer-care-management/list" routerLinkActive="active" class="menu-title">
+            <i class="fas fa-user-tie link-icon"></i>
             <span>Chăm sóc khách hàng</span>
           </div>
         </div>
-
       </div>
     </nav>
   </aside>
 
-  <!-- Nội dung -->
-  <main class="content">
-    <router-outlet></router-outlet>
-  </main>
+  <!-- Main Content Area -->
+  <div class="main-content">
+    <!-- Header Bar -->
+    <header class="admin-header">
+      <div class="header-left">
+        <h2 class="page-title">Quản trị hệ thống</h2>
+      </div>
+      <div class="header-right">
+        <div class="user-info">
+          <i class="fas fa-user-circle"></i>
+          <span class="user-name">Admin</span>
+        </div>
+      </div>
+    </header>
+
+    <!-- Content -->
+    <main class="content">
+      <router-outlet></router-outlet>
+    </main>
+  </div>
 </div>
