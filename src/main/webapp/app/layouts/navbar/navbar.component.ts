@@ -1,5 +1,5 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
-import {NavigationEnd, Router, RouterModule} from '@angular/router';
+import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 
 import { StateStorageService } from 'app/core/auth/state-storage.service';
@@ -53,8 +53,7 @@ export default class NavbarComponent implements OnInit {
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
         const url = this.router.url;
-        this.isHomePage =
-          url === '/' || url === '/tours' || url === '/hotels';
+        this.isHomePage = url === '/' || url === '/tours' || url === '/hotels';
         this.isAdminPage = url.startsWith('/admin');
       }
     });
@@ -76,7 +75,7 @@ export default class NavbarComponent implements OnInit {
   logout(): void {
     this.collapseNavbar();
     this.loginService.logout();
-    this.router.navigate(['']);
+    this.router.navigate(['/login']);
   }
 
   toggleNavbar(): void {
