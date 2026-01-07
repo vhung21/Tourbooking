@@ -1,5 +1,4 @@
 <div class="tour-listing-container">
-
   <!-- Header -->
   <div class="header">
     <div style="margin: 40px 0; color: #0a0a0a; font-size: 28px; font-weight: bold">Tour Listing</div>
@@ -11,7 +10,7 @@
     </div>
   </div>
   <div class="box">
-    <div style="display: flex; justify-content: space-between;">
+    <div style="display: flex; justify-content: space-between">
       <div>
         <button class="add-btn" routerLink="/admin/tour-management/create" routerLinkActive="active">
           <span>Add New</span>
@@ -19,12 +18,9 @@
         </button>
       </div>
       <div style="margin: 40px 40px 30px; border-radius: 20px">
-        <button class="icon-btn fas fa-print">
-        </button>
-        <button class="icon-btn fas fa-file-pdf">
-        </button>
-        <button class="icon-btn fas fa-file-excel">
-        </button>
+        <button class="icon-btn fas fa-print"></button>
+        <button class="icon-btn fas fa-file-pdf"></button>
+        <button class="icon-btn fas fa-file-excel"></button>
       </div>
     </div>
     <!-- Control bar -->
@@ -32,15 +28,19 @@
       <div class="entries">
         <label>Show</label>
         <select style="min-width: 50px; height: 27px" [(ngModel)]="pageSize" (change)="onPageSizeChange()">
-          <option *ngFor="let size of [5,10,25,50]" [value]="size">{{ size }}</option>
+          <option *ngFor="let size of [5, 10, 25, 50]" [value]="size">{{ size }}</option>
         </select>
         <span>entries</span>
       </div>
       <div class="actions">
         <label>
           Search:
-          <input type="text" style="font-size: 14px; font-weight: 600; border-radius: 10px" [(ngModel)]="searchTerm"
-                 placeholder="Search tours..."/>
+          <input
+            type="text"
+            style="font-size: 14px; font-weight: 600; border-radius: 10px"
+            [(ngModel)]="searchTerm"
+            placeholder="Search tours..."
+          />
         </label>
       </div>
     </div>
@@ -48,36 +48,34 @@
     <div class="table-wrapper">
       <table class="tour-table">
         <thead>
-        <tr>
-          <th>Ảnh</th>
-          <th>Tên tour</th>
-          <th>Khởi hành</th>
-          <th>Giá</th>
-          <!--          <th>Trạng thái</th>-->
-          <th>Hoạt động</th>
-        </tr>
+          <tr>
+            <th>Ảnh</th>
+            <th>Tên tour</th>
+            <th>Khởi hành</th>
+            <th>Giá</th>
+            <!--          <th>Trạng thái</th>-->
+            <th>Hoạt động</th>
+          </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let tour of filteredTours">
-          <td><img [src]="tour.imageUrl" alt=""/></td>
-          <td>{{ tour.tourName }}</td>
-          <td>{{ tour.departures }}</td>
-          <td>{{ tour.price }}</td>
-          <!--          <td>-->
-          <!--            <span class="status" [ngClass]="tour.status.toLowerCase()">-->
-          <!--              {{ tour.status }}-->
-          <!--            </span>-->
-          <!--          </td>-->
-          <td>
-            <button class="action-btn edit fas fa-edit" (click)="editTour(tour.id)"></button>
-            <button class="action-btn delete fas fa-trash-alt" (click)="deleteTour(tour.id)"></button>
-          </td>
-        </tr>
+          <tr *ngFor="let tour of filteredTours">
+            <td><img [src]="tour.imageUrl" alt="" /></td>
+            <td>{{ tour.tourName }}</td>
+            <td>{{ tour.departures }}</td>
+            <td>{{ tour.price }}</td>
+            <!--          <td>-->
+            <!--            <span class="status" [ngClass]="tour.status.toLowerCase()">-->
+            <!--              {{ tour.status }}-->
+            <!--            </span>-->
+            <!--          </td>-->
+            <td>
+              <button class="action-btn edit fas fa-edit" (click)="editTour(tour.id)"></button>
+              <button class="action-btn delete fas fa-trash-alt" (click)="deleteTour(tour.id)"></button>
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>
-    <div>
-
-    </div>
   </div>
+  <div style="padding-top: 50px"></div>
 </div>
