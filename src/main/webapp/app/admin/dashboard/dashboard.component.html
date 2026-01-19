@@ -1,0 +1,224 @@
+<div class="dashboard-container">
+  <!-- Header -->
+  <div class="dashboard-header">
+    <h1 class="dashboard-title">
+      <i class="fas fa-chart-line"></i>
+      Dashboard Quản trị
+    </h1>
+    <p class="dashboard-subtitle">Tổng quan hệ thống Tourbooking</p>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading-container">
+    <div class="spinner-border text-primary" role="status">
+      <span class="sr-only">Đang tải...</span>
+    </div>
+    <p class="mt-3">Đang tải dữ liệu thống kê...</p>
+  </div>
+
+  <!-- Dashboard Content -->
+  <div *ngIf="!loading && statistics" class="dashboard-content">
+    <!-- Stat Cards Row -->
+    <div class="row stats-row">
+      <!-- Total Tours -->
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="stat-card stat-card-blue">
+          <div class="stat-card-body">
+            <div class="stat-icon">
+              <i class="fas fa-map-marked-alt"></i>
+            </div>
+            <div class="stat-content">
+              <div class="stat-label">Tổng số Tours</div>
+              <div class="stat-value">{{ statistics.totalTours }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Total Hotels -->
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="stat-card stat-card-green">
+          <div class="stat-card-body">
+            <div class="stat-icon">
+              <i class="fas fa-hotel"></i>
+            </div>
+            <div class="stat-content">
+              <div class="stat-label">Tổng số Khách sạn</div>
+              <div class="stat-value">{{ statistics.totalHotels }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Total Bookings -->
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="stat-card stat-card-amber">
+          <div class="stat-card-body">
+            <div class="stat-icon">
+              <i class="fas fa-calendar-check"></i>
+            </div>
+            <div class="stat-content">
+              <div class="stat-label">Tổng số Bookings</div>
+              <div class="stat-value">{{ statistics.totalBookings }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Total Revenue -->
+      <div class="col-xl-3 col-md-6 mb-4">
+        <div class="stat-card stat-card-red">
+          <div class="stat-card-body">
+            <div class="stat-icon">
+              <i class="fas fa-dollar-sign"></i>
+            </div>
+            <div class="stat-content">
+              <div class="stat-label">Tổng doanh thu</div>
+              <div class="stat-value-small">{{ formatCurrency(statistics.totalRevenue) }}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Charts Row 1 -->
+    <div class="row charts-row">
+      <!-- Pie Chart -->
+      <div class="col-lg-6 mb-4">
+        <div class="chart-card">
+          <div class="chart-card-body">
+            <highcharts-chart
+              *ngIf="pieChartOptions.series"
+              [Highcharts]="Highcharts"
+              [options]="pieChartOptions"
+              style="width: 100%; height: 400px; display: block"
+            ></highcharts-chart>
+          </div>
+        </div>
+      </div>
+
+      <!-- Revenue Chart -->
+      <div class="col-lg-6 mb-4">
+        <div class="chart-card">
+          <div class="chart-card-body">
+            <highcharts-chart
+              *ngIf="revenueChartOptions.series"
+              [Highcharts]="Highcharts"
+              [options]="revenueChartOptions"
+              style="width: 100%; height: 400px; display: block"
+            ></highcharts-chart>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gantt Chart Row -->
+    <div class="row charts-row">
+      <div class="col-12 mb-4">
+        <div class="chart-card">
+          <div class="chart-card-body">
+            <highcharts-chart
+              *ngIf="ganttChartOptions.series"
+              [Highcharts]="Highcharts"
+              [options]="ganttChartOptions"
+              style="width: 100%; height: 500px; display: block"
+            ></highcharts-chart>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tables Row -->
+    <div class="row tables-row">
+      <!-- Top Tours Table -->
+      <div class="col-lg-6 mb-4">
+        <div class="table-card">
+          <div class="table-card-header">
+            <h5 class="table-card-title">
+              <i class="fas fa-trophy"></i>
+              Top 5 Tours phổ biến
+            </h5>
+          </div>
+          <div class="table-card-body">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Tên Tour</th>
+                    <th class="text-center">Bookings</th>
+                    <th class="text-end">Doanh thu</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let tour of statistics.topTours; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>
+                      <span class="tour-name">{{ tour.name }}</span>
+                    </td>
+                    <td class="text-center">
+                      <span class="badge bg-primary">{{ tour.bookingCount }}</span>
+                    </td>
+                    <td class="text-end">
+                      <span class="revenue-amount">{{ formatCurrency(tour.revenue) }}</span>
+                    </td>
+                  </tr>
+                  <tr *ngIf="!statistics.topTours || statistics.topTours.length === 0">
+                    <td colspan="4" class="text-center text-muted">Chưa có dữ liệu</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Top Hotels Table -->
+      <div class="col-lg-6 mb-4">
+        <div class="table-card">
+          <div class="table-card-header">
+            <h5 class="table-card-title">
+              <i class="fas fa-star"></i>
+              Top 5 Khách sạn
+            </h5>
+          </div>
+          <div class="table-card-body">
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>#</th>
+                    <th>Tên Khách sạn</th>
+                    <th class="text-center">Bookings</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let hotel of statistics.topHotels; let i = index">
+                    <td>{{ i + 1 }}</td>
+                    <td>
+                      <span class="hotel-name">{{ hotel.name }}</span>
+                    </td>
+                    <td class="text-center">
+                      <span class="badge bg-success">{{ hotel.bookingCount }}</span>
+                    </td>
+                  </tr>
+                  <tr *ngIf="!statistics.topHotels || statistics.topHotels.length === 0">
+                    <td colspan="3" class="text-center text-muted">Chưa có dữ liệu</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="!loading && !statistics" class="error-container">
+    <div class="alert alert-warning" role="alert">
+      <i class="fas fa-exclamation-triangle"></i>
+      Không thể tải dữ liệu dashboard. Vui lòng thử lại sau.
+    </div>
+  </div>
+</div>
