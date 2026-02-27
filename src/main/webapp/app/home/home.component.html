@@ -1,26 +1,13 @@
 <div class="home-banner">
-  <img src="/content/images/toursImg/backgroundImg.svg" class="banner-img" alt="Banner"/>
+  <img src="/content/images/toursImg/backgroundImg.svg" class="banner-img" alt="Banner" />
 
   <div class="banner-content">
     <h1 class="hero-title">TRẢI NGHIỆM DU LỊCH XỨNG TẦM</h1>
 
     <!-- Tabs dịch vụ -->
     <div class="service-tabs">
-      <button class="tab active">
-        <img src="/content/images/home/Vector_1.svg" class="icon" alt="vector_1"> Tour
-      </button>
-      <button class="tab">
-        <img src="/content/images/home/Vector_2.svg" class="icon" alt="vector_2"> Khách sạn
-      </button>
-      <button class="tab">
-        <img src="/content/images/home/Vector_3.svg" class="icon" alt="vector_3"> Vé máy bay
-      </button>
-      <button class="tab">
-        <img src="/content/images/home/Vector_4.svg" class="icon" alt="vector_4"> Du thuyền
-      </button>
-      <button class="tab">
-        <img src="/content/images/home/Vector_5.svg" class="icon" alt="vector_5"> Thuê ô tô
-      </button>
+      <button class="tab active"><img src="/content/images/home/Vector_1.svg" class="icon" alt="vector_1" /> Tour</button>
+      <button class="tab"><img src="/content/images/home/Vector_2.svg" class="icon" alt="vector_2" /> Khách sạn</button>
     </div>
 
     <form [formGroup]="searchForm" (ngSubmit)="onSubmit()">
@@ -28,17 +15,13 @@
         <div class="search-item">
           <label>Điểm khởi hành</label>
           <input
-            style="font-size: 16px; border-radius: 8px;margin-right: 20px;border: 2px solid #0a0a0a;"
+            style="font-size: 16px; border-radius: 8px; margin-right: 20px; border: 2px solid #0a0a0a"
             type="text"
             formControlName="departure"
             (input)="onInputChangeDeparture($event)"
           />
           <ul class="suggestions" *ngIf="departureSuggestions.length > 0">
-            <li
-              *ngFor="let s of departureSuggestions "
-              (click)="selectDeparture(s)"
-              class="suggestion-item"
-            >
+            <li *ngFor="let s of departureSuggestions" (click)="selectDeparture(s)" class="suggestion-item">
               {{ s.name }}
             </li>
           </ul>
@@ -47,17 +30,13 @@
         <div class="search-item">
           <label>Điểm đến</label>
           <input
-            style="font-size: 16px; border-radius: 8px;margin-right: 20px;border: 2px solid #0a0a0a;"
+            style="font-size: 16px; border-radius: 8px; margin-right: 20px; border: 2px solid #0a0a0a"
             type="text"
             formControlName="destination"
             (input)="onInputChangeDestinetion($event)"
           />
           <ul class="suggestions" *ngIf="destinationSuggestions.length > 0">
-            <li
-              *ngFor="let s of destinationSuggestions"
-              (click)="selectDestination(s)"
-              class="suggestion-item"
-            >
+            <li *ngFor="let s of destinationSuggestions" (click)="selectDestination(s)" class="suggestion-item">
               {{ s.name }}
             </li>
           </ul>
@@ -68,7 +47,7 @@
           <input
             type="date"
             formControlName="departure_date"
-            style="font-size: 16px; border-radius: 8px; margin-right: 20px;padding: 1px 2px; border: 2px solid #0a0a0a;"
+            style="font-size: 16px; border-radius: 8px; margin-right: 20px; padding: 1px 2px; border: 2px solid #0a0a0a"
           />
         </div>
 
@@ -76,7 +55,15 @@
           <label> Ngân sách</label>
           <select
             formControlName="budget"
-            style="font-size: 16px; border-radius: 8px; margin-right: 20px; border: 2px solid #0a0a0a; padding: 1px 2px; background-color: white; cursor: pointer;"
+            style="
+              font-size: 16px;
+              border-radius: 8px;
+              margin-right: 20px;
+              border: 2px solid #0a0a0a;
+              padding: 1px 2px;
+              background-color: white;
+              cursor: pointer;
+            "
           >
             <option value="">Chọn mức giá</option>
             <option value="under_10">Dưới 10 triệu</option>
@@ -92,35 +79,37 @@
 </div>
 
 <div class="container" style="margin-top: 80px; margin-bottom: 80px">
-  <h1 style="text-align: center; font-size: 40px; color: #6BCDEC;font-weight: bold; margin-bottom: 36px">TOUR CÓ ĐÁNH GIÁ CAO NHẤT</h1>
+  <h1 style="text-align: center; font-size: 40px; color: #6bcdec; font-weight: bold; margin-bottom: 36px">TOUR CÓ ĐÁNH GIÁ CAO NHẤT</h1>
   <div *ngIf="visibleTours.length > 0" class="tour-container">
     <div class="tour-grid">
       <button class="nav-btn prev-btn" (click)="prevPage()">&#10094;</button>
       <div *ngFor="let tour of visibleTours; let i = index" class="tour-card">
         <div>
           <div class="tour-img-wrapper">
-            <img *ngIf="tour.imageUrl" [src]="tour.imageUrl" alt="{{ tour.tourName }}" class="tour-img"/>
+            <img *ngIf="tour.imageUrl" [src]="tour.imageUrl" alt="{{ tour.tourName }}" class="tour-img" />
             <div class="tour-img-container">
-              <img src="/content/images/Rank_img.svg" class="rank-img" alt="Rank"/>
-              <div class="rank-badge">{{ i + 1 + (currentPage * pageSize) }}</div>
+              <img src="/content/images/Rank_img.svg" class="rank-img" alt="Rank" />
+              <div class="rank-badge">{{ i + 1 + currentPage * pageSize }}</div>
             </div>
           </div>
-          <div style="padding: 20px;">
+          <div style="padding: 20px">
             <div>
-              <h3 style="color:black; font-size: 24px;font-weight: bold;">{{ tour.tourName }}</h3>
+              <h3 style="color: black; font-size: 24px; font-weight: bold">{{ tour.tourName }}</h3>
               <div style="font-size: 14px">
                 <div style="margin-bottom: 16px"><b>Điểm khởi hành:</b> {{ tour.departures }}</div>
                 <div style="margin-bottom: 16px"><b>Điểm đến:</b> {{ tour.destination }}</div>
                 <div style="margin-bottom: 16px"><b>Ngày khởi hành:</b> {{ tour.startDate }}</div>
-                <div style="margin-bottom: 16px"><b>Đánh giá:</b> {{ tour.averageRating }}/5 ({{ tour.reviewCount }}
+                <div style="margin-bottom: 16px">
+                  <b>Đánh giá:</b> {{ tour.averageRating }}/5 ({{ tour.reviewCount }}
                   reviews)
                 </div>
                 <div style="margin-bottom: 16px"><b>Lượt xem:</b> {{ tour.viewCount }}</div>
               </div>
             </div>
             <div class="price-row">
-              <div><b>Giá từ:</b>
-                <div style="color: #D32D2D; font-size: 20px; font-weight: bold;">{{ tour.price }} VNĐ</div>
+              <div>
+                <b>Giá từ:</b>
+                <div style="color: #d32d2d; font-size: 20px; font-weight: bold">{{ tour.price }} VNĐ</div>
               </div>
               <div>
                 <button class="btn-book" [routerLink]="[tour.id]">Xem chi tiết</button>
@@ -133,40 +122,42 @@
     </div>
   </div>
   <div class="view-all">
-    <button class="btn" (click)="viewAll()"> View all</button>
+    <button class="btn" (click)="viewAll()">View all</button>
   </div>
 </div>
 
 <div class="container" style="margin-top: 80px; margin-bottom: 80px">
-  <h1 style="text-align: center; font-size: 40px; color: #6BCDEC;font-weight: bold; margin-bottom: 36px">TOUR ĐƯỢC XEM NHIỀU NHẤT </h1>
+  <h1 style="text-align: center; font-size: 40px; color: #6bcdec; font-weight: bold; margin-bottom: 36px">TOUR ĐƯỢC XEM NHIỀU NHẤT</h1>
   <div *ngIf="visibleToursByViewCount.length > 0" class="tour-container">
     <div class="tour-grid">
       <button class="nav-btn prev-btn" (click)="prevPage()">&#10094;</button>
       <div *ngFor="let tour of visibleToursByViewCount; let i = index" class="tour-card">
         <div>
           <div class="tour-img-wrapper">
-            <img *ngIf="tour.imageUrl" [src]="tour.imageUrl" alt="{{ tour.tourName }}" class="tour-img"/>
+            <img *ngIf="tour.imageUrl" [src]="tour.imageUrl" alt="{{ tour.tourName }}" class="tour-img" />
             <div class="tour-img-container">
-              <img src="/content/images/Rank_img.svg" class="rank-img" alt="Rank"/>
-              <div class="rank-badge">{{ i + 1 + (currentPage * pageSize) }}</div>
+              <img src="/content/images/Rank_img.svg" class="rank-img" alt="Rank" />
+              <div class="rank-badge">{{ i + 1 + currentPage * pageSize }}</div>
             </div>
           </div>
-          <div style="padding: 20px;">
+          <div style="padding: 20px">
             <div>
-              <h3 style="color:black; font-size: 24px;font-weight: bold;">{{ tour.tourName }}</h3>
+              <h3 style="color: black; font-size: 24px; font-weight: bold">{{ tour.tourName }}</h3>
               <div style="font-size: 14px">
                 <div style="margin-bottom: 16px"><b>Điểm khởi hành:</b> {{ tour.departures }}</div>
                 <div style="margin-bottom: 16px"><b>Điểm đến:</b> {{ tour.destination }}</div>
                 <div style="margin-bottom: 16px"><b>Ngày khởi hành:</b> {{ tour.startDate }}</div>
-                <div style="margin-bottom: 16px"><b>Đánh giá:</b> {{ tour.averageRating }}/5 ({{ tour.reviewCount }}
+                <div style="margin-bottom: 16px">
+                  <b>Đánh giá:</b> {{ tour.averageRating }}/5 ({{ tour.reviewCount }}
                   reviews)
                 </div>
                 <div style="margin-bottom: 16px"><b>Lượt xem:</b> {{ tour.viewCount }}</div>
               </div>
             </div>
             <div class="price-row">
-              <div><b>Giá từ:</b>
-                <div style="color: #D32D2D; font-size: 20px; font-weight: bold;">{{ tour.price }} VNĐ</div>
+              <div>
+                <b>Giá từ:</b>
+                <div style="color: #d32d2d; font-size: 20px; font-weight: bold">{{ tour.price }} VNĐ</div>
               </div>
               <div>
                 <button class="btn-book" [routerLink]="[tour.id]">Xem chi tiết</button>
@@ -179,21 +170,33 @@
     </div>
   </div>
   <div class="view-all">
-    <button class="btn" (click)="viewAll()"> View all</button>
+    <button class="btn" (click)="viewAll()">View all</button>
   </div>
 </div>
 
 <div class="container" style="margin-top: 80px; margin-bottom: 80px">
-  <h1 *ngIf="this.getCurrentSeason() === 'SPRING' " style="text-align: center; font-size: 40px; color: #6BCDEC;font-weight: bold; margin-bottom: 36px">
+  <h1
+    *ngIf="this.getCurrentSeason() === 'SPRING'"
+    style="text-align: center; font-size: 40px; color: #6bcdec; font-weight: bold; margin-bottom: 36px"
+  >
     TOUR NÊN ĐI TRONG THÁNG 3 - THÁNG 5
   </h1>
-  <h1 *ngIf="this.getCurrentSeason() === 'SUMMER' " style="text-align: center; font-size: 40px; color: #6BCDEC;font-weight: bold; margin-bottom: 36px">
+  <h1
+    *ngIf="this.getCurrentSeason() === 'SUMMER'"
+    style="text-align: center; font-size: 40px; color: #6bcdec; font-weight: bold; margin-bottom: 36px"
+  >
     TOUR NÊN ĐI TRONG THÁNG 6 - THÁNG 8
   </h1>
-  <h1 *ngIf="this.getCurrentSeason() === 'AUTUMN' " style="text-align: center; font-size: 40px; color: #6BCDEC;font-weight: bold; margin-bottom: 36px">
+  <h1
+    *ngIf="this.getCurrentSeason() === 'AUTUMN'"
+    style="text-align: center; font-size: 40px; color: #6bcdec; font-weight: bold; margin-bottom: 36px"
+  >
     TOUR NÊN ĐI TRONG THÁNG 9 - THÁNG 11
   </h1>
-  <h1 *ngIf="this.getCurrentSeason() === 'WINTER' " style="text-align: center; font-size: 40px; color: #6BCDEC;font-weight: bold; margin-bottom: 36px">
+  <h1
+    *ngIf="this.getCurrentSeason() === 'WINTER'"
+    style="text-align: center; font-size: 40px; color: #6bcdec; font-weight: bold; margin-bottom: 36px"
+  >
     TOUR NÊN ĐI TRONG THÁNG 12 - THÁNG 2
   </h1>
   <div *ngIf="visibleToursBySeason.length > 0" class="tour-container">
@@ -202,28 +205,30 @@
       <div *ngFor="let tour of visibleToursBySeason; let i = index" class="tour-card">
         <div>
           <div class="tour-img-wrapper">
-            <img *ngIf="tour.imageUrl" [src]="tour.imageUrl" alt="{{ tour.tourName }}" class="tour-img"/>
+            <img *ngIf="tour.imageUrl" [src]="tour.imageUrl" alt="{{ tour.tourName }}" class="tour-img" />
             <div class="tour-img-container">
-              <img src="/content/images/Rank_img.svg" class="rank-img" alt="Rank"/>
-              <div class="rank-badge">{{ i + 1 + (currentPage * pageSize) }}</div>
+              <img src="/content/images/Rank_img.svg" class="rank-img" alt="Rank" />
+              <div class="rank-badge">{{ i + 1 + currentPage * pageSize }}</div>
             </div>
           </div>
-          <div style="padding: 20px;">
+          <div style="padding: 20px">
             <div>
-              <h3 style="color:black; font-size: 24px;font-weight: bold;">{{ tour.tourName }}</h3>
+              <h3 style="color: black; font-size: 24px; font-weight: bold">{{ tour.tourName }}</h3>
               <div style="font-size: 14px">
                 <div style="margin-bottom: 16px"><b>Điểm khởi hành:</b> {{ tour.departures }}</div>
                 <div style="margin-bottom: 16px"><b>Điểm đến:</b> {{ tour.destination }}</div>
                 <div style="margin-bottom: 16px"><b>Ngày khởi hành:</b> {{ tour.startDate }}</div>
-                <div style="margin-bottom: 16px"><b>Đánh giá:</b> {{ tour.averageRating }}/5 ({{ tour.reviewCount }}
+                <div style="margin-bottom: 16px">
+                  <b>Đánh giá:</b> {{ tour.averageRating }}/5 ({{ tour.reviewCount }}
                   reviews)
                 </div>
                 <div style="margin-bottom: 16px"><b>Lượt xem:</b> {{ tour.viewCount }}</div>
               </div>
             </div>
             <div class="price-row">
-              <div><b>Giá từ:</b>
-                <div style="color: #D32D2D; font-size: 20px; font-weight: bold;">{{ tour.price }} VNĐ</div>
+              <div>
+                <b>Giá từ:</b>
+                <div style="color: #d32d2d; font-size: 20px; font-weight: bold">{{ tour.price }} VNĐ</div>
               </div>
               <div>
                 <button class="btn-book" [routerLink]="[tour.id]">Xem chi tiết</button>
@@ -236,11 +241,11 @@
     </div>
   </div>
   <div class="view-all">
-    <button class="btn" (click)="viewAll()"> View all</button>
+    <button class="btn" (click)="viewAll()">View all</button>
   </div>
 </div>
 
-<div style="background: #6BCDEC; color: #0a0a0a; padding-top: 80px; padding-bottom: 80px">
+<div style="background: #6bcdec; color: #0a0a0a; padding-top: 80px; padding-bottom: 80px">
   <div class="container">
     <div class="row">
       <div class="col-md-6 col-lg-3 features">
@@ -248,12 +253,8 @@
           <span>
             <i class="fa fa-dollar"></i>
           </span>
-          <h3 style="color: #0a0a0a; font-weight: 600">
-            Bảo đám giá tốt nhất
-          </h3>
-          <p>
-            Chúng tôi luôn so sánh và tối ưu chi phí để mang đến mức giá cạnh tranh nhất cho khách hàng
-          </p>
+          <h3 style="color: #0a0a0a; font-weight: 600">Bảo đám giá tốt nhất</h3>
+          <p>Chúng tôi luôn so sánh và tối ưu chi phí để mang đến mức giá cạnh tranh nhất cho khách hàng</p>
         </div>
       </div>
       <div class="col-md-6 col-lg-3 features">
@@ -261,12 +262,8 @@
           <span>
             <i class="fa fa-lock"></i>
           </span>
-          <h3 style="color: #0a0a0a; font-weight: 600">
-            An toàn và bảo mật
-          </h3>
-          <p>
-            Mọi thông tin cá nhân và giao dịch của bạn luôn được bảo vệ bằng hệ thống bảo mật hiện đại
-          </p>
+          <h3 style="color: #0a0a0a; font-weight: 600">An toàn và bảo mật</h3>
+          <p>Mọi thông tin cá nhân và giao dịch của bạn luôn được bảo vệ bằng hệ thống bảo mật hiện đại</p>
         </div>
       </div>
       <div class="col-md-6 col-lg-3 features">
@@ -274,12 +271,8 @@
           <span>
             <i class="fa fa-thumbs-up"></i>
           </span>
-          <h3 style="color: #0a0a0a; font-weight: 600">
-            Đại lý du lịch tốt nhất
-          </h3>
-          <p>
-            Đội ngũ tư vấn chuyên nghiệp, hỗ trợ chọn tour phù hợp và mang đến trải nghiệm du lịch trọn vẹn
-          </p>
+          <h3 style="color: #0a0a0a; font-weight: 600">Đại lý du lịch tốt nhất</h3>
+          <p>Đội ngũ tư vấn chuyên nghiệp, hỗ trợ chọn tour phù hợp và mang đến trải nghiệm du lịch trọn vẹn</p>
         </div>
       </div>
       <div class="col-md-6 col-lg-3 features">
@@ -287,12 +280,8 @@
           <span>
             <i class="fa fa-bars"></i>
           </span>
-          <h3 style="color: #0a0a0a; font-weight: 600">
-            Hướng dẫn du lịch
-          </h3>
-          <p>
-            Cung cấp thông tin, mẹo và kinh nghiệm du lịch giúp chuyến đi của bạn thuận lợi và thú vị hơn
-          </p>
+          <h3 style="color: #0a0a0a; font-weight: 600">Hướng dẫn du lịch</h3>
+          <p>Cung cấp thông tin, mẹo và kinh nghiệm du lịch giúp chuyến đi của bạn thuận lợi và thú vị hơn</p>
         </div>
       </div>
     </div>
@@ -302,19 +291,15 @@
 <div class="top-offer-section">
   <div class="container">
     <div class="row align-items-center">
-
       <!-- IMAGE -->
-      <div class="col-md-12 col-lg-12 col-xl-7" style="margin-right: 0 !important;">
+      <div class="col-md-12 col-lg-12 col-xl-7" style="margin-right: 0 !important">
         <div class="offer-img-wrapper">
-          <img *ngIf="firstTour.imageUrl"
-               [src]="firstTour.imageUrl"
-               alt="{{ firstTour.tourName }}"
-               class="offer-img"/>
+          <img *ngIf="firstTour.imageUrl" [src]="firstTour.imageUrl" alt="{{ firstTour.tourName }}" class="offer-img" />
         </div>
       </div>
 
       <!-- TEXT -->
-      <div class="col-md-12 col-lg-12 col-xl-5 offer-text" style="height: 500px;">
+      <div class="col-md-12 col-lg-12 col-xl-5 offer-text" style="height: 500px">
         <div class="text-box">
           <h3 class="offer-title">ƯU ĐÃI HẤP DẪN</h3>
           <h2 class="offer-tour-name">{{ firstTour.tourName }}</h2>
@@ -322,7 +307,6 @@
           <button class="offer-btn" [routerLink]="[firstTour.id]">Xem chi tiết</button>
         </div>
       </div>
-
     </div>
   </div>
 </div>
@@ -354,4 +338,3 @@
     </div>
   </div>
 </section>
-

@@ -15,7 +15,7 @@
 .main-img img {
   width: 100%;
   border-radius: 8px;
-  height: 380px;
+  height: 500px;
   object-fit: cover;
 }
 
@@ -45,8 +45,7 @@
     flex-direction: column;
   }
 
-  .tour-images,
-  {
+  .tour-images {
     width: 100%;
   }
 
@@ -55,16 +54,16 @@
   }
 }
 
-.tour-detail{
+.tour-detail {
   margin-top: 80px;
 }
 
-.detail-item{
-  background: #F8F8F8;
+.detail-item {
+  background: #f8f8f8;
   border-radius: 4px;
 }
 
-.detail-header{
+.detail-header {
   padding: 27px;
   display: flex;
   font-size: 22px;
@@ -86,7 +85,7 @@
   font-size: 18px;
 }
 
-.detail-icon{
+.detail-icon {
   transition: transform 1s;
 }
 
@@ -111,7 +110,7 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background: #6BCDEC;
+  background: #6bcdec;
   color: #0a0a0a;
   display: flex;
   align-items: center;
@@ -127,7 +126,7 @@
   top: 40px;
   width: 2px;
   height: calc(100% - 40px);
-  background: #6BCDEC;
+  background: #6bcdec;
 }
 
 .timeline-title {
@@ -200,11 +199,11 @@
 
       .fas.fa-star,
       .fas.fa-star-half-alt {
-        color: #6BCDEC;
+        color: #6bcdec;
       }
 
       .far.fa-star {
-        color: #6BCDEC;
+        color: #6bcdec;
       }
     }
 
@@ -243,7 +242,7 @@
 
       .fill {
         height: 100%;
-        background: #6BCDEC;
+        background: #6bcdec;
         border-radius: 6px;
         transition: width 0.3s ease;
       }
@@ -256,7 +255,7 @@
   background: #fff;
   border-radius: 12px;
   margin: 12px 0;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s ease;
   padding: 30px;
   flex-wrap: wrap;
@@ -297,7 +296,7 @@
 
   .review-rating {
     font-size: 16px;
-    color: #6BCDEC;
+    color: #6bcdec;
   }
 
   .review-content {
@@ -311,8 +310,8 @@
       flex-direction: column;
     }
 
-    .review-header{
-      flex-direction: column ;
+    .review-header {
+      flex-direction: column;
     }
 
     .review-header,
@@ -339,7 +338,7 @@
     align-items: center;
     gap: 10px;
 
-    .star  {
+    .star {
       display: flex;
       padding: 0 3px;
     }
@@ -353,11 +352,11 @@
 
     .fas.fa-star,
     .fas.fa-star-half-alt {
-      color: #6BCDEC;
+      color: #6bcdec;
     }
 
     .far.fa-star {
-      color: #6BCDEC;
+      color: #6bcdec;
     }
   }
 
@@ -367,7 +366,7 @@
   }
 
   .stars span.active {
-    color: #6BCDEC;
+    color: #6bcdec;
   }
 
   textarea {
@@ -387,7 +386,7 @@
   }
 
   .submitReview {
-    background-color: #6BCDEC;
+    background-color: #6bcdec;
     border: none;
     padding: 8px 32px;
     border-radius: 6px;
@@ -397,7 +396,7 @@
   }
 
   .submitReview:hover {
-    background-color: #6BCDEC;
+    background-color: #6bcdec;
   }
 
   @media (max-width: 600px) {
@@ -408,7 +407,7 @@
   }
 }
 
-.list-tour{
+.list-tour {
   margin: 80px 0 0;
   display: flex;
   justify-content: space-between;
@@ -429,9 +428,9 @@
   border: 1px solid #ddd;
   border-radius: 8px;
   background: #fff;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 
-  .tours-img{
+  .tours-img {
     width: 100%;
     height: 325px;
     object-fit: cover;
@@ -447,7 +446,7 @@
 
 .btn-book {
   background-color: transparent;
-  border: 2px solid #6BCDEC;
+  border: 2px solid #6bcdec;
   padding: 13px 34px;
   border-radius: 6px;
   color: black;
@@ -468,7 +467,7 @@
 
 .btn-book-1 {
   background-color: transparent;
-  border: 2px solid #6BCDEC;
+  border: 2px solid #6bcdec;
   padding: 13px 34px;
   border-radius: 6px;
   color: black;

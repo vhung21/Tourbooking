@@ -2,17 +2,16 @@ package com.hungnv.tourbooking.web.rest;
 
 import com.hungnv.tourbooking.domain.Hotel;
 import com.hungnv.tourbooking.service.HotelService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
-
 
 @RestController
 @RequestMapping("/api/hotels")
 @CrossOrigin(origins = "*")
 public class HotelController {
+
     @Autowired
     private HotelService hotelService;
 
@@ -32,12 +31,15 @@ public class HotelController {
         return ResponseEntity.ok(hotels);
     }
 
+    @GetMapping("/getTopHotel")
+    public ResponseEntity<List<Hotel>> getTopHotel() {
+        List<Hotel> hotels = hotelService.getTopHotel();
+        return ResponseEntity.ok(hotels);
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getHotelById(@PathVariable Long id) {
-        return hotelService.getHotelById(id)
-            .map(ResponseEntity::ok)
-            .orElse(ResponseEntity.notFound().build());
+        return hotelService.getHotelById(id).map(ResponseEntity::ok).orElse(ResponseEntity.notFound().build());
     }
 
     @PutMapping("/{id}")

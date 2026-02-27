@@ -4,13 +4,14 @@ import com.hungnv.tourbooking.domain.Hotel;
 import com.hungnv.tourbooking.domain.Room;
 import com.hungnv.tourbooking.domain.RoomDetail;
 import com.hungnv.tourbooking.repository.HotelRepository;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Service;
 
 @Service
 public class HotelService {
+
     private final HotelRepository hotelRepository;
 
     public HotelService(HotelRepository hotelRepository) {
@@ -35,13 +36,16 @@ public class HotelService {
         return hotelRepository.findAll();
     }
 
+    public List<Hotel> getTopHotel() {
+        return hotelRepository.findTopHotel(PageRequest.of(0, 9));
+    }
+
     public Optional<Hotel> getHotelById(Long id) {
         return hotelRepository.findById(id);
     }
 
     public Hotel updateHotel(Long id, Hotel hotelDetails) {
-        Hotel existingHotel = hotelRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Hotel not found"));
+        Hotel existingHotel = hotelRepository.findById(id).orElseThrow(() -> new RuntimeException("Hotel not found"));
 
         existingHotel.setName(hotelDetails.getName());
         existingHotel.setAddress(hotelDetails.getAddress());
